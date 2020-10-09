@@ -6,6 +6,8 @@
         public function Index($message = "")
         {
             require_once(VIEWS_PATH."home.php");
-        }        
+        }
     }
+
+    
 ?>

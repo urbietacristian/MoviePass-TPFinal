@@ -6,7 +6,7 @@
   <div id="pageintro" class="hoc clear"> 
     <article class="center">
       <h3>Ingresar</h3>
-      <form action='' method='post'>
+      <form action='Controllers/HomeController.php' method='post'>
         <input type='text' name='user' placeholder="Usuario"><br>
         <input type='password' name='pass' placeholder="Contraseña">
       </form>
