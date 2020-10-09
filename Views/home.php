@@ -5,9 +5,12 @@
 
   <div id="pageintro" class="hoc clear"> 
     <article class="center">
-      <h3 class="heading underline">La Cerveza que Incendia</h3>
-      <p>Somos los creadores de la Cerveza mas flamante y los mejores aperitivos del Condado.</p>
-      <footer><a class="btn" href="#">Conocer Mas</a></footer>
+      <h3>Ingresar</h3>
+      <form action='' method='post'>
+        <input type='text' name='user' placeholder="Usuario"><br>
+        <input type='password' name='pass' placeholder="Contraseña">
+      </form>
+      <button type="submit"> Ingresar</button>
     </article>
   </div>
 </div>
