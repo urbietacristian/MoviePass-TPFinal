@@ -1,7 +1,7 @@
 <?php namespace Models;
 
 
-class Pelicula
+class Movie
 {
     private $id_api;
     private $description;

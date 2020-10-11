@@ -2,19 +2,21 @@
 
 class User
 {
-    private $id;
+    
 	private $email;
 	private $password;
 	private $rol;
     private $client;
     
+    /*
     public function __construct($email, $password, $rol, $client)
 	{
 		$this->setEmail($email);
 		$this->setPassword($password);
 		$this->setRol($rol);
 		$this->setClient($client);
-	}
+    }
+    */
     
     public function getId()
     {
