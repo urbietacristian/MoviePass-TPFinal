@@ -9,18 +9,6 @@ class Cinema
     private $ticket_price;
     private $total_capacity;
 
-    /**
-     * Constructor.
-     */
-    function __construct ($id, $name, $address, $ticket_price, $total_capacity)
-    {
-        $this->ID = null;
-        $this->setId($id);
-        $this->setName($name);
-        $this->setAddress($address);
-        $this->setTicketPrice($ticket_price);
-        $this->setTotalCapacity($total_capacity);
-    }
 
     /**
      * Getters y Setters

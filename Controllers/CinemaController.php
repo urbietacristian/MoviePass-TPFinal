@@ -1,77 +1,72 @@
 <?php
-    namespace DAO;
+    namespace Controllers;
+    use DAO\CinemaDAO as CinemaDAO;
+    Use Models\Cinema as Cinema;
 
-    use Models\Cinema as Cinema;
+    
 
-    class CinemaDAO{
-
-    private $cinemaList = array();
-    private $fileName;
-
-    public function Add(Cinema $cinema){
-        $this->RetrieveData();
-        foreach ($this->GetAll() as $value){
-            if ($cinema->getName() == $value->getName()){
-                return 0;
-            }
-        }
-        array_push($this->CinemaList, $cinema);    
-        $this->SaveData();
-    }
-
-    public function GetAll(){
-        $this->RetrieveData();
-        return $this->cinemaList;
-    }
-
-    public function CompareName($name){
-        $CinemaList= $this->GetAll();
-        foreach ($CinemaList as $Cinema){
-            if ($Cinema->getName() == $name){
-                return true;
-            }
-        }
-        return false;
-
-    }
-
-    private function SaveData(){
-        $arrayToEncode = array();
-
-        foreach($this->CinemaList as $Cinema){
-            $valuesArray["id"] = $Cinema->getId();
-            $valuesArray["name"] = $Cinema->getName();
-            $valuesArray["address"] = $Cinema->getAddress();
-            $valuesArray["ticket_price"] = $Cinema->getTicketPrice();
-            $valuesArray["total_capacity"] = $Cinema->getTotalCapacity();
-            array_push($arrayToEncode,$valuesArray);
-        }
-
-        $jsonContent = json_encode($arrayToEncode, JSON_PRETTY_PRINT);
-        file_put_contents('Data/Cinema.json', $jsonContent);
-    }
-
-    private function RetrieveData(){
+    class CinemaController
+    {
+        private $cinemaDAO;
         
-        $this->CinemaList = array();
+        public function __construct(){
+            $this->cinemaDAO = new CinemaDAO();
+        }
 
-        if(file_exists('Data/Cinema.json')){
-            $jsonContent = file_get_contents('Data/Cinema.json');
-            $arrayToDecode = ($jsonContent) ? json_decode($jsonContent,true) : array();
+        public function ShowMenuView($message = "")
+        {
+            require_once(VIEWS_PATH."menuCinema.php");
+        }
+/*         public function ShowCinemaView($message = "")
+        {
+            require_once(VIEWS_PATH."mainCinema.php");
+        } */
+        public function registerCinema($message = "")
+        {
+            require_once(VIEWS_PATH."registerCinema.php");
+        }
+
+        
+        public function register(){
             
-            foreach($arrayToDecode as $valuesArray){
+            $id = $_POST['id'];
+            $name = $_POST['name'];
+            $address = $_POST['address'];
+            $ticket_price = $_POST['ticket_price'];
+            $total_capacity = $_POST['total_capacity'];
+            
+            
+            /* $show = $_POST['show']; */
 
-                $Cinema = new Cinema();
+            $newCinema = new Cinema();
+            
+            $newCinema->setId($id);
+            $newCinema->setName($name);
+            $newCinema->setAddress($address);
+            $newCinema->setTicketPrice($ticket_price);
+            $newCinema->setTotalCapacity($total_capacity);
+            
 
-                $Cinema->setId($valuesArray["id"]);
-                $Cinema->setName($valuesArray["name"]);
-                $Cinema->setAddress($valuesArray["address"]);
-                $Cinema->setTicketPrice($valuesArray["ticket_price"]);
-                $Cinema->setTotalCapacity($valuesArray["total_capacity"]);
-                array_push($this->CinemaList,$Cinema);
+
+            $newCinemaRepository = new CinemaDAO();
+            $valid = $newCinemaRepository->Add($newCinema);
+        
+            if ($valid === 0){
+                $message = "Cinema name already in use, try another";
+                echo '<script language="javascript">alert("Cinema Name In Use");</script>';
+            }else{
+                $message = "Cinema added successfully";
+                echo '<script language="javascript">alert("Your Cinema Has Been Registered Successfully");</script>';
             }
+            $this->ShowCinemaView($message);
+        
+        }
 
+
+        public function showCinemas(){
+            $cinemaList = array();
+            $cinemaList = $this->cinemaDAO->GetAll();
+            require_once(VIEWS_PATH."cinemaManagment.php");
         }
     }
-}
 ?>
