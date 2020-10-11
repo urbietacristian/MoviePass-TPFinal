@@ -58,7 +58,7 @@
                 $message = "Cinema added successfully";
                 echo '<script language="javascript">alert("Your Cinema Has Been Registered Successfully");</script>';
             }
-            $this->ShowCinemaView($message);
+           // $this->ShowCinemaView($message);
         
         }
 

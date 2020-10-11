@@ -14,6 +14,7 @@
             if ($cinema->getName() == $value->getName()){
                 return 0;
             }
+            else return 1;
         }
         array_push($this->CinemaList, $cinema);    
         $this->SaveData();

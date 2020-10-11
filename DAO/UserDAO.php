@@ -43,7 +43,7 @@
             $valuesArray["user"] = $user->getEmail();
             $valuesArray["pass"] = $user->getPassword();
             $valuesArray["rol"] = $user->getRol();
-            $valuesArray["cliente"] = $user->getClient();
+            $valuesArray["client"] = $user->getClient();
             array_push($arrayToEncode,$valuesArray);
         }
 

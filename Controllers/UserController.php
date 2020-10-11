@@ -91,7 +91,7 @@
         
             if ($valid === 0){
                 $error = "invalid";
-                require_once(VIEWS_PATH."register.php");
+                require_once(VIEWS_PATH.USER_PATH."register.php");
             }else{
                 //usar require ya que permite el pasaje de la variable para mensajes, si uso la funcion show no puedo pasar vars.
                 $error = "03";
@@ -117,7 +117,7 @@
         
             if ($valid === 0){
                 $error = "invalid";
-                require_once(VIEWS_PATH."registerAdmin.php");
+                require_once(VIEWS_PATH.ADMIN_PATH."registerAdmin.php");
             }else{
                 //usar require ya que permite el pasaje de la variable para mensajes, si uso la funcion show no puedo pasar vars.
                 $error = "03";
