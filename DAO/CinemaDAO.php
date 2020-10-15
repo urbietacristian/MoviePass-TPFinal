@@ -5,24 +5,23 @@
 
     class CinemaDAO{
 
-    private $cinemaList = array();
+    private $CinemaList = array();
     private $fileName;
 
-    public function Add(Cinema $cinema){
+    public function Add(Cinema $Cinema){
         $this->RetrieveData();
         foreach ($this->GetAll() as $value){
-            if ($cinema->getName() == $value->getName()){
+            if ($Cinema->getName() == $value->getName()){
                 return 0;
             }
-            else return 1;
         }
-        array_push($this->CinemaList, $cinema);    
+        array_push($this->CinemaList,$Cinema);    
         $this->SaveData();
     }
 
     public function GetAll(){
         $this->RetrieveData();
-        return $this->cinemaList;
+        return $this->CinemaList;
     }
 
     public function CompareName($name){
@@ -49,15 +48,15 @@
         }
 
         $jsonContent = json_encode($arrayToEncode, JSON_PRETTY_PRINT);
-        file_put_contents('Data/Cinema.json', $jsonContent);
+        file_put_contents('Data/cinemas.json', $jsonContent);
     }
 
     private function RetrieveData(){
         
         $this->CinemaList = array();
 
-        if(file_exists('Data/Cinema.json')){
-            $jsonContent = file_get_contents('Data/Cinema.json');
+        if(file_exists('Data/cinemas.json')){
+            $jsonContent = file_get_contents('Data/cinemas.json');
             $arrayToDecode = ($jsonContent) ? json_decode($jsonContent,true) : array();
             
             foreach($arrayToDecode as $valuesArray){

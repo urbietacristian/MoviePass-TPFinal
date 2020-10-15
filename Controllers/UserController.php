@@ -16,11 +16,11 @@
 
         public function ShowMenuView($message)
         {
-            require_once(VIEWS_PATH."menu.php");
+            require_once(VIEWS_PATH."homeUser.php");
         }
         public function ShowMainView()
         {
-            require_once(VIEWS_PATH."main.php");
+            require_once(VIEWS_PATH."home.php");
         }
         public function ShowRegisterView()
         {
@@ -29,7 +29,7 @@
 
         public function ShowAdminMenuView($message)
         {
-            require_once(VIEWS_PATH."menuAdmin.php");
+            require_once(ADMIN_PATH."add_cinema.php");
         }
       
         public function ShowAdminRegisterView()
@@ -43,6 +43,7 @@
             $userList = $this->userDAO->GetAll();
             $userName = $email;
             $count = 0;
+            $error = NULL;
 
             foreach($userList as $user){
                 if(($user -> getEmail() == $userName) && ($user -> getPassword() == $password)){
@@ -56,11 +57,11 @@
                     $_SESSION["loggedUser"] = $loggedUser;
                     
                     $message = "Login Successfully";
-                    if($user->getRol == 'user')
+                    if($user->getRol() == 'user')
                     {
                         $this->ShowMenuView($message);
                     }
-                    else if ($user->getRol == 'admin')
+                    else if ($user->getRol() == 'admin')
                     {
                         $this->ShowAdminMenuView($message);
                     }
@@ -68,9 +69,10 @@
                 }
             }
             if ($count == 0){
-                $error = true;
-                require_once(VIEWS_PATH."main.php");
+                $error = 1;
+                require_once(VIEWS_PATH."home.php");
             }
+           
         }  
         
         public function register(){
@@ -79,11 +81,17 @@
             $password = $_POST['password'];
             $rol = 'user';
             
+            
+
+            
+
+            
             $newUser = new User();
         
             $newUser->setEmail($userName);
             $newUser->setPassword($password);
             $newUser->setRol($rol);
+            //$newUser ->setClient($newClient);
 
         
             $newUserRepository = new UserDAO();
@@ -91,7 +99,7 @@
         
             if ($valid === 0){
                 $error = "invalid";
-                require_once(VIEWS_PATH.USER_PATH."register.php");
+                require_once(VIEWS_PATH."register.php");
             }else{
                 //usar require ya que permite el pasaje de la variable para mensajes, si uso la funcion show no puedo pasar vars.
                 $error = "03";
@@ -99,6 +107,7 @@
             }
         
         }
+        /*
         public function registerAdmin(){
             
             $userName = $_POST['email'];
@@ -125,6 +134,7 @@
             }
         
         }
+        */
 
         public function logout(){
 

@@ -6,8 +6,17 @@ class User
 	private $email;
 	private $password;
 	private $rol;
-    private $client;
+    //private $client;
     
+    public function __construct()
+	{
+		$this->setEmail(NULL);
+		$this->setPassword(NULL);
+		$this->setRol(NULL);
+    }
+
+
+
     /*
     public function __construct($email, $password, $rol, $client)
 	{
@@ -66,7 +75,7 @@ class User
         $this->rol = $rol;
     }
 
-    
+    /*
     public function getClient()
     {
         return $this->client;
@@ -77,6 +86,7 @@ class User
     {
         $this->client = $client;
     }   
+    */
 
     
 

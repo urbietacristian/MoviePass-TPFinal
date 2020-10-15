@@ -23,20 +23,23 @@
         } */
         public function registerCinema($message = "")
         {
-            require_once(VIEWS_PATH."registerCinema.php");
+            require_once(VIEWS_PATH."auxi.php");
         }
 
         
         public function register(){
             
-            $id = $_POST['id'];
+            
             $name = $_POST['name'];
             $address = $_POST['address'];
             $ticket_price = $_POST['ticket_price'];
             $total_capacity = $_POST['total_capacity'];
+
+            $id = sizeof($this->cinemaDAO->GetAll());
+           
             
             
-            /* $show = $_POST['show']; */
+            
 
             $newCinema = new Cinema();
             
@@ -58,7 +61,7 @@
                 $message = "Cinema added successfully";
                 echo '<script language="javascript">alert("Your Cinema Has Been Registered Successfully");</script>';
             }
-           // $this->ShowCinemaView($message);
+            $this->registerCinema($message);
         
         }
 

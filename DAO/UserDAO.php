@@ -35,6 +35,7 @@
         return false;
 
     }
+    
 
     private function SaveData(){
         $arrayToEncode = array();
@@ -43,7 +44,7 @@
             $valuesArray["user"] = $user->getEmail();
             $valuesArray["pass"] = $user->getPassword();
             $valuesArray["rol"] = $user->getRol();
-            $valuesArray["client"] = $user->getClient();
+            //$valuesArray["client"] = $user->getClient();
             array_push($arrayToEncode,$valuesArray);
         }
 
@@ -63,10 +64,10 @@
 
                 $user = new User();
 
-                $user->setEmail($valuesArray["user"]);
+                $user->setEmail($valuesArray["email"]);
                 $user->setPassword($valuesArray["pass"]);
                 $user->setRol($valuesArray["rol"]);
-                $user->setClient($valuesArray["client"]);
+                //$user->setClient($valuesArray["client"]);
                 array_push($this->userList,$user);
             }
 
