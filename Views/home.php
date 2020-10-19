@@ -1,3 +1,5 @@
+
+
 <main class="d-flex align-items-center justify-content-center height-100" >
           <div class="content">
                <div class="container">
@@ -15,7 +17,7 @@
                                    ?>
                                         <div class="form-group">
                                              <label for="">Email</label>
-                                             <input type="text" name="email" class="form-control form-control-lg" >
+                                             <input type="email" name="email" class="form-control form-control-lg" >
                                         </div>
                                         <div class="form-group">
                                              <label for="">Password</label>

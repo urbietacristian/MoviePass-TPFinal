@@ -19,6 +19,52 @@
         $this->SaveData();
     }
 
+
+
+    public function Edit(Cinema $Cinema){
+        $this->RetrieveData();
+        $id = 0;
+        foreach ($this->GetAll() as $value){
+            if ($Cinema->getId() == $value->getId()){
+                $this->CinemaList[$id] = $Cinema;
+                $this->SaveData();
+                return 0;
+            }
+            $id++;
+        }
+    }
+
+
+    public function Remove($id){
+        $this->RetrieveData();
+        
+        foreach ($this->CinemaList as $value){
+            if ($id == $value->getId()){
+                unset($this->CinemaList[$id]);
+                $this->SaveData();
+                $this->FixId();
+            }
+            
+        }
+    }
+
+    public function FixId(){
+
+        $this->RetrieveData();
+        $newCinemaList = array();
+        $id = 0;
+        foreach ($this->GetAll() as $value){
+            
+            $value->setId($id);  
+            $id++;
+        }
+        $this->SaveData();
+    }
+
+
+
+
+
     public function GetAll(){
         $this->RetrieveData();
         return $this->CinemaList;
@@ -34,6 +80,19 @@
         return false;
 
     }
+
+    public function returnCinemaById($id){
+        $CinemaList= $this->GetAll();
+        foreach ($CinemaList as $Cinema){
+            if ($Cinema->getId() == $id){
+                return $Cinema;
+            }
+        }
+        return false;
+
+    }
+
+
 
     private function SaveData(){
         $arrayToEncode = array();

@@ -28,8 +28,9 @@
         }
 
         public function ShowAdminMenuView($message)
-        {
-            require_once(ADMIN_PATH."add_cinema.php");
+        {  
+            
+            require_once(ADMIN_PATH."list_cinema.php");
         }
       
         public function ShowAdminRegisterView()
@@ -38,21 +39,24 @@
         }
 
 
-        public function login($email, $password)
+        public function login()
         {
+            $email = $_POST["email"];
+            $password = $_POST["password"];
             $userList = $this->userDAO->GetAll();
-            $userName = $email;
+           
             $count = 0;
             $error = NULL;
 
             foreach($userList as $user){
-                if(($user -> getEmail() == $userName) && ($user -> getPassword() == $password)){
+                if(($user -> getEmail() == $email) && ($user -> getPassword() == $password)){
 
                     $count = 1;
                     
                     $loggedUser = new User();
-                    $loggedUser->setEmail($userName);
+                    $loggedUser->setEmail($email);
                     $loggedUser->setPassword($password);
+                    $loggedUser->setRol($user->getRol());
 
                     $_SESSION["loggedUser"] = $loggedUser;
                     
@@ -68,7 +72,7 @@
                     
                 }
             }
-            if ($count == 0){
+            if ($count === 0){
                 $error = 1;
                 require_once(VIEWS_PATH."home.php");
             }

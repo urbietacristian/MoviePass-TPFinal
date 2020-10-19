@@ -1,58 +1,9 @@
 [
     {
         "id": 0,
-        "name": "Ambasador",
-        "address": "Catamarca ",
-        "ticket_price": "150",
-        "total_capacity": "300"
-    },
-    {
-        "id": 1,
-        "name": "Put",
+        "name": "Holiwi",
         "address": "Minecraft",
         "ticket_price": "200",
         "total_capacity": "500"
-    },
-    {
-        "id": 2,
-        "name": "Lucio Chiappa",
-        "address": "Catmarca 4090",
-        "ticket_price": "150",
-        "total_capacity": "mar del plata"
-    },
-    {
-        "id": 3,
-        "name": "2323",
-        "address": "2323",
-        "ticket_price": "2323",
-        "total_capacity": "2323"
-    },
-    {
-        "id": 4,
-        "name": "sdada",
-        "address": "asdasd",
-        "ticket_price": "dasdasdasd",
-        "total_capacity": "dasdasd"
-    },
-    {
-        "id": 5,
-        "name": "tr",
-        "address": "tr",
-        "ticket_price": "tr",
-        "total_capacity": "tr"
-    },
-    {
-        "id": 6,
-        "name": "caca",
-        "address": "caca",
-        "ticket_price": "caca",
-        "total_capacity": "cacacaca"
-    },
-    {
-        "id": 7,
-        "name": "BRODER",
-        "address": "bien",
-        "ticket_price": "bro",
-        "total_capacity": "todo"
     }
 ]

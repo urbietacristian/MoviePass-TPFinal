@@ -1,3 +1,7 @@
+<?php
+require_once(VIEWS_PATH."navAdmin.php");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
