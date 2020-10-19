@@ -1,4 +1,6 @@
-<?php namespace Models;
+<?php 
+
+namespace Models;
 
 
 class Movie
@@ -8,20 +10,20 @@ class Movie
     private $name;
     private $image;
     private $duration;
-    private $category=array();
+    private $genre;
     private $language;
    
 
 
 
-    public function __construct($id_api,$description,  $name, $duration,  $category, $image,$language)
+    public function __construct($id_api,$description,  $name, $duration,  $genre, $image,$language)
     {
         $this->setId_api($id_api);
         $this->setDescription($description);
         $this->setName($name);
         $this->setDuration($duration);
         $this->setImage($image);
-        $this->setCategory($category);
+        $this->setgenre($genre);
         $this->setLanguage($language);
         
     }
@@ -85,13 +87,13 @@ class Movie
         }
     }
     
-     public function getCategory()
+     public function getGenre()
     {
-        return $this->category;
+        return $this->genre;
     }
-    public function setCategory($category)
+    public function setGenre($genre)
     {
-        $this->category = $category;
+        $this->genre = $genre;
     }
     
 

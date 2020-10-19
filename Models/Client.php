@@ -5,4 +5,8 @@ class Client
 {
 
     private $name;
-    private $dni
+    private $dni;
+
+
+
+}
