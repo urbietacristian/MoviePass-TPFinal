@@ -5,5 +5,12 @@
         "address": "Minecraft",
         "ticket_price": "200",
         "total_capacity": "500"
+    },
+    {
+        "id": 1,
+        "name": "Lucio Chiappa",
+        "address": "Catmarca 4090",
+        "ticket_price": "2323",
+        "total_capacity": "mar del plata"
     }
 ]
