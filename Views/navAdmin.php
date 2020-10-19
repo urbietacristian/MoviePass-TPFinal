@@ -12,12 +12,8 @@
 
 
 if (!isset($_SESSION["loggedUser"])){
-
-  
-  header("location:../User/ShowMainView");
+  header("location:../Home/Index");
   exit;
-  
-
 }
 
 

@@ -30,7 +30,7 @@
         public function ShowAdminMenuView($message)
         {  
             
-            require_once(ADMIN_PATH."list_cinema.php");
+            require_once(ADMIN_PATH."homeAdmin.php");
         }
       
         public function ShowAdminRegisterView()

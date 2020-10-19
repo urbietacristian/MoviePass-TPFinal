@@ -13,6 +13,11 @@
             $this->cinemaDAO = new CinemaDAO();
         }
 
+        public function ShowAdminHomeView($message = "")
+        {
+            require_once(ADMIN_PATH."homeAdmin.php");
+        }
+
         public function ShowRemoveView($message = "")
         {
             require_once(ADMIN_PATH."list_cinema.php");
@@ -58,10 +63,6 @@
             $total_capacity = $_POST['total_capacity'];
 
             $id = sizeof($this->cinemaDAO->GetAll());
-           
-            
-            
-            
 
             $newCinema = new Cinema();
             
@@ -83,7 +84,7 @@
                 $message = "Cinema added successfully";
                 echo '<script language="javascript">alert("Your Cinema Has Been Registered Successfully");</script>';
             }
-            $this->registerCinema($message);
+            $this->ShowAdminHomeView($message);
         
         }
 
@@ -100,10 +101,6 @@
         }
 
 
-
-
-        
-
         public function editCinema(){
 
             $Cinema = new Cinema();
@@ -118,6 +115,8 @@
                 $Cinema->setTicketPrice($_POST["ticket_price"]);
                 $Cinema->setTotalCapacity($_POST["total_capacity"]);
                 $this->cinemaDAO->Edit($Cinema);
+                $this->ShowAdminHomeView();
+
 
             }
 

@@ -1,16 +1,23 @@
 [
     {
         "id": 0,
-        "name": "Holiwi",
-        "address": "Minecraft",
-        "ticket_price": "200",
-        "total_capacity": "500"
+        "name": "Diagonal",
+        "address": "caca",
+        "ticket_price": "150",
+        "total_capacity": "300"
     },
     {
         "id": 1,
-        "name": "Lucio Chiappa",
-        "address": "Catmarca 4090",
-        "ticket_price": "2323",
-        "total_capacity": "mar del plata"
+        "name": "Los gallegos",
+        "address": "No se",
+        "ticket_price": "200",
+        "total_capacity": "400"
+    },
+    {
+        "id": 2,
+        "name": "TURU",
+        "address": "nau",
+        "ticket_price": "100",
+        "total_capacity": "beis"
     }
 ]
