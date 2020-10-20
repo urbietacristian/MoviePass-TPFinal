@@ -1,23 +1,23 @@
 [
     {
         "id": 0,
-        "name": "Diagonal",
-        "address": "caca",
-        "ticket_price": "150",
+        "name": "Shopping Diagonal",
+        "address": "Diagonal Pueyrredon 3450",
+        "ticket_price": "200",
         "total_capacity": "300"
     },
     {
         "id": 1,
-        "name": "Los gallegos",
-        "address": "No se",
-        "ticket_price": "200",
-        "total_capacity": "400"
+        "name": "Los Gallegos",
+        "address": "Rivadavia 3050",
+        "ticket_price": "150",
+        "total_capacity": "200"
     },
     {
         "id": 2,
-        "name": "TURU",
-        "address": "nau",
-        "ticket_price": "100",
-        "total_capacity": "beis"
+        "name": "Aldrey",
+        "address": "Sarmiento 2685",
+        "ticket_price": "250",
+        "total_capacity": "400"
     }
 ]

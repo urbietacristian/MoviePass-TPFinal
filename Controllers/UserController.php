@@ -1,6 +1,8 @@
 <?php
     namespace Controllers;
 
+    use DAO\MovieDAO as MovieDAO;
+    use DAO\genreDAO as GenreDAO;
     use DAO\UserDAO as UserDAO;
     Use Models\User as User;
 
@@ -16,7 +18,13 @@
 
         public function ShowMenuView($message)
         {
-            require_once(USER_PATH."homeUser.php");
+            $movieDAO = new MovieDAO();
+            $movie_list = $movieDAO->getAllMovies();
+
+            $genreDAO = new GenreDAO();
+            $genre_list = $genreDAO->getAllGenres();
+
+            require_once(USER_PATH."billboard.php");
         }
         public function ShowMainView()
         {

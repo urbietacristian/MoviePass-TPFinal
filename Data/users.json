@@ -6,14 +6,14 @@
     },
 
     {
-        "email": "user",
+        "email": "user@utn.com",
         "pass": "user",
         "rol": "user"
     },
 
     {
-        "email": "ema@utn.com",
-        "pass": "ema",
+        "email": "matias@utn.com",
+        "pass": "matias",
         "rol": "user"
     }
 

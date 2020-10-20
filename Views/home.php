@@ -5,13 +5,12 @@
                <div class="container">
                     <div class="grid"> 
                          <div class="form_login">
-                              
-                              <div class="form">                 
+                              <div align = 'center' class="form">                 
                                    <form action="<?php echo FRONT_ROOT ?>User/login" method="POST" class="login-form bg-dark-alpha p-5 bg-light">
                                    <?php
                                         if(isset($error)){
                                             
-                                            echo "<div class='error' >Usuario y/o contraseña incorrecto</div>  ";     
+                                            echo "<div class='error' >Usuario y/o contraseña incorrecto, intente nuevamente</div>  ";     
                                         }
                                          
                                    ?>
@@ -22,14 +21,16 @@
                                         <div class="form-group">
                                              <label for="">Password</label>
                                              <input type="password" name="password" class="form-control form-control-lg" >
+                                             <br>
                                         </div>
                                         <div class="btn_cont">
                                         <button class="btn btn-primary btn-block btn-lg" type="submit">Login</button>
                                         </div>
+                                        
                                    </form>
                                    <a href="<?php echo FRONT_ROOT ?>User/ShowRegisterView" class="login-form bg-dark-alpha p-5 bg-light">
                                    <div class="btn_cont">
-                                        <button class="btn btn-primary btn-block btn-lg" >Register</button>
+                                        <br><button class="btn btn-primary btn-block btn-lg" >Register</button>
                                    </div>
                                    </a>
                               </div>

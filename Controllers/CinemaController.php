@@ -126,7 +126,7 @@
         {
         $cinemaList = $this->cinemaDAO->GetAll();
         foreach($cinemaList as $cinema){
-        echo "<div class='table'>";
+        echo "<div>";
             
                 echo "<div>
                         Nombre: ".$cinema->getName()."
@@ -142,10 +142,7 @@
                 echo "<div>
                         Capacidad Maxima: ".$cinema->getTotalCapacity()."
                         </div>";
-                
-                /* echo "<div class='title'>
-                        ".$cinema->getShow()."
-                        </div>"; */
+
             echo "</div> <br>";
             }
     

@@ -1,5 +1,12 @@
 <?php
-require_once(VIEWS_PATH."navUser.php");
+
+if ($_SESSION['loggedUser']->getRol() == 'admin'){
+  require_once(VIEWS_PATH."navAdmin.php");
+}
+else{
+  require_once(VIEWS_PATH."navUser.php");
+}
+
 ?>
 
 <div id="mainav">
