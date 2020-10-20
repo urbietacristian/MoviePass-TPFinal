@@ -44,10 +44,7 @@
             }
             
         }
-/*         public function ShowCinemaView($message = "")
-        {
-            require_once(VIEWS_PATH."mainCinema.php");
-        } */
+
         public function registerCinema($message = "")
         {
             require_once(VIEWS_PATH."auxi.php");
@@ -125,10 +122,38 @@
         }
 
 
-        public function showCinemas(){
-            $cinemaList = array();
-            $cinemaList = $this->cinemaDAO->GetAll();
-            require_once(VIEWS_PATH."cinemaManagment.php");
-        }
-    }
+        public function showCinemas()
+        {
+        $cinemaList = $this->cinemaDAO->GetAll();
+        foreach($cinemaList as $cinema){
+        echo "<div>";
+            
+                echo "<div class='data'>
+                        Nombre: ".$cinema->getName()."
+                        </div>
+                        "
+                        ;
+                echo "<div class='data'>                                        
+                        Direccion: ".$cinema->getAddress()."
+                        </div>";
+                echo "<div class='data'>
+                        Precio de entrada: ".$cinema->getTicketPrice()."
+                        </div>";
+                echo "<div class='data'>
+                        Capacidad Maxima: ".$cinema->getTotalCapacity()."
+                        </div>";
+                
+                /* echo "<div class='title'>
+                        ".$cinema->getShow()."
+                        </div>"; */
+            echo "</div>
+                </div> <br> ";
+            }
+    
+         }
+
+
+
+
+}
 ?>

@@ -3,7 +3,7 @@
       <h6 class="heading">MoviePass</h6> 
       <nav>
         <ul class="nospace inline pushright uppercase">
-          <a href="<?php echo FRONT_ROOT; ?>Cinema/ShowHomeView">CACA</a>
+          <a href="<?php echo FRONT_ROOT; ?>Cinema/ShowHomeView">Home</a>
         </ul>
       </nav>
     </div>
@@ -11,7 +11,7 @@
 </div>
 <div class="wrapper row5">
   <div id="copyright" class="hoc clear"> 
-    <p align="center">Copyright &copy; <?php echo date('Y'); ?> - MoviePass</p>
+    <p align="center">Copyright &copy; <?php echo date('Y'); ?> - MoviePass - UTN</p>
   </div>
 </div>
 <a id="backtotop" href="#top"><i class="fas fa-chevron-up"></i></a>
