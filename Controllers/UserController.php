@@ -48,7 +48,8 @@
             $email = $_POST["email"];
             $password = $_POST["password"];
             $userList = $this->userDAO->GetAll();
-           
+            
+
             $count = 0;
             $error = NULL;
 
@@ -90,10 +91,6 @@
             $rol = 'user';
             
             
-
-            
-
-            
             $newUser = new User();
         
             $newUser->setEmail($userName);
@@ -108,10 +105,10 @@
             if ($valid === 0){
                 $error = "invalid";
                 require_once(VIEWS_PATH."register.php");
-            }else{
-                //usar require ya que permite el pasaje de la variable para mensajes, si uso la funcion show no puedo pasar vars.
-                $error = "03";
-                require_once(VIEWS_PATH."main.php");
+            }else
+            {
+
+                require_once(VIEWS_PATH."home.php");
             }
         
         }

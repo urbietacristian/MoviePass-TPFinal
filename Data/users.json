@@ -1,20 +1,22 @@
 [
     {
-        "email": "admin@utn.com",
+        "user": "admin@utn.com",
         "pass": "admin",
         "rol": "admin"
     },
-
     {
-        "email": "user@utn.com",
+        "user": "user@utn.com",
         "pass": "user",
         "rol": "user"
     },
-
     {
-        "email": "matias@utn.com",
+        "user": "matias@utn.com",
         "pass": "matias",
         "rol": "user"
+    },
+    {
+        "user": "sergio@utn.com",
+        "pass": "sergio",
+        "rol": "user"
     }
-
 ]

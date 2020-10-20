@@ -64,7 +64,7 @@
 
                 $user = new User();
 
-                $user->setEmail($valuesArray["email"]);
+                $user->setEmail($valuesArray["user"]);
                 $user->setPassword($valuesArray["pass"]);
                 $user->setRol($valuesArray["rol"]);
                 //$user->setClient($valuesArray["client"]);
