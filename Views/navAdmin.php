@@ -10,21 +10,26 @@
   </div> -->
   <?php
 
+use Controllers\CinemaController;
 use DAO\CinemaDAO;
 Use Models\User as User;
 
 $user = new User;
 $user = $_SESSION['loggedUser'];
+$cinemaController = new CinemaController();
+$cinemaDAO = new CinemaDAO();
 
-if (!$user->getRol() == 'admin'){
-  header("location:../Home/Index");
-  exit;
-}
+if(isset($_SESSION['loggedUser'])){
+    if (!$user->getRol() == 'admin'){
+      header("location:../Home/Index");
+      exit;
+    }
+  }
 ?>
   <div class="wrapper row1">
     <header id="header" class="hoc clear"> 
       <div id="logo" class="fl_left">
-        <h1><a href="#">Movie Pass</a></h1>
+        <h1><a href="<?php echo FRONT_ROOT; ?>Cinema/ShowAdminHomeView">Movie Pass</a></h1>
       </div>
       <!-- Add path routes below -->
       

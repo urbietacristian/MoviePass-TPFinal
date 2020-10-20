@@ -44,10 +44,7 @@
             }
             
         }
-/*         public function ShowCinemaView($message = "")
-        {
-            require_once(VIEWS_PATH."mainCinema.php");
-        } */
+
         public function registerCinema($message = "")
         {
             require_once(VIEWS_PATH."auxi.php");
@@ -128,11 +125,8 @@
         public function showCinemas()
         {
         $cinemaList = $this->cinemaDAO->GetAll();
-
         foreach($cinemaList as $cinema){
-        
         echo "<div>";
-            
             
                 echo "<div class='data'>
                         Nombre: ".$cinema->getName()."
@@ -153,9 +147,13 @@
                         ".$cinema->getShow()."
                         </div>"; */
             echo "</div>
-                </div>";
-        }
-    }
-}
+                </div> <br> ";
+            }
+    
+         }
 
+
+
+
+}
 ?>
