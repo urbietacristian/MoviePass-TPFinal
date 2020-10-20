@@ -16,7 +16,7 @@
 
         public function ShowMenuView($message)
         {
-            require_once(VIEWS_PATH."homeUser.php");
+            require_once(USER_PATH."homeUser.php");
         }
         public function ShowMainView()
         {
