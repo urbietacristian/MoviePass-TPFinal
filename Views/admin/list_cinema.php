@@ -8,7 +8,7 @@ require_once(VIEWS_PATH."navAdmin.php");
             <?php
             $cinemaList = $cinemaDAO->GetAll();
             foreach($cinemaList as $cinema){
-                    echo "<div>";
+                    echo "<div class='card'>";
                         
                             echo "<div class='data'>
                                     Nombre: ".$cinema->getName()."
@@ -25,8 +25,7 @@ require_once(VIEWS_PATH."navAdmin.php");
                                     Capacidad Maxima: ".$cinema->getTotalCapacity()."
                                     </div>";
                         
-                        echo "</div>
-                            </div>";?>
+                        echo "</div>";?>
                             
                             <form action="<?php echo FRONT_ROOT; echo "Cinema/ShowEditView";?>" method="POST">
                                 <input type="hidden" value="<?php echo $cinema->getId(); ?>" name="id">
@@ -42,7 +41,7 @@ require_once(VIEWS_PATH."navAdmin.php");
                             </form>
                     
                         <?php
-                    echo "<br></div>";
+                    echo "</div><br></div>";
                     }
             ?>
         </div>

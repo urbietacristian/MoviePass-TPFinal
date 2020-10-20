@@ -1,15 +1,23 @@
 <?php
+if(isset($_SESSION['loggedUser']))
+{
+    if ($_SESSION['loggedUser']->getRol() == 'admin'){
+    require_once(VIEWS_PATH."navAdmin.php");
+  }
+  else{
+    require_once(VIEWS_PATH."navUser.php");
+  }
+}
+else
+{
+  header("location:../Home/Index");
+  exit;
+}
 
-if ($_SESSION['loggedUser']->getRol() == 'admin'){
-  require_once(VIEWS_PATH."navAdmin.php");
-}
-else{
-  require_once(VIEWS_PATH."navUser.php");
-}
 
 ?>
 
-<div id="mainav">
+<div align="center" id="mainav">
     <?php 
     
     foreach($genre_list as $value){ 

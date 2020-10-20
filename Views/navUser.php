@@ -1,13 +1,16 @@
 <?php
 Use Models\User as User;
 $user = new User;
-$user = $_SESSION['loggedUser'];
+
 
 if(!isset($_SESSION['loggedUser'])){
 //  if (!$user->getRol() == 'user'){
     header("location:../Home/Index");
     exit;
  // }
+}
+else{
+  $user = $_SESSION['loggedUser'];
 }
 ?>
 

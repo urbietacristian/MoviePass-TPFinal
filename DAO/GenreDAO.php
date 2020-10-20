@@ -28,13 +28,24 @@
             return $this->genre_list;
         }
 
-        public function getGenreById($id)
+        public function getNameById($id)
         {
             foreach($this->genre_list as $genre)
             {
                 if($genre->getId() == $id)
                 {
                     return $genre->getName();
+                }
+            }
+        }
+
+        public function getGenreById($id)
+        {
+            foreach($this->genre_list as $genre)
+            {
+                if($genre->getId() == $id)
+                {
+                    return $genre;
                 }
             }
         }

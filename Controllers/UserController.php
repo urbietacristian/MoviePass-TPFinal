@@ -1,10 +1,10 @@
 <?php
     namespace Controllers;
 
-    use DAO\MovieDAO as MovieDAO;
-    use DAO\genreDAO as GenreDAO;
+    use Controllers\BillboardController;
     use DAO\UserDAO as UserDAO;
     Use Models\User as User;
+
 
     
 
@@ -18,17 +18,13 @@
 
         public function ShowMenuView($message)
         {
-            $movieDAO = new MovieDAO();
-            $movie_list = $movieDAO->getAllMovies();
-
-            $genreDAO = new GenreDAO();
-            $genre_list = $genreDAO->getAllGenres();
-
-            require_once(USER_PATH."billboard.php");
+            $billboard = new BillboardController();
+            $billboard->ShowMovies();
         }
-        public function ShowMainView()
+        public function ShowMainView($message)
         {
             require_once(VIEWS_PATH."home.php");
+            echo '<script language="javascript">alert("'.$message.'");</script>';
         }
         public function ShowRegisterView()
         {
@@ -148,8 +144,8 @@
         }
         */
 
-        public function logout(){
-
+        public function logout()
+        {
             session_destroy();
 
             $message = "Logout Successfully";
