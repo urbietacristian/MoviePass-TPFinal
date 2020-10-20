@@ -12,17 +12,21 @@ class Movie
     private $genre_ids;
     private $language;
 
-
-    public function __construct($id_api,$description,  $name, $duration,  $genre_ids, $image,$language)
+    public function __construct()
     {
-        $this->setIdApi($id_api);
-        $this->setDescription($description);
-        $this->setName($name);
-        $this->setImage($image);
-        $this->setGenreIds($genre_ids);
-        $this->setLanguage($language);
-        
     }
+
+
+    // public function __construct($id_api,$description,  $name, $duration,  $genre_ids, $image,$language)
+    // {
+    //     $this->setIdApi($id_api);
+    //     $this->setDescription($description);
+    //     $this->setName($name);
+    //     $this->setImage($image);
+    //     $this->setGenreIds($genre_ids);
+    //     $this->setLanguage($language);
+        
+    // }
      public function getLanguage()
     {
         return $this->language;

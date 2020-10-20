@@ -1,8 +1,9 @@
 <?php
-    use DAO/MovieDAO as MovieDAO;
-    use DAO/GenreDAO as GenreDAO;
-    use Models/Movie as Movie;
-    use Models/Genre as Genre;
+    namespace Controllers;
+    use DAO\MovieDAO as MovieDAO;
+    use DAO\GenreDAO as GenreDAO;
+    use Models\Movie as Movie;
+    use Models\Genre as Genre;
 
     class BillboardController
     {
@@ -11,21 +12,29 @@
 
         public function __construct()
         {
-            $this->movieDAO = new MovieDAO;
-            $this->genreDAO = new GenreDAO;
+            $this->movieDAO = new MovieDAO();
+            $this->genreDAO = new GenreDAO();
         }
 
-        public function showBillboardView($message = "")
-        {
-            require_once(VIEWSPATH."billboard.php");
-        }
+        // public function showBillboardView($message = "")
+        // {
+        //     require_once(USER_PATH."billboard.php");
+        // }
 
-        public function showMovies()
+        public function showMovies($id = "")
         {
-            $movie_list = $this->movieDAO->getAllMovies();
+            
+            if(!($id == "")){
+                $movie_list = $this->getMoviesByGenre($id);
+            }
+            else{
+                $movie_list = $this->movieDAO->GetAllMovies();
+            }
+            
+
             $genre_list = $this->genreDAO->getAllGenres();
 
-            require_once(VIEWSPATH."billboard.php");
+            require_once(USER_PATH."billboard.php");
         }
 
         public function getMoviesByGenre($id)
@@ -43,5 +52,7 @@
 
             return $genre_movie_list;
         }
+
+
     }
 ?>

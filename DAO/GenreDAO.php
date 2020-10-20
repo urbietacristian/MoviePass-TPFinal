@@ -1,8 +1,8 @@
 <?php
     namespace DAO;
 
-    use Models/Movie as Movie;
-    use Models/Genre as Genre;
+    
+    use Models\Genre as Genre;
 
     class GenreDAO
     {
@@ -18,7 +18,7 @@
                     $new_genre = new Genre();
                     $new_genre->setId($genre['id']);
                     $new_genre->setName($genre['name']);
-                    array_push(this->genre_list, $new_genre);
+                    array_push($this->genre_list, $new_genre);
                 }
             }
         }

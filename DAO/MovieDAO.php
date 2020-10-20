@@ -1,8 +1,8 @@
 <?php
     namespace DAO;
 
-    use Models/Movie as Movie;
-    use Models/Genre as Genre;
+    use Models\Movie as Movie;
+    
 
     class MovieDAO
     {
@@ -16,13 +16,13 @@
                 foreach($movieArray['results'] as $jsonMovie)
                 {
                     $new_movie = new Movie();
-                    $new_movie->setId_api($jsonMovie['id']);
+                    $new_movie->setIdApi($jsonMovie['id']);
                     $new_movie->setDescription($jsonMovie['overview']);
                     $new_movie->setName($jsonMovie['title']);
                     $new_movie->setImage($jsonMovie['poster_path']);
                     $new_movie->setGenreIds($jsonMovie['genre_ids']);
                     $new_movie->setLanguage($jsonMovie['original_language']);
-                    array_push(this->movieList, $new_movie);
+                    array_push($this->movie_list, $new_movie);
                 }
             }
         }

@@ -22,6 +22,30 @@ File: Layout CSS
 .row5, .row5 a{}
 
 
+
+.card{
+    width: 180px;
+    display: block;
+    border: 0.5px solid #ababab;
+    padding: 5px;
+    border-radius: 5px;
+    border-radius: 2px;
+    box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+}
+
+.card .title{
+
+    margin: 5px 0;
+    display: flex;
+    align-items: left;
+    padding: 0 5px;
+}
+
+.card .title p{
+    margin: 0;
+}
+
 /* Top Bar
 --------------------------------------------------------------------------------------------------------------- */
 #topbar{padding:15px 0; font-size:.8rem; text-transform:uppercase;}
@@ -357,6 +381,26 @@ input:focus, textarea:focus, *:required:focus{border-color:#DC8E47;}
 #footer input:focus{border-color:#DC8E47;}
 #footer button{color:#FFFFFF; background-color:#DC8E47;}
 #footer button:hover{color:inherit; background-color:transparent; border-color:inherit;}
+
+
+/* Horizontal List*/
+#menu-outer {
+	height: 84px;
+}
+
+.table {
+	display: table; 
+	margin: 0 auto;
+}
+
+ul#horizontal-list {
+	min-width: 696px;
+	list-style: none;
+	padding-top: 20px;
+	}
+	ul#horizontal-list li {
+		display: inline;
+	}
 
 
 /* Navigation */

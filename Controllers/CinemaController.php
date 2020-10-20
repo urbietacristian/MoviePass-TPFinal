@@ -126,28 +126,27 @@
         {
         $cinemaList = $this->cinemaDAO->GetAll();
         foreach($cinemaList as $cinema){
-        echo "<div>";
+        echo "<div class='table'>";
             
-                echo "<div class='data'>
+                echo "<div>
                         Nombre: ".$cinema->getName()."
                         </div>
                         "
                         ;
-                echo "<div class='data'>                                        
+                echo "<div>                                        
                         Direccion: ".$cinema->getAddress()."
                         </div>";
-                echo "<div class='data'>
+                echo "<div>
                         Precio de entrada: ".$cinema->getTicketPrice()."
                         </div>";
-                echo "<div class='data'>
+                echo "<div>
                         Capacidad Maxima: ".$cinema->getTotalCapacity()."
                         </div>";
                 
                 /* echo "<div class='title'>
                         ".$cinema->getShow()."
                         </div>"; */
-            echo "</div>
-                </div> <br> ";
+            echo "</div> <br>";
             }
     
          }

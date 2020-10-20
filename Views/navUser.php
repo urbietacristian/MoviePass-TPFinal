@@ -3,9 +3,11 @@ Use Models\User as User;
 $user = new User;
 $user = $_SESSION['loggedUser'];
 
-if (!$user->getRol() == 'user'){
-  header("location:../Home/Index");
-  exit;
+if(!isset($_SESSION['loggedUser'])){
+//  if (!$user->getRol() == 'user'){
+    header("location:../Home/Index");
+    exit;
+ // }
 }
 ?>
 
@@ -17,8 +19,7 @@ if (!$user->getRol() == 'user'){
       <!-- Add path routes below -->
       
       <nav id="mainav" class="fl_right">
-        <li class="active"><a href="<?php echo FRONT_ROOT; ?>Billboard/">Ver Cartelera</a></li>
-        <li class="active"><a href="<?php echo FRONT_ROOT; ?>User/logout">Comprar boleto</a></li>    
+        <li class="active"><a href="<?php echo FRONT_ROOT; ?>Billboard/showMovies">Lista de Peliculas</a></li>
         <li class="active"><a href="<?php echo FRONT_ROOT; ?>User/logout">Logout</a></li>
     </nav> 
     </header>
