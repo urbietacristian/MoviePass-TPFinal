@@ -9,21 +9,17 @@ class Movie
     private $description;
     private $name;
     private $image;
-    private $duration;
-    private $genre;
+    private $genre_ids;
     private $language;
-   
 
 
-
-    public function __construct($id_api,$description,  $name, $duration,  $genre, $image,$language)
+    public function __construct($id_api,$description,  $name, $duration,  $genre_ids, $image,$language)
     {
-        $this->setId_api($id_api);
+        $this->setIdApi($id_api);
         $this->setDescription($description);
         $this->setName($name);
-        $this->setDuration($duration);
         $this->setImage($image);
-        $this->setgenre($genre);
+        $this->setGenreIds($genre_ids);
         $this->setLanguage($language);
         
     }
@@ -43,11 +39,11 @@ class Movie
     {
         $this->image = $image;
     }
-	 public function getId_api()
+	 public function getIdApi()
     {
         return $this->id_api;
     }
-    public function setId_api($id_api)
+    public function setIdApi($id_api)
     {
         $this->id_api = $id_api;
     }
@@ -69,34 +65,14 @@ class Movie
         $this->name = $name;
     }
    
-    public function getDuration ()
+     public function getGenreIds()
     {
-        return $this->duration;
+        return $this->genre_ids;
     }
-    public function setDuration($duration)
+    public function setGenreIds($genre_ids)
     {
-        
-        if($duration != null)
-        {
-            $this->duration = $duration;
-        }
-
-        else
-        {
-            $this->duration = 120;
-        }
+        $this->genre_ids = $genre_ids;
     }
-    
-     public function getGenre()
-    {
-        return $this->genre;
-    }
-    public function setGenre($genre)
-    {
-        $this->genre = $genre;
-    }
-    
-
 }
 
 ?>
