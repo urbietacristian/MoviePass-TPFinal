@@ -16,10 +16,13 @@
             $this->userDAO = new UserDAO();
         }
 
-        public function ShowMenuView($message)
+        public function ShowMenuView()
         {
             $billboard = new BillboardController();
             $billboard->ShowMovies();
+            require_once(USER_PATH."billboard.php");
+
+
         }
         public function ShowMainView($message)
         {
@@ -42,75 +45,86 @@
             require_once(VIEWS_PATH."registerAdmin.php");
         }
 
+        public function checkUser($email)
+        {
+            $user = $this->userDAO->read($email);
+
+            if($user)
+                return true;
+            else
+                false;
+            
+        }
+
 
         public function login()
         {
             $email = $_POST["email"];
             $password = $_POST["password"];
-            $userList = $this->userDAO->GetAll();
+
             
 
             $count = 0;
-            $error = NULL;
+            try{
+                if($this->checkUser($email))
+                {
+                    $user = $this->userDAO->read($email);
 
-            foreach($userList as $user){
-                if(($user -> getEmail() == $email) && ($user -> getPassword() == $password)){
+                    if($user->getPassword() == $password){
 
-                    $count = 1;
-                    
-                    $loggedUser = new User();
-                    $loggedUser->setEmail($email);
-                    $loggedUser->setPassword($password);
-                    $loggedUser->setRol($user->getRol());
-
-                    $_SESSION["loggedUser"] = $loggedUser;
-                    
-                    $message = "Login Successfully";
-                    if($user->getRol() == 'user')
-                    {
-                        $this->ShowMenuView($message);
+                        $_SESSION["loggedUser"] = $user;
+                        
+                        $message = "Login Successfully";
+                        if($user->getRol() == 0)
+                        {
+                            header("location:ShowMenuView");
+                        }
+                        else if ($user->getRol() == 1)
+                        {
+                            $this->ShowAdminMenuView($message);
+                        }   
                     }
-                    else if ($user->getRol() == 'admin')
-                    {
-                        $this->ShowAdminMenuView($message);
-                    }
-                    
+                    else{
+                        $message = "Wrong Username or Password";
+                        //require_once(VIEWS_PATH."home.php");
+
+                    } 
+                }
+                else
+                {
+                    $message= "Wrong Username or Password";
+                    require_once(VIEWS_PATH."home.php");
                 }
             }
-            if ($count === 0){
-                $error = 1;
-                require_once(VIEWS_PATH."home.php");
+            catch(\PDOException $ex){
+
+            
             }
-           
         }  
         
         public function register(){
             
-            $userName = $_POST['email'];
+            $email = $_POST['email'];
             $password = $_POST['password'];
-            $rol = 'user';
-            
-            
-            $newUser = new User();
-        
-            $newUser->setEmail($userName);
-            $newUser->setPassword($password);
-            $newUser->setRol($rol);
-            //$newUser ->setClient($newClient);
-
-        
-            $newUserRepository = new UserDAO();
-            $valid = $newUserRepository->Add($newUser);
-        
-            if ($valid === 0){
-                $error = "invalid";
-                require_once(VIEWS_PATH."register.php");
-            }else
-            {
-
+            try{
+                if(! $this->checkUser($_POST['email']))
+                {
+                    $user = new User(null, $_POST['email'] , $_POST['password'] , 0);
+                    $this->userDAO->Add($user);
+                    $message = "Usuario registrado correctamente";
+                }
+                else
+                    $message = "El usuario ya se encuentra registrado";
+                
+            }
+            catch(\PDOException $ex){
+                $message = "Exception";
+                throw $ex;
+            }
+            finally{
                 require_once(VIEWS_PATH."home.php");
             }
-        
+            
         }
         /*
         public function registerAdmin(){

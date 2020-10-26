@@ -1,6 +1,6 @@
 <?php
 Use Models\User as User;
-$user = new User;
+
 
 
 if(!isset($_SESSION['loggedUser'])){
@@ -9,9 +9,7 @@ if(!isset($_SESSION['loggedUser'])){
     exit;
  // }
 }
-else{
-  $user = $_SESSION['loggedUser'];
-}
+
 ?>
 
   <div class="wrapper row1">

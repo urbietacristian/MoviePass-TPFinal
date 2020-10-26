@@ -14,7 +14,7 @@ use Controllers\CinemaController;
 use DAO\CinemaDAO;
 Use Models\User as User;
 
-$user = new User;
+
 
 $cinemaController = new CinemaController();
 $cinemaDAO = new CinemaDAO();
@@ -26,9 +26,7 @@ if(!isset($_SESSION['loggedUser'])){
       exit;
     }
   }
-else{
-  $user = $_SESSION['loggedUser'];
-}
+
 ?>
   <div class="wrapper row1">
     <header id="header" class="hoc clear"> 

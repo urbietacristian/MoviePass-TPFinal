@@ -9,6 +9,7 @@ class Movie
     private $description;
     private $name;
     private $image;
+    private $duration;
     private $genre_ids;
     private $language;
 
@@ -27,7 +28,17 @@ class Movie
     //     $this->setLanguage($language);
         
     // }
-     public function getLanguage()
+
+    public function getDuration()
+    {
+        return $this->language;
+    }
+    public function setDuration($duration)
+    {
+        $this->duration = $duration;
+    }
+
+    public function getLanguage()
     {
         return $this->language;
     }

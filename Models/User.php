@@ -2,40 +2,32 @@
 
 class User
 {
-    
+    private $id_user;
 	private $email;
 	private $password;
 	private $rol;
     //private $client;
+
     
-    public function __construct()
+    public function __construct($id_user, $email, $password, $rol)
 	{
-		$this->setEmail(NULL);
-		$this->setPassword(NULL);
-		$this->setRol(NULL);
-    }
-
-
-
-    /*
-    public function __construct($email, $password, $rol, $client)
-	{
+        $this->setId($id_user);
 		$this->setEmail($email);
 		$this->setPassword($password);
 		$this->setRol($rol);
-		$this->setClient($client);
+		
     }
-    */
+    
     
     public function getId()
     {
-        return $this->id;
+        return $this->id_user;
     }
 
  
     public function setId($id)
     {
-        $this->id = $id;
+        $this->id_user = $id;
     }
 
     public function getEmail()

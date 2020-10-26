@@ -8,9 +8,9 @@
                               <div align = 'center' class="form">                 
                                    <form action="<?php echo FRONT_ROOT ?>User/login" method="POST" class="login-form bg-dark-alpha p-5 bg-light">
                                    <?php
-                                        if(isset($error)){
+                                        if(isset($message)){
                                             
-                                            echo "<div class='error' >Usuario y/o contraseña incorrecto, intente nuevamente</div>  ";     
+                                            echo "<div class='error' >".$message."</div>  ";     
                                         }
                                          
                                    ?>

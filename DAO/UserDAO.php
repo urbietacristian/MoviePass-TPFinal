@@ -7,36 +7,92 @@
 
     private $userList = array();
     private $fileName;
+    private $connection;
 
 
     public function Add(User $user){
-        $this->RetrieveData();
-        foreach ($this->GetAll() as $value){
-            if ($user->getEmail() == $value->getEmail()){
-                return 0;
-            }
+        // $this->RetrieveData();
+        // foreach ($this->GetAll() as $value){
+        //     if ($user->getEmail() == $value->getEmail()){
+        //         return 0;
+        //     }
+        // }
+        // array_push($this->userList,$user);    
+        // $this->SaveData();
+
+        $sql = "INSERT INTO users (id_user, email, password, role) VALUES (:id_user, :email, :password, :role)";
+
+        $parameters['id_user'] = 0;
+        $parameters['email'] = $user->getEmail();
+        $parameters['password'] = $user->getPassword();
+        $parameters['role'] = 0;
+
+        try{
+            $this->connection = Connection::getInstance();
+            return $this->connection->executeNonQuery($sql, $parameters);
+        
         }
-        array_push($this->userList,$user);    
-        $this->SaveData();
-    }
-
-    public function GetAll(){
-        $this->RetrieveData();
-        return $this->userList;
-    }
-
-    public function CompareEmail($email){
-        $userList= $this->GetAll();
-        foreach ($userList as $user){
-            if ($user->getEmail() == $email){
-                return true;
-            }
+        catch(\PDOException $ex){
+            throw $ex;
         }
-        return false;
-
     }
+
+
+    public function read($email){
+
+        $sql = "SELECT * FROM users WHERE email = :email";
+
+        $parameters['email'] = $email;
+
+        try{
+            $this->connection = Connection::getInstance();
+            $result = $this->connection->execute($sql,$parameters);
+        }
+        catch(\PDOException $ex){
+            throw $ex;
+        }
+
+        if(!empty($result))
+            return $this->mapear($result);
+        else
+            return false;
+
+        
+    }
+
+ 
+
+    // public function GetAll(){
+    //     $this->RetrieveData();
+    //     return $this->userList;
+    // }
+
+    // public function CompareEmail($email){
+    //     $userList= $this->GetAll();
+    //     foreach ($userList as $user){
+    //         if ($user->getEmail() == $email){
+    //             return true;
+    //         }
+    //     }
+    //     return false;
+
+    // }
+
+    protected function mapear($value){
+
+        $value = is_array($value) ? $value : [];
+
+        $resp = array_map(function($p){
+            return new User($p['id_user'],$p['email'],$p['password'],$p['role']);
+        }, $value);
+
+        return count($resp) > 1 ? $resp : $resp['0'];
+    }
+
+
+
     
-
+/*
     private function SaveData(){
         $arrayToEncode = array();
 
@@ -73,5 +129,6 @@
 
         }
     }
+    */
 }
 ?>
