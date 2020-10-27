@@ -18,8 +18,7 @@ require_once(VIEWS_PATH."navAdmin.php");
         <input name='total_capacity'type="text" name="cinemaCapacity" placeholder="Capacidad del Cine">
         <h1>Direccion</h1>
         <input name='address' type="text" name="cinemaAdress" placeholder="Direccion del Cine">
-        <h1>Valor de la Entrada</h1>
-        <input name='ticket_price' type="text" name="cinemaValue" placeholder="Valor del Cine">
+        
 
         <button type="submit">Aceptar</button>
     </form>

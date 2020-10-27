@@ -69,6 +69,7 @@
                 if($this->checkUser($email))
                 {
                     $user = $this->userDAO->read($email);
+                    var_dump($user);
 
                     if($user->getPassword() == $password){
 
@@ -92,7 +93,7 @@
                 }
                 else
                 {
-                    $message= "Wrong Username or Password";
+                    $message= "Wrong Username";
                     require_once(VIEWS_PATH."home.php");
                 }
             }

@@ -90,5 +90,25 @@ class Sala
 
         return $this;
     }
+
+    /**
+     * Get the value of id_cine
+     */ 
+    public function getId_cine()
+    {
+        return $this->id_cine;
+    }
+
+    /**
+     * Set the value of id_cine
+     *
+     * @return  self
+     */ 
+    public function setId_cine($id_cine)
+    {
+        $this->id_cine = $id_cine;
+
+        return $this;
+    }
 }
 ?>

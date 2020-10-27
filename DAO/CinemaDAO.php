@@ -8,66 +8,145 @@
     private $CinemaList = array();
     private $fileName;
 
-    public function Add(Cinema $Cinema){
-        $this->RetrieveData();
-        foreach ($this->GetAll() as $value){
-            if ($Cinema->getName() == $value->getName()){
-                return 0;
-            }
-        }
-        array_push($this->CinemaList,$Cinema);    
-        $this->SaveData();
-    }
+    // public function Add(Cinema $Cinema){
+    //     $this->RetrieveData();
+    //     foreach ($this->GetAll() as $value){
+    //         if ($Cinema->getName() == $value->getName()){
+    //             return 0;
+    //         }
+    //     }
+    //     array_push($this->CinemaList,$Cinema);    
+    //     $this->SaveData();
+    // }
 
+
+    
+    public function Add(Cinema $Cinema){
+       
+        $sql = "INSERT INTO cinemas (id_cinema, name, address, total_capacity) VALUES (:id_cinema, :name, :address, :total_capacity)";
+
+        $parameters['id_cinema'] = 0;
+        $parameters['name'] = $Cinema->getName();
+        $parameters['address'] = $Cinema->getAddress();
+        $parameters['total_capacity'] = $Cinema->getTotalCapacity();
+
+        try{
+            $this->connection = Connection::getInstance();
+            return $this->connection->executeNonQuery($sql, $parameters);
+        
+        }
+        catch(\PDOException $ex){
+            throw $ex;
+        }
+    }
 
 
     public function Edit(Cinema $Cinema){
-        $this->RetrieveData();
-        $id = 0;
-        foreach ($this->GetAll() as $value){
-            if ($Cinema->getId() == $value->getId()){
-                $this->CinemaList[$id] = $Cinema;
-                $this->SaveData();
-                return 0;
-            }
-            $id++;
-        }
-    }
+        $sql = "UPDATE cinemas SET name = :name, address = :address, total_capacity = :total_capacity WHERE id_cinema = :id_cinema";
 
+        $parameters['id_cinema'] = $Cinema->getId();
+        $parameters['name'] = $Cinema->getName();
+        $parameters['address'] = $Cinema->getAddress();
+        $parameters['total_capacity'] = $Cinema->getTotalCapacity();
 
-    public function Remove($id){
-        $this->RetrieveData();
+        try{
+            $this->connection = Connection::getInstance();
+            return $this->connection->executeNonQuery($sql, $parameters);
         
-        foreach ($this->CinemaList as $value){
-            if ($id == $value->getId()){
-                unset($this->CinemaList[$id]);
-                $this->SaveData();
-                $this->FixId();
-            }
-            
+        }
+        catch(\PDOException $ex){
+            throw $ex;
         }
     }
 
-    public function FixId(){
 
-        $this->RetrieveData();
-        $newCinemaList = array();
-        $id = 0;
-        foreach ($this->GetAll() as $value){
-            
-            $value->setId($id);  
-            $id++;
+    public function Remove($name){
+        
+        $sql = "DELETE FROM cinemas WHERE name = :name";
+
+        $parameters['name'] = $name;
+
+        try{
+            $this->connection = Connection::getInstance();
+            return $this->connection->executeNonQuery($sql, $parameters);
+        
         }
-        $this->SaveData();
+        catch(\PDOException $ex){
+            throw $ex;
+        }
     }
+
+    // public function FixId(){
+
+    //     $this->RetrieveData();
+    //     $newCinemaList = array();
+    //     $id = 0;
+    //     foreach ($this->GetAll() as $value){
+            
+    //         $value->setId($id);  
+    //         $id++;
+    //     }
+    //     $this->SaveData();
+    // }
+
+
+    
+
+    public function read($name){
+
+        $sql = "SELECT * FROM cinemas WHERE name = :name";
+
+        $parameters['name'] = $name;
+
+        try{
+            $this->connection = Connection::getInstance();
+            $result = $this->connection->execute($sql,$parameters);
+        }
+        catch(\PDOException $ex){
+            throw $ex;
+        }
+
+        if(!empty($result))
+            return $this->map($result);
+        else
+            return false;
+
+        
+    }
+
+    
+    protected function map($value){
+
+        $value = is_array($value) ? $value : [];
+
+        $resp = array_map(function($p){
+            return new Cinema($p['id_cinema'],$p['name'],$p['address'],$p['total_capacity']);
+        }, $value);
+
+        return count($resp) > 0 ? $resp : $resp['0'];
+    }
+
 
 
 
 
 
     public function GetAll(){
-        $this->RetrieveData();
-        return $this->CinemaList;
+        $sql = "SELECT * FROM cinemas";
+
+        
+        try{
+            $this->connection = Connection::getInstance();
+            $result = $this->connection->execute($sql);
+        }
+        catch(\PDOException $ex){
+            throw $ex;
+        }
+
+        if(!empty($result))
+            return $this->map($result);
+        else
+            return false;
     }
 
     public function CompareName($name){
@@ -94,43 +173,43 @@
 
 
 
-    private function SaveData(){
-        $arrayToEncode = array();
+    // private function SaveData(){
+    //     $arrayToEncode = array();
 
-        foreach($this->CinemaList as $Cinema){
-            $valuesArray["id"] = $Cinema->getId();
-            $valuesArray["name"] = $Cinema->getName();
-            $valuesArray["address"] = $Cinema->getAddress();
-            $valuesArray["ticket_price"] = $Cinema->getTicketPrice();
-            $valuesArray["total_capacity"] = $Cinema->getTotalCapacity();
-            array_push($arrayToEncode,$valuesArray);
-        }
+    //     foreach($this->CinemaList as $Cinema){
+    //         $valuesArray["id"] = $Cinema->getId();
+    //         $valuesArray["name"] = $Cinema->getName();
+    //         $valuesArray["address"] = $Cinema->getAddress();
+    //         $valuesArray["ticket_price"] = $Cinema->getTicketPrice();
+    //         $valuesArray["total_capacity"] = $Cinema->getTotalCapacity();
+    //         array_push($arrayToEncode,$valuesArray);
+    //     }
 
-        $jsonContent = json_encode($arrayToEncode, JSON_PRETTY_PRINT);
-        file_put_contents('Data/cinemas.json', $jsonContent);
-    }
+    //     $jsonContent = json_encode($arrayToEncode, JSON_PRETTY_PRINT);
+    //     file_put_contents('Data/cinemas.json', $jsonContent);
+    // }
 
-    private function RetrieveData(){
+    // private function RetrieveData(){
         
-        $this->CinemaList = array();
+    //     $this->CinemaList = array();
 
-        if(file_exists('Data/cinemas.json')){
-            $jsonContent = file_get_contents('Data/cinemas.json');
-            $arrayToDecode = ($jsonContent) ? json_decode($jsonContent,true) : array();
+    //     if(file_exists('Data/cinemas.json')){
+    //         $jsonContent = file_get_contents('Data/cinemas.json');
+    //         $arrayToDecode = ($jsonContent) ? json_decode($jsonContent,true) : array();
             
-            foreach($arrayToDecode as $valuesArray){
+    //         foreach($arrayToDecode as $valuesArray){
 
-                $Cinema = new Cinema();
+    //             $Cinema = new Cinema();
 
-                $Cinema->setId($valuesArray["id"]);
-                $Cinema->setName($valuesArray["name"]);
-                $Cinema->setAddress($valuesArray["address"]);
-                $Cinema->setTicketPrice($valuesArray["ticket_price"]);
-                $Cinema->setTotalCapacity($valuesArray["total_capacity"]);
-                array_push($this->CinemaList,$Cinema);
-            }
+    //             $Cinema->setId($valuesArray["id"]);
+    //             $Cinema->setName($valuesArray["name"]);
+    //             $Cinema->setAddress($valuesArray["address"]);
+    //             $Cinema->setTicketPrice($valuesArray["ticket_price"]);
+    //             $Cinema->setTotalCapacity($valuesArray["total_capacity"]);
+    //             array_push($this->CinemaList,$Cinema);
+    //         }
 
-        }
-    }
+    //     }
+    // }
 }
 ?>

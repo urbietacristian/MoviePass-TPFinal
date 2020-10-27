@@ -6,9 +6,16 @@ class Cinema
     private $id;
     private $name;
     private $address;
-    private $ticket_price;
     private $total_capacity;
 
+    public function __construct($id, $name, $address, $total_capacity)
+    {
+        $this->id = $id;
+        $this->name = $name;
+        $this->address = $address;
+        $this->total_capacity = $total_capacity;
+        
+    }
 
     /**
      * Getters y Setters
@@ -41,16 +48,6 @@ class Cinema
     public function setAddress($address)
     {
         $this->address = $address;
-    }
-
-    public function getTicketPrice()
-    {
-        return $this->ticket_price;
-    }
-
-    public function setTicketPrice($ticket_price)
-    {
-        $this->ticket_price = $ticket_price;
     }
 
     public function getTotalCapacity()

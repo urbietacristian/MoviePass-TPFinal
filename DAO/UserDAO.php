@@ -52,8 +52,9 @@
             throw $ex;
         }
 
-        if(!empty($result))
-            return $this->mapear($result);
+        if(!empty($result)){
+            return $this->map($result);
+        }
         else
             return false;
 
@@ -78,12 +79,12 @@
 
     // }
 
-    protected function mapear($value){
+    protected function map($value){
 
         $value = is_array($value) ? $value : [];
 
         $resp = array_map(function($p){
-            return new User($p['id_user'],$p['email'],$p['password'],$p['role']);
+            return new User($p['id_user'],$p['email'],$p['password'],$p['id_role']);
         }, $value);
 
         return count($resp) > 1 ? $resp : $resp['0'];
