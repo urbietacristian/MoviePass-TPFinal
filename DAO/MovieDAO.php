@@ -22,6 +22,8 @@
                     $new_movie->setImage($jsonMovie['poster_path']);
                     $new_movie->setGenreIds($jsonMovie['genre_ids']);
                     $new_movie->setLanguage($jsonMovie['original_language']);
+                    $details = json_decode(file_get_contents("http://api.themoviedb.org/3/movie/". $jsonMovie['id'] ."?api_key=af168fc809d4fb1ad12f6b57122de08c"),true);
+                    $new_movie->setDuration($details['runtime']);
                     array_push($this->movie_list, $new_movie);
                 }
             }

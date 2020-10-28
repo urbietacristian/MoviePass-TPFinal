@@ -10,7 +10,7 @@
 
         public function __construct()
         {
-            $genreArray = json_decode(file_get_contents('http://api.themoviedb.org/3/genre/movie/list?api_key=af168fc809d4fb1ad12f6b57122de08c'), true);
+            $genreArray = json_decode(file_get_contents('http://api.themoviedb.org/3/genre/movie/list?api_key=af168fc809d4fb1ad12f6b57122de08c&language=es'), true);
             if($genreArray && $genreArray['genres'] && count($genreArray['genres']) != 0)
             {
                 foreach($genreArray['genres'] as $genre)
