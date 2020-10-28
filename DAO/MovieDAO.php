@@ -10,7 +10,7 @@
 
         public function __construct()
         {
-            $movieArray = json_decode(file_get_contents('http://api.themoviedb.org/3/movie/now_playing?api_key=af168fc809d4fb1ad12f6b57122de08c'), true);
+            $movieArray = json_decode(file_get_contents('http://api.themoviedb.org/3/movie/now_playing?api_key=af168fc809d4fb1ad12f6b57122de08c&language=es'), true);
             if($movieArray && $movieArray['results'] && count($movieArray['results']) != 0)
             {
                 foreach($movieArray['results'] as $jsonMovie)

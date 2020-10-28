@@ -1,20 +1,18 @@
 <?php
-if(isset($_SESSION['loggedUser']))
-{
+  if(isset($_SESSION['loggedUser']))
+  {
     if ($_SESSION['loggedUser']->getRol() == 'admin'){
-    require_once(VIEWS_PATH."navAdmin.php");
+      require_once(VIEWS_PATH."navAdmin.php");
+    }
+    else{
+      require_once(VIEWS_PATH."navUser.php");
+    }
   }
-  else{
-    require_once(VIEWS_PATH."navUser.php");
+  else
+  {
+    header("location:../Home/Index");
+    exit;
   }
-}
-else
-{
-  header("location:../Home/Index");
-  exit;
-}
-
-
 ?>
 
 <div align="center" id="mainav">
@@ -38,7 +36,7 @@ else
         echo "<li>";
         echo    "<div class='card' >";
         echo        "<div ><img src='http://image.tmdb.org/t/p/w185".$movie->getImage()."'></div>";
-        echo           "<div class='title'>
+        echo           "<div class='title' style='display:block;text-overflow: ellipsis;width: 165px;overflow: hidden; white-space: nowrap'>
                           <p>".$movie->getName()."</p>
                      </div>";
         echo    "</div>";
@@ -47,7 +45,3 @@ else
         ?>
 
 </div>
-
-
-
-

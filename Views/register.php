@@ -3,7 +3,7 @@
                <div class="container">
                     <div class="grid"> 
                          <div class="form_login">
-                              <div align = 'center' class="form">                 
+                              <div class="form" align = 'center'>                 
                                    <form action="<?php echo FRONT_ROOT ?>User/register" method="POST" class="login-form bg-dark-alpha p-5 bg-light">
                                    <?php
                                         if(isset($error)){
@@ -12,18 +12,19 @@
                                         }
                                          
                                    ?>
-                                   <t1>Registrase</t1>
+                                   <h5>Bienvenido</h5>
+                                   <t1>Ingrese los datos requeridos para registrarse.</t1><br><br>
                                         <div class="form-group">
                                              <label for="">Email</label>
-                                             <input type="email" name="email" class="form-control form-control-lg" >
+                                             <input type="email" name="email" class="form-control form-control-lg" min-length="6" required>
                                         </div>
                                         <div class="form-group">
-                                             <label for="">Password</label>
-                                             <input type="password" name="password" class="form-control form-control-lg" >
+                                             <label for="">Contraseña</label>
+                                             <input type="password" name="password" class="form-control form-control-lg" required>
                                              <br>
                                         </div>
                                         <div class="btn_cont">
-                                        <button class="btn btn-primary btn-block btn-lg" type="submit">Register</button>
+                                        <button class="btn btn-primary btn-block btn-lg" type="submit">Registrarse</button>
                                         </div>
                                         
                                    </form>
