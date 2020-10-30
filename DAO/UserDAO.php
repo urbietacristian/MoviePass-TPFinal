@@ -20,12 +20,12 @@
         // array_push($this->userList,$user);    
         // $this->SaveData();
 
-        $sql = "INSERT INTO users (id_user, email, password, role) VALUES (:id_user, :email, :password, :role)";
+        $sql = "INSERT INTO users (id_user, email, password, id_role) VALUES (:id_user, :email, :password, :id_role)";
 
         $parameters['id_user'] = 0;
         $parameters['email'] = $user->getEmail();
         $parameters['password'] = $user->getPassword();
-        $parameters['role'] = 0;
+        $parameters['id_role'] = 2;
 
         try{
             $this->connection = Connection::getInstance();

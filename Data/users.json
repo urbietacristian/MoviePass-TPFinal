@@ -18,5 +18,10 @@
         "user": "sergio@utn.com",
         "pass": "sergio",
         "rol": "user"
+    },
+    {
+        "user": "pepito@utn.com",
+        "pass": null,
+        "rol": "user"
     }
 ]

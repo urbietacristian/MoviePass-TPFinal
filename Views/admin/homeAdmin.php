@@ -5,7 +5,7 @@ require_once(VIEWS_PATH."navAdmin.php");
 <div >
         <div class = "table" >    
                 <?php 
-                $cinemaController->showCinemas();     
+                //$cinemaController->showCinemas();     
                 ?>      
         </div>
 </div>

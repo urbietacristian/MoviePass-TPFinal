@@ -8,12 +8,11 @@ class Cinema
     private $address;
     private $total_capacity;
 
-    public function __construct($id, $name, $address, $total_capacity)
+    public function __construct($id, $name, $address)
     {
         $this->id = $id;
         $this->name = $name;
         $this->address = $address;
-        $this->total_capacity = $total_capacity;
         
     }
 
@@ -48,17 +47,7 @@ class Cinema
     public function setAddress($address)
     {
         $this->address = $address;
-    }
-
-    public function getTotalCapacity()
-    {
-        return $this->total_capacity;
-    }
-
-    public function setTotalCapacity($total_capacity)
-    {
-        $this->total_capacity = $total_capacity;
-    }    
+    } 
 }
 
 ?>
