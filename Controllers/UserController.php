@@ -69,14 +69,13 @@
                 if($this->checkUser($email))
                 {
                     $user = $this->userDAO->read($email);
-                    var_dump($user);
 
                     if($user->getPassword() == $password){
 
                         $_SESSION["loggedUser"] = $user;
                         
                         $message = "Login Successfully";
-                        if($user->getRol() == 0)
+                        if($user->getRol() == 2)
                         {
                             header("location:ShowMenuView");
                         }

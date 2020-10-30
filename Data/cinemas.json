@@ -1,23 +1,37 @@
 [
     {
         "id": 0,
-        "name": "Shopping Diagonal",
+        "name": "Shopping Diagonal2",
         "address": "Diagonal Pueyrredon 3450",
         "ticket_price": "200",
         "total_capacity": "300"
     },
     {
         "id": 1,
-        "name": "Los Gallegos",
-        "address": "Rivadavia 3050",
-        "ticket_price": "150",
-        "total_capacity": "200"
-    },
-    {
-        "id": 2,
         "name": "Aldrey",
         "address": "Sarmiento 2685",
         "ticket_price": "250",
-        "total_capacity": "400"
+        "total_capacity": "aaa"
+    },
+    {
+        "id": 2,
+        "name": "Cine",
+        "address": "la que vos quieras",
+        "ticket_price": "300",
+        "total_capacity": "100"
+    },
+    {
+        "id": 3,
+        "name": "Cine",
+        "address": "la que vos quieras",
+        "ticket_price": "300",
+        "total_capacity": "la que vos quieras"
+    },
+    {
+        "id": 4,
+        "name": "Cinema2",
+        "address": "la que vos quieras",
+        "ticket_price": "-50",
+        "total_capacity": "-100"
     }
 ]
