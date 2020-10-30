@@ -106,8 +106,10 @@
                         $this->cinemaDAO->Add($cinema);
                         $_SESSION['msg'] = "Cine agregado correctamente";
                     }
-                    else
+                    else{
                         $_SESSION['msg'] = "el cine ya se encuentra registrado";
+                        require_once(ADMIN_PATH."add_cinema.php");
+                    }
                     
                 }
                 catch(\PDOException $ex){
