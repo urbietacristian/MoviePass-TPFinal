@@ -91,26 +91,32 @@
             
             $name = $_POST['name'];
             $address = $_POST['address'];
-            $total_capacity = $_POST['total_capacity'];
 
-
-            try{
-                if(! $this->checkCinema($_POST['name']))
-                {
-                    $cinema = new Cinema(0,$_POST['name'] , $_POST['address'] , $_POST['total_capacity']);
-                    $this->cinemaDAO->Add($cinema);
-                    $message = "Cine agregado correctamente";
+            $name = trim($name);
+            if(empty($name))
+            {
+                $_SESSION['msg'] = 'no bro, esta bacio';
+                require_once(ADMIN_PATH."add_cinema.php");
+            }
+            else{
+                try{
+                    if(! $this->checkCinema($_POST['name']))
+                    {
+                        $cinema = new Cinema(0,$_POST['name'] , $_POST['address']);
+                        $this->cinemaDAO->Add($cinema);
+                        $_SESSION['msg'] = "Cine agregado correctamente";
+                    }
+                    else
+                        $_SESSION['msg'] = "el cine ya se encuentra registrado";
+                    
                 }
-                else
-                    $message = "el cine ya se encuentra registrado";
-                
-            }
-            catch(\PDOException $ex){
-                $message = "Exception";
-                throw $ex;
-            }
-            finally{
-                require_once(ADMIN_PATH."homeAdmin.php");
+                catch(\PDOException $ex){
+                    $message = "Exception";
+                    throw $ex;
+                }
+                finally{
+                    require_once(ADMIN_PATH."homeAdmin.php");
+                }
             }
             
         }
@@ -150,29 +156,29 @@
         }
 
 
-        public function showCinemas()
-        {
-        $cinemaList = $this->cinemaDAO->GetAll();
+        // public function showCinemas()
+        // {
+        // $cinemaList = $this->cinemaDAO->GetAll();
         
-        foreach($cinemaList as $cinema){
-        echo "<div>";
+        // foreach($cinemaList as $cinema){
+        // echo "<div>";
             
-                echo "<div>
-                        Nombre: ".$cinema->getName()."
-                        </div>
-                        "
-                        ;
-                echo "<div>                                        
-                        Direccion: ".$cinema->getAddress()."
-                        </div>";
-                echo "<div>
-                        Capacidad Maxima: ".$cinema->getTotalCapacity()."
-                        </div>";
+        //         echo "<div>
+        //                 Nombre: ".$cinema->getName()."
+        //                 </div>
+        //                 "
+        //                 ;
+        //         echo "<div>                                        
+        //                 Direccion: ".$cinema->getAddress()."
+        //                 </div>";
+        //         echo "<div>
+        //                 Capacidad Maxima: ".$cinema->getTotalCapacity()."
+        //                 </div>";
 
-            echo "</div> <br>";
-            }
+        //     echo "</div> <br>";
+        //     }
     
-         }
+        //  }
 
 
 
