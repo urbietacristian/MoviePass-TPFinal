@@ -18,6 +18,7 @@ Use Models\User as User;
 
 $cinemaController = new CinemaController();
 $cinemaDAO = new CinemaDAO();
+$cinemaList = $cinemaDAO->GetAll();
 
 if(!isset($_SESSION['loggedUser'])){
   

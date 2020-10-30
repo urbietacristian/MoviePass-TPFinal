@@ -23,28 +23,6 @@ File: Layout CSS
 
 
 
-.card{
-    width: 180px;
-    display: block;
-    border: 0.5px solid #ababab;
-    padding: 5px;
-    border-radius: 5px;
-    border-radius: 2px;
-    box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.25);
-    cursor: pointer;
-}
-
-.card .title{
-
-    margin: 5px 0;
-    display: flex;
-    align-items: left;
-    padding: 0 5px;
-}
-
-.card .title p{
-    margin: 0;
-}
 
 /* Top Bar
 --------------------------------------------------------------------------------------------------------------- */
@@ -424,10 +402,10 @@ ul#horizontal-list {
 
 
 /* Tables + Comments */
-table, th, td, #comments .avatar, #comments input, #comments textarea{border-color:#D7D7D7;}
+table, th, td, #comments .avatar, #comments input, #comments textarea{text-align:center; border: 0px;border-color:#D7D7D7;}
 #comments input:focus, #comments textarea:focus, #comments *:required:focus{border-color:#DC8E47;}
-th{color:#FFFFFF; background-color:#373737;}
-tr, #comments li, #comments input[type="submit"], #comments input[type="reset"]{color:inherit; background-color:#FBFBFB;}
+th{color:#FFFFFF; background-color:#292929;}
+tr, #comments li, #comments input[type="submit"], #comments input[type="reset"]{color:white; background-color:#292929;}
 tr:nth-child(even), #comments li:nth-child(even){color:inherit; background-color:#F7F7F7;}
 table a, #comments a{background-color:inherit;}
 
