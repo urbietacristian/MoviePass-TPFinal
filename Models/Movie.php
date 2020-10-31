@@ -10,7 +10,7 @@ class Movie
     private $name;
     private $image;
     private $duration;
-    private $genre_ids;
+    private $genre_ids=array();
     private $language;
 
     public function __construct()
@@ -31,7 +31,7 @@ class Movie
 
     public function getDuration()
     {
-        return $this->language;
+        return $this->duration;
     }
     public function setDuration($duration)
     {

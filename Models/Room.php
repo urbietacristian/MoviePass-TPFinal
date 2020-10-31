@@ -7,7 +7,17 @@ class Room
     private $name;
     private $price;
     private $capacity;
-    private $id_cine;
+    private $id_cinema;
+
+    function __construct($id,$name, $price, $capacity, $id_cinema)
+	{
+		$this->setId($id);
+        $this->setName($name);
+        $this->setPrice($price);
+        $this->setCapacity($capacity);
+        $this->setidCinema($id_cinema);
+		
+	}
 
 
 
@@ -67,15 +77,15 @@ class Room
     }
 
 
-    public function getId_cine()
+    public function getidCinema()
     {
-        return $this->id_cine;
+        return $this->id_cinema;
     }
 
 
-    public function setId_cine($id_cine)
+    public function setidCinema($id_cinema)
     {
-        $this->id_cine = $id_cine;
+        $this->id_cinema = $id_cinema;
 
         return $this;
     }

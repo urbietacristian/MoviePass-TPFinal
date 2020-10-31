@@ -10,18 +10,20 @@ require_once(VIEWS_PATH."navAdmin.php");
     <title>Document</title>
 </head>
 <body>
-    <h1>Agregar Cine</h1>
-    <form action="<?php echo FRONT_ROOT ?>Room/register"   method='post'>
-        <h1>Cine:</h1>
-        <input name='name' type="text" name="roomName" placeholder="Nombre Sala">
-        <h1>Capacidad</h1>
-        <input name='roomCapacity'type="number" name="roomCapacity" placeholder="Capacidad de la Sala">
-        <h1>Direccion</h1>
-        <input name='precio' type="number" name="price" placeholder="Precio de entrada">
+    <div align = 'center'>
+        <h1>Agregar Sala</h1>
+        <form action="<?php echo FRONT_ROOT ?>Room/register"   method='post'>
+            <input type="hidden" value="<?php echo $id_cinema; ?>" name="id_cinema"><br>
+            <h1>Sala:</h1>
+            <input name='name' type="text"><br>
+            <h1>Capacidad</h1>
+            <input name='capacity'type="number"><br>
+            <h1>Precio</h1>
+            <input type="number" name="price">
+            <br>
+            <button type="submit">Aceptar</button>
+        </form>
+    </div>
         
-
-        <button type="submit">Aceptar</button>
-    </form>
-    
 </body>
 </html>

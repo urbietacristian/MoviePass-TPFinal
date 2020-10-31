@@ -23,6 +23,46 @@
             }
         }
 
+        public function add($genre)
+        {
+            $sql = "INSERT INTO genres (id_genre, name) VALUES (:id_genre, :name)";
+
+            $parameters['id_genre'] = $genre->getId();
+            $parameters['name'] = $genre->getName();
+
+
+            
+
+            try{
+                $this->connection = Connection::getInstance();
+                $save = $this->connection->executeNonQuery($sql, $parameters);
+                return $save;
+            
+            }
+            catch(\PDOException $ex){
+                throw $ex;
+            }
+
+        }
+
+
+        public function updateGenres()
+        {
+            $genreArray = json_decode(file_get_contents('http://api.themoviedb.org/3/genre/movie/list?api_key=af168fc809d4fb1ad12f6b57122de08c&language=es'), true);
+            if($genreArray && $genreArray['genres'] && count($genreArray['genres']) != 0)
+            {
+                foreach($genreArray['genres'] as $genre)
+                {
+                    $new_genre = new Genre();
+                    $new_genre->setId($genre['id']);
+                    $new_genre->setName($genre['name']);
+                    $this->add($new_genre);
+                }
+            }
+
+
+        }
+
         public function getAllGenres()
         {
             return $this->genre_list;

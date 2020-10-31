@@ -14,11 +14,21 @@ use Controllers\CinemaController;
 use DAO\CinemaDAO;
 Use Models\User as User;
 
+use DAO\MovieDAO as MovieDAO;
+use DAO\GenreDAO as GenreDAO;
+
 
 
 $cinemaController = new CinemaController();
 $cinemaDAO = new CinemaDAO();
 $cinemaList = $cinemaDAO->GetAll();
+
+ $movieDAO = new MovieDAO();
+ $movieDAO->updateMovies();
+
+ 
+//  $genreDAO = new GenreDAO();
+//  $genreDAO->updateGenres();
 
 if(!isset($_SESSION['loggedUser'])){
   
@@ -41,6 +51,7 @@ if(!isset($_SESSION['loggedUser'])){
             <li class="active"><a href="<?php echo FRONT_ROOT; ?>Billboard/showMovies">Listar Peliculas</a></li>
             <li class="active"><a href="<?php echo FRONT_ROOT; ?>Cinema/ShowRemoveView">Editar / Eliminar Cine</a></li>
             <li class="active"><a href="<?php echo FRONT_ROOT; ?>Cinema/ShowAddView">Agregar Cine</a></li>
+            <li class="active"><a href="<?php echo FRONT_ROOT; ?>Movie/updateMovies">Actualizar Peliculas</a></li>
             <li class="active"><a href="<?php echo FRONT_ROOT; ?>User/logout">Logout</a></li>
         
     </nav> 

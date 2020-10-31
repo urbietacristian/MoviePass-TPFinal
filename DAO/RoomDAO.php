@@ -12,13 +12,13 @@ class RoomDAO{
 
     public function Add(Room $room){
 
-        $sql = "INSERT INTO rooms (id_room, name, price, capacity, id_cine) VALUES (:id_room, :name, :price, :capacity, :id_cine)";
+        $sql = "INSERT INTO rooms (id_room, name, price, capacity, id_cinema) VALUES (:id_room, :name, :price, :capacity, :id_cinema)";
 
         $parameters['id_room'] = 0;
         $parameters['name'] = $room->getName();
         $parameters['price'] = $room->getPrice();
         $parameters['capacity'] = $room->getCapacity();
-        $parameters['id_cine'] = $room->getId_cine();
+        $parameters['id_cinema'] = $room->getidCinema();
 
         try{
             $this->connection = Connection::getInstance();
@@ -39,7 +39,7 @@ class RoomDAO{
         $parameters['name'] = $room->getName();
         $parameters['price'] = $room->getPrice();
         $parameters['capacity'] = $room->getCapacity();
-        $parameters['id_cine'] = $room->getId_cine();
+        $parameters['id_cinema'] = $room->getidCinema();
 
         try{
             $this->connection = Connection::getInstance();
@@ -52,11 +52,11 @@ class RoomDAO{
     }
 
 
-    public function Remove($name){
+    public function Remove($id){
         
-        $sql = "DELETE FROM rooms WHERE name = :name";
+        $sql = "DELETE FROM rooms WHERE id_room = :id_room";
 
-        $parameters['name'] = $name;
+        $parameters['id_room'] = $id;
 
         try{
             $this->connection = Connection::getInstance();
@@ -73,10 +73,11 @@ class RoomDAO{
         $value = is_array($value) ? $value : [];
 
         $resp = array_map(function($p){
-            return new Room($p['id'],$p['name'],$p['price'],$p['capacity'], $p['id_cine']);
+            return new Room($p['id_room'],$p['name'],$p['price'],$p['capacity'], $p['id_cinema']);
         }, $value);
 
-        return count($resp) > 1 ? $resp : $resp['0'];
+
+        return count($resp) > 0 ? $resp : $resp['0'];
     }
 
 
@@ -99,7 +100,29 @@ class RoomDAO{
             return $this->map($result);
         else
             return false;
+        
+    }
 
+
+        public function readRoomsByCinema($id_cinema){
+
+        $sql = "SELECT * FROM rooms WHERE id_cinema = :id_cinema";
+
+        $parameters['id_cinema'] = $id_cinema;
+
+        try{
+            $this->connection = Connection::getInstance();
+            $result = $this->connection->execute($sql,$parameters);
+        }
+        catch(\PDOException $ex){
+            throw $ex;
+        }
+
+
+        if(!empty($result))
+            return $this->map($result);
+        else
+            return false;
         
     }
 
@@ -114,6 +137,7 @@ class RoomDAO{
         catch(\PDOException $ex){
             throw $ex;
         }
+
 
         if(!empty($result))
             return $this->map($result);

@@ -46,7 +46,7 @@
         $parameters['id_cinema'] = $Cinema->getId();
         $parameters['name'] = $Cinema->getName();
         $parameters['address'] = $Cinema->getAddress();
-        $parameters['total_capacity'] = $Cinema->getTotalCapacity();
+
 
         try{
             $this->connection = Connection::getInstance();
