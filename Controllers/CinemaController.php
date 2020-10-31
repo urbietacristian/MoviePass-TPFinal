@@ -33,6 +33,11 @@
             require_once(VIEWS_PATH."home.php");
         }
 
+        public function ShowUserHomeView($message = "")
+        {
+            require_once(USER_PATH."homeUser.php");
+        }
+
         public function ShowEditView()
         {
             if($_POST){
