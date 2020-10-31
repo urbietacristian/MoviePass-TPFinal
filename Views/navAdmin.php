@@ -23,12 +23,6 @@ $cinemaController = new CinemaController();
 $cinemaDAO = new CinemaDAO();
 $cinemaList = $cinemaDAO->GetAll();
 
- $movieDAO = new MovieDAO();
- $movieDAO->updateMovies();
-
- 
-//  $genreDAO = new GenreDAO();
-//  $genreDAO->updateGenres();
 
 if(!isset($_SESSION['loggedUser'])){
   
