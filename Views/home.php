@@ -8,6 +8,7 @@
                               <div align = 'center' class="form">                 
                                    <form action="<?php echo FRONT_ROOT ?>User/login" method="POST" class="login-form bg-dark-alpha p-5 bg-light">
                                    <?php
+                                        $_SESSION['home'] = FRONT_ROOT.'Cinema/ShowHomeView';
                                         if(isset($message)){
                                             
                                             echo "<div class='error' >".$message."</div>  ";     

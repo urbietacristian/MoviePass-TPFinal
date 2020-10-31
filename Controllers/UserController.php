@@ -36,7 +36,6 @@
 
         public function ShowAdminMenuView($message)
         {  
-            
             require_once(ADMIN_PATH."homeAdmin.php");
         }
       
@@ -75,12 +74,14 @@
                         $_SESSION["loggedUser"] = $user;
                         
                         $message = "Login Successfully";
-                        if($user->getRol() == 2)
+                        if($user->getRol() == 2) //Cuando es user entra aca
                         {
+                            $_SESSION['home'] = FRONT_ROOT.'Billboard/showMovies';
                             header("location:ShowMenuView");
                         }
-                        else if ($user->getRol() == 1)
+                        else if ($user->getRol() == 1) //Cuando es admin entra aca
                         {
+                            $_SESSION['home'] = FRONT_ROOT.'Cinema/ShowAdminHomeView';
                             $this->ShowAdminMenuView($message);
                         }   
                     }

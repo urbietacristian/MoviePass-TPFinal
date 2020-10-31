@@ -3,7 +3,7 @@
       <h6 class="heading">MoviePass</h6> 
       <nav>
         <ul class="nospace inline pushright uppercase">
-          <a href="<?php echo FRONT_ROOT; ?>Cinema/ShowHomeView">Home</a>
+          <a href="<?php echo $_SESSION['home']; ?>">Home</a>
         </ul>
       </nav>
     </div>
