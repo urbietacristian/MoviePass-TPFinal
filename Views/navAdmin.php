@@ -23,6 +23,7 @@ $cinemaController = new CinemaController();
 $cinemaDAO = new CinemaDAO();
 $cinemaList = $cinemaDAO->GetAll();
 
+
 if(!isset($_SESSION['loggedUser'])){
   
     if ($user->getRol() != 'admin'){
