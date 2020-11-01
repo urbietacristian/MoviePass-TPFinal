@@ -9,9 +9,9 @@ require_once(VIEWS_PATH."navAdmin.php");
                 <tr>
                     <th>Nombre</th>
                     <th>Direccion</th>
+                    <th>Capacidad</th>
                     <th></th>
                     <th></th>
-                    <th>Ver Salas</th>
                 </tr>
             </thead>
 
@@ -23,34 +23,29 @@ require_once(VIEWS_PATH."navAdmin.php");
                     <td><?php echo $room->getName()?></td>
                     <td><?php echo $room->getPrice()?></td>
                     <td><?php echo $room->getCapacity()?></td>
-                    <td><form  action="<?php echo FRONT_ROOT; echo "Room/ShowEditView?"; echo $room->getId()?>" method="POST">
-                                <input type="hidden" value="<?php echo $room->getId(); ?>" name="id">
-                                <button  type="submit" class="image">
+                    <td>
+                        <form  action="<?php echo FRONT_ROOT; echo "Room/ShowEditView?"; echo $room->getId()?>" method="POST">
+                            <input type="hidden" value="<?php echo $room->getId(); ?>" name="id">
+                            <button  type="submit" class="image">
                                 <img src="<?php echo IMG_PATH."edit.png"; ?>">
-                                </button>
+                            </button>
                         </form>
                     </td>
-                    <td >
+                    <td>
                         <form action="<?php echo FRONT_ROOT; echo "Room/removeRoom";?>" method="POST">
-                                    <input type="hidden" value="<?php echo $room->getId(); ?>" name="id">
-                                    <input type="hidden" value="<?php echo $id_cinema; ?>" name="id_cinema">
-                                    <button type="submit" class="image">
-                                    <img src="<?php echo IMG_PATH."remove.png"; ?>">
-                                    </button>
+                            <input type="hidden" value="<?php echo $room->getId(); ?>" name="id">
+                            <input type="hidden" value="<?php echo $id_cinema; ?>" name="id_cinema">
+                            <button type="submit" class="image">
+                                <img src="<?php echo IMG_PATH."remove.png"; ?>">
+                            </button>
                         </form>
-
                     </td>
-                    
-                    <td></td>
-                    <td><a href="<?php echo FRONT_ROOT; echo "Room/ShowRoomView?"; echo $room->getId(); ?>">Lista de Salas</a></td>
-
-
                 </tr>
             <?php }?>
-
             </tbody>
         </table>
-        <br><br><a href="<?php echo FRONT_ROOT; echo "Room/ShowAddView/"; echo $id_cinema; ?>">Agregar Sala</a>
+        <br>
+        <a href="<?php echo FRONT_ROOT; echo "Room/ShowAddView/"; echo $id_cinema; ?>">Agregar Sala</a>
     </div>
 </div>
 </main>
