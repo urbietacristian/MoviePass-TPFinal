@@ -28,10 +28,6 @@ class MovieShowController
             $cinemaList =  $cinemaDAO->GetAll();
             $movieDAO = new MovieDAO();
             $movie = $movieDAO->read($id_movie);
-
-            $movieshowList = $this->movieShowDAO->GetAll();
-            foreach($movieshowList as $movieshow)
-            var_dump($movieshow->getSchedule());
             require_once(ADMIN_PATH."add_movieshow_1.php");
         }
 

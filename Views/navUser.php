@@ -20,7 +20,7 @@ if(!isset($_SESSION['loggedUser'])){
       <!-- Add path routes below -->
       
       <nav id="mainav" class="fl_right">
-        <li class="active"><a href="<?php echo FRONT_ROOT; ?>Billboard/showMovies">Lista de Peliculas</a></li>
+        <li class="active"><a href="<?php echo FRONT_ROOT; ?>Movie/showActiveMovies">Lista de Peliculas</a></li>
         <li class="active"><a href="<?php echo FRONT_ROOT; ?>User/logout">Logout</a></li>
     </nav> 
     </header>

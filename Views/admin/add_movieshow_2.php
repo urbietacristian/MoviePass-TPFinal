@@ -26,7 +26,7 @@ require_once(VIEWS_PATH."navAdmin.php");
                 <?php
                 foreach($roomList as $room){
                 ?>
-                <option value = "<?php echo $room->getId();?>"><?php echo $room->getName();?> <?php echo $room->getId();?></option>
+                <option value = "<?php echo $room->getId();?>"><?php echo $room->getName();?></option>
                 <?php
                 }
                 ?>
