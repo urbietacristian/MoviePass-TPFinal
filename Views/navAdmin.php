@@ -25,12 +25,16 @@ $cinemaList = $cinemaDAO->GetAll();
 
 
 if(!isset($_SESSION['loggedUser'])){
-  
-    if ($user->getRol() != 'admin'){
+  header("location:../Home/Index");
+  exit;  
+  }
+  else{ 
+    $user = $_SESSION['loggedUser'];
+    if ($user->getRol() != 1){
       header("location:../Home/Index");
       exit;
-    }
   }
+}
 
 ?>
   <div class="wrapper row1">
