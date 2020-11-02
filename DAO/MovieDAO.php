@@ -17,15 +17,16 @@
             {
                 foreach($movieArray['results'] as $jsonMovie)
                 {
-                    $new_movie = new Movie();
-                    $new_movie->setIdApi($jsonMovie['id']);
-                    $new_movie->setDescription($jsonMovie['overview']);
-                    $new_movie->setName($jsonMovie['title']);
-                    $new_movie->setImage($jsonMovie['poster_path']);
-                    $new_movie->setGenreIds($jsonMovie['genre_ids']);
-                    $new_movie->setLanguage($jsonMovie['original_language']);
                     $details = json_decode(file_get_contents("http://api.themoviedb.org/3/movie/". $jsonMovie['id'] ."?api_key=af168fc809d4fb1ad12f6b57122de08c"),true);
-                    $new_movie->setDuration($details['runtime']);
+                    $new_movie = new Movie(
+                    ($jsonMovie['id']),
+                    ($jsonMovie['overview']),
+                    ($jsonMovie['title']),
+                    ($details['runtime']),
+                    ($jsonMovie['genre_ids']),
+                    ($jsonMovie['poster_path']),
+                    ($jsonMovie['original_language'])
+                    );
                     array_push($this->movie_list, $new_movie);
                 }
             }
@@ -39,21 +40,60 @@
             {   
                 foreach($movieArray['results'] as $jsonMovie)
                 {
-                    $new_movie = new Movie();
-                    $new_movie->setIdApi($jsonMovie['id']);
-                    $new_movie->setDescription($jsonMovie['overview']);
-                    $new_movie->setName($jsonMovie['title']);
-                    $new_movie->setImage($jsonMovie['poster_path']);
-                    $new_movie->setGenreIds($jsonMovie['genre_ids']);
-                    $new_movie->setLanguage($jsonMovie['original_language']);
                     $details = json_decode(file_get_contents("http://api.themoviedb.org/3/movie/". $jsonMovie['id'] ."?api_key=af168fc809d4fb1ad12f6b57122de08c"),true);
-                    $new_movie->setDuration($details['runtime']);
+                    $new_movie = new Movie(
+                    ($jsonMovie['id']),
+                    ($jsonMovie['overview']),
+                    ($jsonMovie['title']),
+                    ($details['runtime']),
+                    ($jsonMovie['genre_ids']),
+                    ($jsonMovie['poster_path']),
+                    ($jsonMovie['original_language'])
+                    );
                     $this->add($new_movie);
                 }
             }
-
-
         }
+
+        public function getAllMovies(){ 
+            $sql = "SELECT * FROM  movies";
+
+
+            try{
+                $this->connection = Connection::getInstance();
+                $result = $this->connection->execute($sql);
+            }
+            catch(\PDOException $ex){
+                throw $ex;
+            }
+
+            if(!empty($result))
+                return $this->map($result);
+            else
+                return false;
+        }
+
+        public function getMoviesByGenre($id_genre){ 
+            $sql = "SELECT id_api FROM  movies inner join moviesxgenres on id_genre = :id_genre
+            group by movies.id_api";
+
+            $parameters['id_genre'] = $id_genre;
+
+
+            try{
+                $this->connection = Connection::getInstance();
+                $result = $this->connection->execute($sql, $parameters);
+            }
+            catch(\PDOException $ex){
+                throw $ex;
+            }
+
+            if(!empty($result))
+                return $this->map($result);
+            else
+                return false;
+        }
+
 
 
         public function add($movie)
@@ -81,10 +121,12 @@
 
         }
 
-        
+
+
+
     public function read($id_movie){
 
-        $sql = "SELECT * FROM cinemas WHERE id_api = :id_api";
+        $sql = "SELECT * FROM movies WHERE id_api = :id_api";
 
         $parameters['id_api'] = $id_movie;
 
@@ -103,23 +145,51 @@
 
     }
 
+
+    public function getGenresByMovie($id_movie)
+    {
+        $sql = "SELECT id_genre FROM moviesxgenres WHERE id_movie = :id_movie";
+
+        $parameters['id_movie'] = $id_movie;
+
+        try{
+            $this->connection = Connection::getInstance();
+            $result = $this->connection->execute($sql,$parameters);
+        }
+        catch(\PDOException $ex){
+            throw $ex;
+        }
+
+        if(!empty($result))
+            return $this->getIdGenres($result);
+        else
+            return false;
+
+    }
+
+    protected function getIdGenres($value){
+
+        $value = is_array($value) ? $value : [];
+
+        $resp = array_map(function($p){
+            return $p['id_genre'];
+        }, $value);
+
+        return $resp;
+    }
+
+
     protected function map($value){
 
         $value = is_array($value) ? $value : [];
 
         $resp = array_map(function($p){
-            return new Movie($p['id_api'],$p['name'],$p['image'],$p['duration'], $p['genre_ids'], $p['language']);
+            return new Movie($p['id_api'],$p['description'], $p['name'],$p['duration'], $this->getGenresByMovie($p['id_api']),$p['image'], $p['language']);
         }, $value);
 
         return count($resp) > 1 ? $resp : $resp['0'];
     }
 
-
-
-        public function getAllMovies()
-        {
-            return $this->movie_list;
-        }
         
     }
 ?>

@@ -21,17 +21,22 @@
 <div id="mainav">
     <?php 
     
-    foreach($movie_list as $movie){
+    foreach($movie_list as $movie){ 
+      ?>
                     
-        //echo "<li><img  src='http://image.tmdb.org/t/p/w300".$movie->getImage()."'><p>".$movie->getName()."</p></li>";
-        echo "<li>";
-        echo    "<div class='card'>";
-        echo        "<div ><img src='http://image.tmdb.org/t/p/w185".$movie->getImage()."'></div>";
-        echo           "<div class='title' style='display:block;text-overflow: ellipsis;width: 165px;overflow: hidden; white-space: nowrap'>
-                          <p>".$movie->getName()."</p>
-                     </div>";
-        echo    "</div>";
-        echo "</li>";
+       <li>
+        
+        <div class='card'>
+        <a href='<?php echo FRONT_ROOT; ?>Movie/ShowMovieDetail/<?php echo $movie->getIdApi()?>'>
+           <div ><img src='http://image.tmdb.org/t/p/w300<?php echo $movie->getImage()?>'></div>
+              <div class='title' style='display:block;text-overflow: ellipsis;width: 165px;overflow: hidden; white-space: nowrap'>
+                  <p><?php echo $movie->getName()?></p>
+              </div>
+            </a>
+        </div>
+        
+        </li>
+        <?php
         }
         ?>
 

@@ -1,7 +1,7 @@
 <?php
     namespace Controllers;
 
-    use Controllers\BillboardController;
+    use Controllers\MovieController;
     use DAO\UserDAO as UserDAO;
     Use Models\User as User;
 
@@ -36,7 +36,8 @@
 
         public function ShowAdminMenuView($message)
         {  
-            require_once(ADMIN_PATH."homeAdmin.php");
+            $movie = new MovieController();
+            $movie->ShowMovies();
         }
       
         public function ShowAdminRegisterView()

@@ -21,6 +21,13 @@
         //     require_once(USER_PATH."billboard.php");
         // }
 
+
+        public function ShowMovieDetail($id_movie)
+        {
+            $movie = $this->movieDAO->read($id_movie);
+            require_once(ADMIN_PATH."detail_movie.php");
+        }
+
         public function showMovies($id = "")
         {
             
@@ -28,9 +35,8 @@
                 $movie_list = $this->getMoviesByGenre($id);
             }
             else{
-                $movie_list = $this->movieDAO->GetAllMovies();
+                $movie_list = $this->movieDAO->getAllMovies();
             }
-            
 
             $genre_list = $this->getActiveGenres();
 

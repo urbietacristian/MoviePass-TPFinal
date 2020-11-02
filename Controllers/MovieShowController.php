@@ -1,10 +1,13 @@
 <?php
     namespace Controllers;
     use DAO\CinemaDAO as CinemaDAO;
+    use DAO\MovieDAO as MovieDAO;
+    use Controllers\MovieController as MovieController;
     use DAO\MovieShowDAO;
-    Use Models\Cinema as Cinema;
-use Models\MovieShow;
-use PDOException;
+use DAO\RoomDAO as RoomDAO;
+Use Models\Cinema as Cinema;
+    use Models\MovieShow;
+    use PDOException;
 
 class MovieShowController
     {
@@ -15,10 +18,68 @@ class MovieShowController
             $this->movieShowDAO = new MovieShowDAO();
         }
 
-        public function ShowAdminHomeView($message = "")
+        public function ShowAddFunctionCinema($id_movie)
         {
-            require_once(ADMIN_PATH."homeAdmin.php");
+            $cinemaDAO = new CinemaDAO();
+            $cinemaList =  $cinemaDAO->GetAll();
+            $movieDAO = new MovieDAO();
+            $movie = $movieDAO->read($id_movie);
+            require_once(ADMIN_PATH."add_movieshow_1.php");
         }
+
+        public function ShowAddFunctionCinema2($id_movie)
+        {
+
+            if($_POST)
+            {
+                $id_cinema = $_POST['id_cinema'];
+                $date = $_POST['date'];
+                $flag = $this->movieShowDAO->verifyMovieOnCinema($id_cinema, $id_movie, $date);
+                if($flag)
+                {
+                    $roomDAO = new RoomDAO();
+                    $roomList = $roomDAO->readRoomsByCinema($id_cinema);
+                    $movieDAO = new MovieDAO();
+                    $movie = $movieDAO->read($id_movie);
+                    require_once(ADMIN_PATH."add_movieshow_2.php");
+                }
+                else
+                {
+                    $_SESSION['msg'] = "Ya existe una funcion de la pelicula en otro cine este dia";
+                    require_once(ADMIN_PATH."add_movieshow_1.php");
+                }
+            }
+        }
+
+        public function ShowAddFunctionCinemaEnd($id_movie)
+        {
+
+
+            if($_POST)
+            {
+                $id_cinema = $_POST['id_cinema'];
+                $date = $_POST['date'];
+                $id_room = $_POST['id_room'];
+                $time = $_POST['time'];
+                $flag2 = $this->verifyDate($id_room, $date, $time, $id_movie);
+                if($flag2)
+                {
+                    $_SESSION['msg'] = "Funcion agregada correctamente";
+                    $movieController = new MovieController();
+                    $movieController->ShowMovieDetail($id_movie);
+                }
+                else
+                {
+                    $_SESSION['msg'] = "Ya existe una funcion en ese horario";
+                    require_once(ADMIN_PATH."add_movieshow_2.php");
+                }
+            }
+        }
+
+
+
+
+    
 
         public function ShowRemoveView($message = "")
         {
@@ -173,39 +234,6 @@ class MovieShowController
             
         }
 
-        public function removeCinema(){
-            
-            if($_POST){
-                
-                $name = $_POST["name"];
-                $this->cinemaDAO->Remove($name);
-                $this->ShowRemoveView("Eliminado con exito");
-            }
-
-
-        }
-
-        public function checkCinema($name)
-        {
-            $cinema = $this->cinemaDAO->read($name);
-
-            if($cinema)
-                return true;
-            else
-                false;
-            
-        }
-
-
-        public function editCinema(){
-
-            if($_POST){
-                $id = $_POST["id"];
-                $Cinema = new Cinema(intval($id) , $_POST["name"] , $_POST["address"] ,$_POST["total_capacity"]);
-                $this->cinemaDAO->Edit($Cinema);
-                $this->ShowAdminHomeView();
-            }   
-        }
 
 
 }

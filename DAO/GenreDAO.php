@@ -62,11 +62,26 @@
 
 
         }
+        public function getAllGenres(){ 
+            $sql = "SELECT * FROM  genres";
 
-        public function getAllGenres()
-        {
-            return $this->genre_list;
+
+            try{
+                $this->connection = Connection::getInstance();
+                $result = $this->connection->execute($sql);
+            }
+            catch(\PDOException $ex){
+                throw $ex;
+            }
+
+            if(!empty($result))
+                return $this->map($result);
+            else
+                return false;
         }
+
+
+
 
         public function getNameById($id)
         {
@@ -89,5 +104,17 @@
                 }
             }
         }
+
+        
+    protected function map($value){
+
+        $value = is_array($value) ? $value : [];
+
+        $resp = array_map(function($p){
+            return new Genre($p['id_genre'],$p['name']);
+        }, $value);
+
+        return count($resp) > 1 ? $resp : $resp['0'];
+    }
     }
 ?>
