@@ -137,12 +137,12 @@ class MovieShowController
                 $_SESSION['Error']="Error al validar horario";
             }
 
-            $datetime=date_create($time); 
+            $newStartTime=date_create($time); 
 
             $movie_duration = $movie->getDuration();
 
-            $finishedMovieTime = date_create($time);
-            date_add($finishedMovieTime,date_interval_create_from_date_string($movie_duration." minutes"));
+            $newEndTime = date_create($time);
+            date_add($newEndTime,date_interval_create_from_date_string($movie_duration." minutes"));
             if($movieshowList == null)
             {
                 return true;
@@ -153,14 +153,14 @@ class MovieShowController
                 {
                     if($movieshow->getidRoom() == $id_room & $movieshow->getDate() == $date)
                     {
-                        $schedule = date_create($movieshow->getSchedule());
+                        $startTime = date_create($movieshow->getstartTime());
                         $movieshowFilm = $this->MovieDao->read($movieshow->getidMovie());
-                        $finishTime = date_create($movieshow->getSchedule());
+                        $endTime = date_create($movieshow->getstartTime());
                         $duration = $movieshowFilm->getDuration() + 15;
-                        date_add($finishTime,date_interval_create_from_date_string($duration." minutes"));
-                        date_format($finishTime,"G:i");
+                        date_add($endTime,date_interval_create_from_date_string($duration." minutes"));
+                        date_format($endTime,"G:i");
 
-                        if(($datetime > $schedule && $datetime <$finishTime) | ($finishedMovieTime > $schedule && $finishedMovieTime < $finishTime))  //verifica q le pelicula no se pise con otras funciones
+                        if(($newStartTime > $startTime && $newStartTime <$endTime) | ($newEndTime > $startTime && $newEndTime < $endTime))  //verifica q le pelicula no se pise con otras funciones
 					    {
 					    	return false;
 				    	}

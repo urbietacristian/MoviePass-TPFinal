@@ -91,7 +91,7 @@
         
     public function verifyMovieOnCinema($id_cinema,$id_movie,$date){
 
-        $sql='SELECT * FROM movieshow inner join rooms on rooms.id_cinema = :id_cinema WHERE movieshow.day= :date AND movieshow.id_movie=:id_movie';
+        $sql='SELECT * FROM movieshow inner join rooms on rooms.id_cinema != :id_cinema WHERE movieshow.day= :date AND movieshow.id_movie=:id_movie';
 
         $parameters['id_cinema'] = $id_cinema;
         $parameters['id_movie'] = $id_movie;
@@ -105,10 +105,10 @@
             throw $ex;
         }
 
-        if(!empty($result))
-            return true;
-        else
+        if(empty($result))
             return false;
+        else
+            return true;
    
     }
 

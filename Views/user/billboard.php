@@ -1,7 +1,7 @@
 <?php
   if(isset($_SESSION['loggedUser']))
   {
-    if ($_SESSION['loggedUser']->getRol() == 'admin'){
+    if ($_SESSION['loggedUser']->getRol() == 1){
       require_once(VIEWS_PATH."navAdmin.php");
     }
     else{
