@@ -7,8 +7,18 @@ class MovieShow
 	private $id_room;
 	private $id_movie;
 	private $schedule;
-    private $date; 
+	private $date; 
+	
 
+public function __construct($id_movieshow, $id_room, $id_movie, $date, $schedule)
+    {
+        $this->id_movieshow = $id_movieshow;
+		$this->id_room = $id_room;
+		$this->id_movie = $id_movie;
+		$this->schedule = $schedule;
+		$this->date = $date;
+        
+    }
 
     
     public function getSchedule()

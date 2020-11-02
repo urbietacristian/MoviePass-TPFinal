@@ -12,7 +12,7 @@
 
 
        
-        $sql = "INSERT INTO movieshow (id_movieshow, id_room, id_movie, schedule, date) VALUES (:id_movieshow, :id_room, :id_movie, :schedule, :date)";
+        $sql = "INSERT INTO movieshow (id_movieshow, id_room, id_movie, time, day) VALUES (:id_movieshow, :id_room, :id_movie, :schedule, :date)";
 
         $parameters['id_movieshow'] = 0;
         $parameters['id_room'] = $movieShow->getidRoom();
@@ -58,7 +58,7 @@
         $value = is_array($value) ? $value : [];
 
         $resp = array_map(function($p){
-            return new MovieShow($p['id_cinemashow'],$p['id_room'],$p['id_movie'],$p['day'], $p['time']);
+            return new MovieShow($p['id_movieshow'],$p['id_room'],$p['id_movie'],$p['day'], $p['time']);
         }, $value);
 
         return count($resp) > 1 ? $resp : $resp['0'];
@@ -94,7 +94,7 @@
         
     public function verifyMovieOnCinema($id_cinema,$id_movie,$date){
 
-        $sql='SELECT * FROM movieshow inner join rooms on rooms.id_cinema != :id_cinema WHERE movieshow.day= :date AND movieshow.id_movie=:id_movie';
+        $sql='SELECT * FROM movieshow inner join rooms on rooms.id_cinema != :id_cinema WHERE rooms.id_room = movieshow.id_room AND movieshow.day= :date AND movieshow.id_movie=:id_movie';
 
         $parameters['id_cinema'] = $id_cinema;
         $parameters['id_movie'] = $id_movie;
