@@ -61,11 +61,13 @@ class MovieShowController
                 $date = $_POST['date'];
                 $id_room = $_POST['id_room'];
                 $time = $_POST['time'];
+                $_POST['id_movie'] = $id_movie;
                 $flag2 = $this->verifyDate($id_room, $date, $time, $id_movie);
                 if($flag2)
                 {
                     $_SESSION['msg'] = "Funcion agregada correctamente";
                     $movieController = new MovieController();
+                    $this->register();
                     $movieController->ShowMovieDetail($id_movie);
                 }
                 else
@@ -155,7 +157,7 @@ class MovieShowController
             $id_cinema = $_POST['id_cinema'];
             $id_room = $_POST['id_room'];
             $id_movie = $_POST['id_movie'];
-            $schedule = $_POST['schedule'];
+            $schedule = $_POST['time'];
             $date = $_POST['date'];
 
 
