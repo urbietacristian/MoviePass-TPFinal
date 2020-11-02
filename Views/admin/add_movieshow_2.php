@@ -35,7 +35,9 @@ require_once(VIEWS_PATH."navAdmin.php");
             <h1>Horario</h1>
             <br>
             <input type="time" name="time" min="09:00" max="23:00" required>
-            <br><br><br>            
+            <br><br><br>
+            <input type="hidden" value="<?php $id_cinema?>">            
+            <input type="hidden" value="<?php $date?>">
 
             <button type="submit">Aceptar</button>
         </form>
