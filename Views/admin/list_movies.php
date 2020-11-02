@@ -1,27 +1,18 @@
 <?php
-  if(isset($_SESSION['loggedUser']))
-  {
-    if ($_SESSION['loggedUser']->getRol() == 1){
-      require_once(VIEWS_PATH."navAdmin.php");
-    }
-    else{
-      require_once(VIEWS_PATH."navUser.php");
-    }
-  }
-  else
-  {
-    header("location:../Home/Index");
-    exit;
-  }
+    require_once(VIEWS_PATH."navAdmin.php");
 ?>
 
 <div align="center" id="mainav">
+  <li>
+    <a href="<?php echo FRONT_ROOT; ?>Movie/showMovies/">Todas las Películas</a>
+  </li>
     <?php 
     
     foreach($genre_list as $value){ 
     ?>
-      <li><a href="<?php echo FRONT_ROOT; ?>Billboard/showMovies/<?php echo $value->getId()?>"><?php echo $value->getName()?></a></li>
-    
+      <li>
+        <a href="<?php echo FRONT_ROOT; ?>Movie/showMovies/<?php echo $value->getId()?>"><?php echo $value->getName()?></a>
+      </li>    
     <?php } ?>
 
 </div>
@@ -34,7 +25,7 @@
                     
         //echo "<li><img  src='http://image.tmdb.org/t/p/w300".$movie->getImage()."'><p>".$movie->getName()."</p></li>";
         echo "<li>";
-        echo    "<div class='card' >";
+        echo    "<div class='card'>";
         echo        "<div ><img src='http://image.tmdb.org/t/p/w185".$movie->getImage()."'></div>";
         echo           "<div class='title' style='display:block;text-overflow: ellipsis;width: 165px;overflow: hidden; white-space: nowrap'>
                           <p>".$movie->getName()."</p>

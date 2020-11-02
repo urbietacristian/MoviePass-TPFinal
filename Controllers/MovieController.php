@@ -34,7 +34,7 @@
 
             $genre_list = $this->getActiveGenres();
 
-            require_once(USER_PATH."billboard.php");
+            require_once(ADMIN_PATH."list_movies.php");
         }
 
         public function getMoviesByGenre($id)

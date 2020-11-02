@@ -21,6 +21,31 @@ File: Layout CSS
 .row4, .row4 a{}
 .row5, .row5 a{}
 
+/* Cards
+--------------------------------------------------------------------------------------------------------------- */
+.card{
+    width: 180px;
+    display: block;
+    border: 0.5px solid #ababab;
+    padding: 10px;
+    border-radius: 5px;
+    border-radius: 2px;
+    box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
+}
+
+.card .title{
+
+    margin: 5px 0;
+    display: flex;
+    align-items: left;
+    padding: 0 5px;
+}
+
+.card .title p{
+    margin: 0;
+}
+
 
 
 

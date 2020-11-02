@@ -41,10 +41,10 @@ if(!isset($_SESSION['loggedUser'])){
       <!-- Add path routes below -->
       
       <nav id="mainav" class="fl_right">
-        <li class="active"><a href="<?php echo FRONT_ROOT; ?>Billboard/showMovies">Listar Peliculas</a></li>
+        <li class="active"><a href="<?php echo FRONT_ROOT; ?>Movie/showMovies">Listar Peliculas</a></li>
         <li class="active"><a href="<?php echo FRONT_ROOT; ?>Cinema/ShowRemoveView">Listar Cines</a></li>
         <!--<li class="active"><a href="<?php echo FRONT_ROOT; ?>Cinema/ShowAddView">Agregar Cine</a></li>-->
-        <li class="active"><a href="<?php echo FRONT_ROOT; ?>Movie/updateMovies">Actualizar Peliculas</a></li>
+        <li class="active"><a href="<?php echo FRONT_ROOT; ?>Movie/updateMovies">Actualizar Peliculas(falta codearlo)</a></li>
         <li class="active"><a href="<?php echo FRONT_ROOT; ?>User/logout">Logout</a></li>        
       </nav> 
     </header>

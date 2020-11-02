@@ -15,7 +15,7 @@
 
         public function ShowAdminHomeView($message = "")
         {
-            require_once(ADMIN_PATH."homeAdmin.php");
+            require_once(ADMIN_PATH."list_movies.php");
         }
 
         public function ShowRemoveView($message = "")
