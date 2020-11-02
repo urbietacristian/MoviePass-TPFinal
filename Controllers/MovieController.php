@@ -43,10 +43,43 @@
             require_once(ADMIN_PATH."list_movies.php");
         }
 
+        public function showActiveMovies($id = ""){
+            
+            if(!($id == "")){
+                $movie_list = $this->getActiveMoviesByGenre($id);
+            }
+            else{
+                $movie_list = $this->movieDAO->getMoviesOnFunctions();
+            }
+            $this->genreDAO = new GenreDAO();
+
+            $genre_list = $this->genreDAO->getAllGenres();
+
+           
+
+            require_once(USER_PATH."homeUser.php");
+        }
+
         public function getMoviesByGenre($id)
         {
             $genre_movie_list = array();
             $movie_list = $this->movieDAO->getAllMovies();
+
+            foreach($movie_list as $movie)
+            {
+                if(in_array($id, $movie->getGenreIds()))
+                {
+                    array_push($genre_movie_list, $movie);
+                }
+            }
+
+            return $genre_movie_list;
+        }
+
+        public function getActiveMoviesByGenre($id)
+        {
+            $genre_movie_list = array();
+            $movie_list = $this->movieDAO->getMoviesOnFunctions();
 
             foreach($movie_list as $movie)
             {

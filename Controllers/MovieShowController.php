@@ -84,8 +84,8 @@ class MovieShowController
                 {
                     $movieController = new MovieController();
                     $this->register($id_movie,$id_cinema,$date,$id_room, $time);
-                   // header("location: ".FRONT_ROOT."Movie/ShowMovieDetail/$id_movie");
-                   $movieController->ShowMovieDetail($id_movie);
+                    header("location: ".FRONT_ROOT."Movie/ShowMovieDetail/$id_movie");
+                   
                 }
                 else
                 {

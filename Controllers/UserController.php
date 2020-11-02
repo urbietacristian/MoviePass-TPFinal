@@ -16,14 +16,7 @@
             $this->userDAO = new UserDAO();
         }
 
-        public function ShowMenuView()
-        {
-            $billboard = new BillboardController();
-            $billboard->ShowMovies();
-            require_once(USER_PATH."billboard.php");
 
-
-        }
         public function ShowMainView($message)
         {
             require_once(VIEWS_PATH."home.php");
@@ -77,8 +70,8 @@
                         $message = "Login Successfully";
                         if($user->getRol() == 2) //Cuando es user entra aca
                         {
-                            $_SESSION['home'] = FRONT_ROOT.'Billboard/showMovies';
-                            header("location:ShowMenuView");
+                            $_SESSION['home'] = FRONT_ROOT.'Movie/showMovies';
+                            header("location: ".FRONT_ROOT."Movie/ShowActiveMovies");
                         }
                         else if ($user->getRol() == 1) //Cuando es admin entra aca
                         {

@@ -73,8 +73,27 @@
                 return false;
         }
 
-        public function getMoviesByGenre($id_genre){ 
-            $sql = "SELECT id_api FROM  movies inner join moviesxgenres on id_genre = :id_genre
+        public function getMoviesOnFunctions(){ 
+            $sql = "select movies.*  from movieshow inner join movies on  movieshow.id_movie = movies.id_api group by movies.id_api";
+            
+
+
+            try{
+                $this->connection = Connection::getInstance();
+                $result = $this->connection->execute($sql);
+            }
+            catch(\PDOException $ex){
+                throw $ex;
+            }
+
+            if(!empty($result))
+                return $this->map($result);
+            else
+                return false;
+        }
+
+        public function getMoviesByDate(){ 
+            $sql = "SELECT id_api FROM  movies inner join movieshow on id_genre = :id_genre
             group by movies.id_api";
 
             $parameters['id_genre'] = $id_genre;

@@ -15,9 +15,7 @@
             {
                 foreach($genreArray['genres'] as $genre)
                 {
-                    $new_genre = new Genre();
-                    $new_genre->setId($genre['id']);
-                    $new_genre->setName($genre['name']);
+                    $new_genre = new Genre($genre['id'], $genre['name'] );
                     array_push($this->genre_list, $new_genre);
                 }
             }
