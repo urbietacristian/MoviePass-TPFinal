@@ -88,6 +88,9 @@
     }
 
 
+
+
+
         
     public function verifyMovieOnCinema($id_cinema,$id_movie,$date){
 
@@ -105,7 +108,7 @@
             throw $ex;
         }
 
-        if(empty($result))
+        if(!empty($result))
             return false;
         else
             return true;

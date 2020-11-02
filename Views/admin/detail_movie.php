@@ -10,7 +10,7 @@ require_once(VIEWS_PATH."navAdmin.php");
 <p>Idioma: <?php echo $movie->getLanguage()?></p>
 <p>Duracion: <?php echo $movie->getDuration()?> minutos</p>
 
-<a href="<?php echo FRONT_ROOT; ?>MovieShow/ShowAddFunctionCinema">Agregar Funcion</a>
+<a href="<?php echo FRONT_ROOT; ?>MovieShow/ShowAddFunctionCinema/<?php echo $movie->getIdApi()?>">Agregar Funcion</a>
 
 
 </section>

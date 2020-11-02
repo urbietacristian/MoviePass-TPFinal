@@ -65,7 +65,6 @@ class MovieShowController
                 $flag2 = $this->verifyDate($id_room, $date, $time, $id_movie);
                 if($flag2)
                 {
-                    $_SESSION['msg'] = "Funcion agregada correctamente";
                     $movieController = new MovieController();
                     $this->register();
                     $movieController->ShowMovieDetail($id_movie);
@@ -188,21 +187,38 @@ class MovieShowController
         
         }
 
+
+
+        public function getMovieById($id_movie)
+        {
+            $movieDAO = new MovieDAO();
+            $movieList = $movieDAO->getAllMovies();
+
+            foreach($movieList as $movie)
+            {
+                if($movie->getIdApi() == $id_movie)
+                {
+                    return $movie;
+                }
+            }
+            return false;
+        }
+
         public function verifyDate($id_room, $date, $time, $id_movie){
 
             try
             {
                 $movieshowList= $this->movieShowDAO->GetAll();
-                $movie=$this->MovieDao->read($id_movie);
             }
             catch(PDOException $ex)
             {
                 $_SESSION['Error']="Error al validar horario";
             }
+            $movie= $this->getMovieById($id_movie);
 
             $newStartTime=date_create($time); 
 
-            $movie_duration = $movie->getDuration();
+            $movie_duration = $movie->getDuartion();
 
             $newEndTime = date_create($time);
             date_add($newEndTime,date_interval_create_from_date_string($movie_duration." minutes"));

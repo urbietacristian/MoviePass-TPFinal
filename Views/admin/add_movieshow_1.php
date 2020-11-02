@@ -18,7 +18,7 @@ require_once(VIEWS_PATH."navAdmin.php");
             $_SESSION['msg'] = null;
         }
         ?>
-        <h1>Agregar Función para <?php echo $movie?>  </h1>
+        <h1>Agregar Función para <?php echo $movie->getName()?>  </h1>
         <form action="<?php echo FRONT_ROOT ?>MovieShow/ShowAddFunctionCinema2/<?php echo $id_movie ?>" method='post' >
             <h1>Cine:</h1>
             <br>
