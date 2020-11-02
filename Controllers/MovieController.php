@@ -5,7 +5,7 @@
     use Models\Movie as Movie;
     use Models\Genre as Genre;
 
-    class BillboardController
+    class MovieController
     {
         private $movieDAO;
         private $genreDAO;
