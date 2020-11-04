@@ -51,7 +51,6 @@
             else{
                 $movie_list = $this->movieDAO->getMoviesOnFunctions();
             }
-            $this->genreDAO = new GenreDAO();
 
             $genre_list = $this->genreDAO->getAllGenres();
 
@@ -115,7 +114,6 @@
                 }
                 
             }
-            //echo var_dump($active_genres);
             return $active_genres;
         }
     }

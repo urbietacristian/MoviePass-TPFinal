@@ -4,30 +4,32 @@
     use DAO\MovieDAO as MovieDAO;
     use Controllers\MovieController as MovieController;
     use DAO\MovieShowDAO;
-use DAO\RoomDAO as RoomDAO;
-use DateTime;
-Use Models\Cinema as Cinema;
+    use DAO\RoomDAO as RoomDAO;
+    use DateTime;
+    Use Models\Cinema as Cinema;
     use Models\MovieShow;
+    use Models\Room;
     use PDOException;
 
 class MovieShowController
     {
         private $movieShowDAO;
         private $movieDAO;
+        private $cinemaDAO;
+        private $roomDAO;
         
         
         public function __construct(){
             $this->movieShowDAO = new MovieShowDAO();
             $this->movieDAO = new MovieDAO();
-        }
+            $this->cinemaDAO = new CinemaDAO;
+            $this->roomDAO = new RoomDAO;        }
 
         public function ShowAddFunctionCinema($id_movie)
         {
             $id_movie = $id_movie;
-            $cinemaDAO = new CinemaDAO();
-            $cinemaList =  $cinemaDAO->GetAll();
-            $movieDAO = new MovieDAO();
-            $movie = $movieDAO->read($id_movie);
+            $cinemaList =  $this->cinemaDAO->GetAll();
+            $movie = $this->movieDAO->read($id_movie);
             require_once(ADMIN_PATH."add_movieshow_1.php");
         }
 
@@ -43,18 +45,14 @@ class MovieShowController
                 $flag = $this->movieShowDAO->verifyMovieOnCinema($id_cinema, $id_movie, $date);
                 if($flag)
                 {
-                    $roomDAO = new RoomDAO();
-                    $roomList = $roomDAO->readRoomsByCinema($id_cinema);
-                    $movieDAO = new MovieDAO();
-                    $movie = $movieDAO->read($id_movie);
+                    $roomList = $this->roomDAO->readRoomsByCinema($id_cinema);
+                    $movie = $this->movieDAO->read($id_movie);
                     require_once(ADMIN_PATH."add_movieshow_2.php");
                 }
                 else
                 {
-                    $roomDAO = new RoomDAO();
-                    $roomList = $roomDAO->readRoomsByCinema($id_cinema);
-                    $movieDAO = new MovieDAO();   
-                    $movie = $movieDAO->read($id_movie);
+                    $roomList = $this->roomDAO->readRoomsByCinema($id_cinema);
+                    $movie = $this->movieDAO->read($id_movie);
                     $_SESSION['msg'] = "Ya existe una funcion de la pelicula en otro cine este dia";
                     require_once(ADMIN_PATH."add_movieshow_1.php");
                 }
@@ -85,10 +83,8 @@ class MovieShowController
                 }
                 else
                 {
-                    $roomDAO = new RoomDAO();
-                    $roomList = $roomDAO->readRoomsByCinema($id_cinema);
-                    $movieDAO = new MovieDAO();
-                    $movie = $movieDAO->read($id_movie);
+                    $roomList = $this->roomDAO->readRoomsByCinema($id_cinema);
+                    $movie = $this->movieDAO->read($id_movie);
                     $_SESSION['msg'] = "Ya existe una funcion en ese horario";
                     require_once(ADMIN_PATH."add_movieshow_2.php");
                 }
@@ -132,47 +128,12 @@ class MovieShowController
             require_once(VIEWS_PATH."auxi.php");
         }
 
-        
-        // public function register(){
-            
-            
-        //     $name = $_POST['name'];
-        //     $address = $_POST['address'];
-        //     $ticket_price = $_POST['ticket_price'];
-        //     $total_capacity = $_POST['total_capacity'];
 
-        //     $id = sizeof($this->cinemaDAO->GetAll());
-
-        //     $newCinema = new Cinema();
-            
-        //     $newCinema->setId($id);
-        //     $newCinema->setName($name);
-        //     $newCinema->setAddress($address);
-        //     $newCinema->setTicketPrice($ticket_price);
-        //     $newCinema->setTotalCapacity($total_capacity);
-            
-
-
-        //     $newCinemaRepository = new CinemaDAO();
-        //     $valid = $newCinemaRepository->Add($newCinema);
-        
-        //     if ($valid === 0){
-        //         $message = "Cinema name already in use, try another";
-        //         echo '<script language="javascript">alert("Cinema Name In Use");</script>';
-        //     }else{
-        //         $message = "Cinema added successfully";
-        //         echo '<script language="javascript">alert("Your Cinema Has Been Registered Successfully");</script>';
-        //     }
-        //     $this->ShowAdminHomeView($message);
-        
-        // }
 
 
         
         public function register($id_movie,$id_cinema,$date, $id_room, $schedule){
-            
-    
-
+        
             $flag = $this->movieShowDAO->verifyMovieOnCinema($id_cinema , $id_movie , $date);
 
                 if($flag == true)
@@ -203,8 +164,7 @@ class MovieShowController
 
         public function getMovieById($id_movie)
         {
-            $movieDAO = new MovieDAO();
-            $movieList = $movieDAO->getAllMovies();
+            $movieList = $this->movieDAO->getAllMovies();
 
             foreach($movieList as $movie)
             {
