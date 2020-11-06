@@ -44,7 +44,7 @@
         $name = trim($name);
         if(empty($name))
         {
-            $_SESSION['msg'] = 'no bro, esta bacio';
+            $_SESSION['msg'] = 'El nombre de la sala de cine no puede estar vacio. Por favor intente nuevamente';
             require_once(ADMIN_PATH."add_room.php");
         }
         else{

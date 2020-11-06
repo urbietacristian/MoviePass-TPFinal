@@ -59,8 +59,6 @@ class Connection{
                 $this->pdoStatement = $this->pdo->prepare($query);
 
                 foreach($parameters as $parameterName => $value){
-                    
-
                     $this->pdoStatement->bindParam(":".$parameterName, $parameters[$parameterName]);
                 }
                 $this->pdoStatement->execute();

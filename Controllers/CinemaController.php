@@ -13,7 +13,7 @@
         private $validateSession;
         
         public function __construct(){
-            $this->cinema = new CinemaDAO();
+            $this->cinemaDAO = new CinemaDAO();
             $this->movieshowDAO = new MovieShowDAO();
         }
 
@@ -44,14 +44,13 @@
 
         public function ShowEditView()
         {
-            if($_POST){
+            if($_POST)
+            {
                 $id = $_POST['id'];
                 $cinemaList = $this->cinemaDAO->GetAll();
                 $Cinema = $this->cinemaDAO->returnCinemaById($id);
                 require_once(ADMIN_PATH."edit_cinema.php");
-
             }
-            
         }
 
         public function registerCinema($message = "")
@@ -71,9 +70,14 @@
             $address = $_POST['address'];
 
             $name = trim($name);
+            $address = trim($address);
             if(empty($name))
             {
-                $_SESSION['msg'] = 'no bro, esta bacio';
+                $_SESSION['msg'] = 'No se pueden colocar espacios vacios en el Nombre del cine. Por favor intente nuevamente';
+                require_once(ADMIN_PATH."add_cinema.php");
+            }else if(empty($address))
+            {
+                $_SESSION['msg'] = 'No se pueden colocar espacios vacios en la Direccion del cine. Por favor intente nuevamente';
                 require_once(ADMIN_PATH."add_cinema.php");
             }
             else{
@@ -85,7 +89,7 @@
                         $_SESSION['msg'] = "Cine agregado correctamente";
                     }
                     else{
-                        $_SESSION['msg'] = "el cine ya se encuentra registrado";
+                        $_SESSION['msg'] = "El cine que intenta añadir ya existe en el sistema. Por favor intente nuevamente";
                         require_once(ADMIN_PATH."add_cinema.php");
                     }
                     
@@ -134,9 +138,20 @@
 
             $this->validateSession = ValidationController::getInstance();
             $this->validateSession->validateAdmin();
-            if($_POST){
+            $name = $_POST["name"];
+            $address = $_POST["address"];
+
+            if(empty($name))
+            {
+                $_SESSION['msg'] = 'No se pueden colocar espacios vacios en el Nombre del cine. Por favor intente nuevamente';
+                require_once(ADMIN_PATH."edit_cinema.php");
+            }else if(empty($address))
+            {
+                $_SESSION['msg'] = 'No se pueden colocar espacios vacios en la Direccion del cine. Por favor intente nuevamente';
+                require_once(ADMIN_PATH."edit_cinema.php");
+            }else if($_POST){
                 $id = $_POST["id"];
-                $Cinema = new Cinema(intval($id) , $_POST["name"] , $_POST["address"] ,$_POST["total_capacity"]);
+                $Cinema = new Cinema(intval($id) , $name , $address);
                 $this->cinemaDAO->Edit($Cinema);
                 $this->ShowAdminHomeView();
             }   

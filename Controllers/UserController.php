@@ -75,7 +75,7 @@
                         }
                         else if ($user->getRol() == 1) //Cuando es admin entra aca
                         {
-                            $_SESSION['home'] = FRONT_ROOT.'Cinema/ShowAdminHomeView';
+                            $_SESSION['home'] = FRONT_ROOT.'Movie/showMovies';
                             $this->ShowAdminMenuView($message);
                         }   
                     }

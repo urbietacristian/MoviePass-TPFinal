@@ -23,7 +23,7 @@ require_once(VIEWS_PATH."navAdmin.php");
                     <td><?php echo $cinema->getName()?></td>
                     <td><?php echo $cinema->getAddress()?></td>
                     <td>
-                        <form  action="<?php echo FRONT_ROOT; echo "Cinema/ShowEditView?"; echo $cinema->getName()?>" method="POST">
+                        <form  action="<?php echo FRONT_ROOT; echo "Cinema/ShowEditView?"; echo $cinema->getId()?>" method="POST">
                             <input type="hidden" value="<?php echo $cinema->getId(); ?>" name="id">
                             <button  type="submit" class="image">
                                 <img src="<?php echo IMG_PATH."edit.png"; ?>">
@@ -31,7 +31,7 @@ require_once(VIEWS_PATH."navAdmin.php");
                         </form>
                     </td>
                     <td >
-                        <form action="<?php echo FRONT_ROOT; echo "Cinema/Remove/"$cinema->getIdApi();?>" method="POST">
+                        <form action="<?php echo FRONT_ROOT; echo "Cinema/Remove/"; $cinema->getId();?>" method="POST">
                             <input type="hidden" value="<?php echo $cinema->getName(); ?>" name="name">
                             <button type="submit" class="image">
                                 <img src="<?php echo IMG_PATH."remove.png"; ?>">
