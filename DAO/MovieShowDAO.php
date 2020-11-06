@@ -61,6 +61,39 @@
             return false;
     }
 
+    
+    /**
+     * Comprueba si la sala mandada por parametro tiene alguna movieshow
+     * @param int id_room id de la sala a verificar
+     * @return true si encontro alguna funcion en la sala
+     * @return false si no encontro alguna funcion en la sala 
+     */
+    
+    public function checkMovieShowByRoom($id_room){
+        
+        
+        $sql = "select movieshow.* from movieshow inner join rooms on movieshow.id_room = :id_room";
+
+        $parameters['id_room'] = $id_room;
+        
+
+        try{
+            $this->connection = Connection::getInstance();
+            return $this->connection->execute($sql, $parameters);
+        
+        }
+        catch(\PDOException $ex){
+            throw $ex;
+        }
+
+        if(!empty($result)) 
+            return true;
+        else
+            return false;
+    }
+
+
+
 
 
 
@@ -84,7 +117,38 @@
         
     }
 
-    public function devolverFuncionesXidPelicula($dato){
+ 
+
+
+
+
+    public function getDisplayableMovieShowByMovie($id_movie){
+
+        $sql =" select movieshow.*,  rooms.name as room_name, rooms.price, rooms.capacity,  cinemas.name as cinema_name  from movieshow
+        inner join rooms on rooms.id_room = movieshow.id_room 
+        inner join cinemas on cinemas.id_cinema = rooms.id_cinema  
+        where movieshow.id_movie = :id_movie ";
+
+        $parameters['id_movie'] = $id_movie;
+
+        try{
+            $this->connection = Connection::getInstance();
+            return $this->connection->execute($sql, $parameters);
+        }
+        catch(\PDOException $ex){
+            throw $ex;
+        }
+
+        if(!empty($result))
+        {
+            $result = is_array($result) ? $result : [];
+            
+            return count($result) > 1 ? $result : $result['0'];
+        }
+
+        else
+            return false;
+
 
         
     }

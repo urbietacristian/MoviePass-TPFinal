@@ -4,9 +4,11 @@
     use DAO\GenreDAO as GenreDAO;
     use Models\Movie as Movie;
     use Models\Genre as Genre;
+    use Controllers\ValidationController as ValidationController;
 
     class MovieController
     {
+        private $validateSession;
         private $movieDAO;
         private $genreDAO;
 
@@ -14,6 +16,7 @@
         {
             $this->movieDAO = new MovieDAO();
             $this->genreDAO = new GenreDAO();
+            $this->validateSession = ValidationController::getInstance();
         }
 
         // public function showBillboardView($message = "")

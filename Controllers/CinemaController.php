@@ -10,6 +10,7 @@
     {
         private $cinemaDAO;
         private $movieshowDAO;
+        private $validateSession;
         
         public function __construct(){
             $this->cinema = new CinemaDAO();
@@ -63,7 +64,9 @@
 
         
         public function register(){
-            
+
+            $this->validateSession = ValidationController::getInstance();
+            $this->validateSession->validateAdmin();
             $name = $_POST['name'];
             $address = $_POST['address'];
 
@@ -100,7 +103,9 @@
 
         public function removeCinema($id_cinema){
             
-            if($this->movieshowDAO->checkMovieShowByCinema($id_cinema))
+            $this->validateSession = ValidationController::getInstance();
+            $this->validateSession->validateAdmin();
+            if(!($this->movieshowDAO->checkMovieShowByCinema($id_cinema)))
             {
                 if($_POST){
                     
@@ -127,6 +132,8 @@
 
         public function editCinema(){
 
+            $this->validateSession = ValidationController::getInstance();
+            $this->validateSession->validateAdmin();
             if($_POST){
                 $id = $_POST["id"];
                 $Cinema = new Cinema(intval($id) , $_POST["name"] , $_POST["address"] ,$_POST["total_capacity"]);

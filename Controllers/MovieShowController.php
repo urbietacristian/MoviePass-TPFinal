@@ -17,16 +17,21 @@ class MovieShowController
         private $movieDAO;
         private $cinemaDAO;
         private $roomDAO;
+        private $validateSession;
         
         
         public function __construct(){
             $this->movieShowDAO = new MovieShowDAO();
             $this->movieDAO = new MovieDAO();
             $this->cinemaDAO = new CinemaDAO;
-            $this->roomDAO = new RoomDAO;        }
+            $this->roomDAO = new RoomDAO;        
+            
+        }
 
         public function ShowAddFunctionCinema($id_movie)
         {
+            $this->validateSession = ValidationController::getInstance();
+            $this->validateSession->validateAdmin();   
             $id_movie = $id_movie;
             $cinemaList =  $this->cinemaDAO->GetAll();
             $movie = $this->movieDAO->read($id_movie);
@@ -35,8 +40,8 @@ class MovieShowController
 
         public function ShowAddFunctionCinema2($id_movie)
         {
-            
-
+            $this->validateSession = ValidationController::getInstance();
+            $this->validateSession->validateAdmin();
             if($_POST)
             {
                 $id_movie = $_POST['id_movie'];
@@ -61,7 +66,8 @@ class MovieShowController
 
         public function ShowAddFunctionCinemaEnd($id_movie)
         {
-
+            $this->validateSession = ValidationController::getInstance();
+            $this->validateSession->validateAdmin();
 
             if($_POST)
             {
@@ -123,6 +129,18 @@ class MovieShowController
             
         }
 
+
+        public function ShowFunctionsByMovie($id_movie)
+        {
+            $displayList = $this->movieShowDAO->getDisplayableMovieShowByMovie($id_movie);
+            $movie = $this->movieDAO->read($id_movie);
+
+            require_once(USER_PATH."buy_movie.php");
+            
+
+
+        }
+
         public function registerCinema($message = "")
         {
             require_once(VIEWS_PATH."auxi.php");
@@ -131,9 +149,16 @@ class MovieShowController
 
 
 
+
+
+
+
+
         
         public function register($id_movie,$id_cinema,$date, $id_room, $schedule){
         
+            $this->validateSession = ValidationController::getInstance();
+            $this->validateSession->validateAdmin();
             $flag = $this->movieShowDAO->verifyMovieOnCinema($id_cinema , $id_movie , $date);
 
                 if($flag == true)

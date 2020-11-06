@@ -8,6 +8,7 @@
     {
         private $movie_list = array();
         private $moviesxgenresDAO;
+        private $connection; 
 
         public function __construct()
         {

@@ -1,5 +1,7 @@
 <?php
     namespace Controllers;
+
+    use DAO\MovieShowDAO as MovieShowDAO;
     use DAO\RoomDAO as RoomDAO;
     Use Models\Room as Room;
 
@@ -8,9 +10,12 @@
     class RoomController
     {
         private $roomDAO;
+        private $movieshowDAO;
+        private $validateSession;
 
         public function __construct(){
             $this->roomDAO = new RoomDAO();
+            $this->movieshowDAO = new MovieShowDAO;
         }
 
         public function ShowRoomsByCinemaView($id_cinema)
@@ -28,6 +33,8 @@
         
     public function register(){
             
+        $this->validateSession = ValidationController::getInstance();
+        $this->validateSession->validateAdmin();
         $name = $_POST['name'];
         $capacity = $_POST['capacity'];
         $price = $_POST['price'];
@@ -66,14 +73,20 @@
     }
 
     
-    public function removeRoom(){
-            
-        if($_POST){
-            
-            $id = $_POST["id"];
-            $id_cinema = $_POST['id_cinema'];
-            $this->roomDAO->Remove($id);
-            header('Location:'.FRONT_ROOT."Room/ShowRoomsByCinemaView/$id_cinema");
+    public function removeRoom($id_room){
+        
+        
+        $this->validateSession = ValidationController::getInstance();
+        $this->validateSession->validateAdmin();
+        if(!($this->movieshowDAO->checkMovieShowByRoom($id_room)))
+        {
+            if($_POST){
+                
+                $id = $_POST["id"];
+                $id_cinema = $_POST['id_cinema'];
+                $this->roomDAO->Remove($id);
+                header('Location:'.FRONT_ROOT."Room/ShowRoomsByCinemaView/$id_cinema");
+            }
         }
 
 
