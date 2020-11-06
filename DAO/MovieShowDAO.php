@@ -31,6 +31,41 @@
     }
 
 
+    /**
+     * Comprueba si el cine mandado por parametro tiene alguna movieshow
+     * @param int id_cinema id del cine a verificar
+     * @return true si encontro alguna funcion en el cine
+     * @return false si no encontro alguna funcion en el cine 
+     */
+    
+    public function checkMovieShowByCinema($id_cinema){
+        
+        
+        $sql = "select movieshow.* from movieshow inner join rooms on movieshow.id_room = rooms.id_room and rooms.id_cinema = :id_cinema";
+
+        $parameters['id_cinema'] = $id_cinema;
+        
+
+        try{
+            $this->connection = Connection::getInstance();
+            return $this->connection->execute($sql, $parameters);
+        
+        }
+        catch(\PDOException $ex){
+            throw $ex;
+        }
+
+        if(!empty($result)) 
+            return true;
+        else
+            return false;
+    }
+
+
+
+
+
+
     
     public function Remove($id_movie, $id_room){
         
@@ -46,6 +81,7 @@
         catch(\PDOException $ex){
             throw $ex;
         }
+        
     }
 
     public function devolverFuncionesXidPelicula($dato){

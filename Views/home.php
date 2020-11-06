@@ -29,11 +29,12 @@
                                         </div>
                                         
                                    </form>
-                                   <a href="<?php echo FRONT_ROOT ?>User/ShowRegisterView" class="login-form bg-dark-alpha p-5 bg-light">
                                    <div class="btn_cont">
-                                        <br><button class="btn btn-primary btn-block btn-lg" >Register</button>
+                                        <a href="<?php echo FRONT_ROOT ?>User/ShowRegisterView" class="login-form bg-dark-alpha p-5 bg-light">
+                                             <br><button class="btn btn-primary btn-block btn-lg" >Register</button>
+                                        </a>
                                    </div>
-                                   </a>
+                                   
                               </div>
                          </div>
                     </div>

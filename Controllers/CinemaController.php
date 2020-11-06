@@ -1,6 +1,7 @@
 <?php
     namespace Controllers;
     use DAO\CinemaDAO as CinemaDAO;
+    use DAO\MovieShowDAO as MovieShowDAO;
     Use Models\Cinema as Cinema;
 
     
@@ -8,9 +9,11 @@
     class CinemaController
     {
         private $cinemaDAO;
+        private $movieshowDAO;
         
         public function __construct(){
             $this->cinema = new CinemaDAO();
+            $this->movieshowDAO = new MovieShowDAO();
         }
 
         public function ShowAdminHomeView($message = "")
@@ -95,13 +98,16 @@
             
         }
 
-        public function removeCinema(){
+        public function removeCinema($id_cinema){
             
-            if($_POST){
-                
-                $name = $_POST["name"];
-                $this->cinemaDAO->Remove($name);
-                $this->ShowRemoveView("Eliminado con exito");
+            if($this->movieshowDAO->checkMovieShowByCinema($id_cinema))
+            {
+                if($_POST){
+                    
+                    $name = $_POST["name"];
+                    $this->cinemaDAO->Remove($name);
+                    $this->ShowRemoveView("Eliminado con exito");
+                }
             }
 
 
