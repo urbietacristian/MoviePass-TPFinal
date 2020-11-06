@@ -24,6 +24,11 @@
 
         public function ShowRemoveView($message = "")
         {
+            if(isset($_SESSION['msg']))
+            {
+                echo '<script language="javascript">alert("'.$_SESSION['msg'].'");</script>';
+                $_SESSION['msg'] = null;
+            }
             require_once(ADMIN_PATH."list_cinema.php");
         }
 
@@ -141,19 +146,22 @@
             $name = $_POST["name"];
             $address = $_POST["address"];
 
+            $name = trim($name);
+            $address = trim($address);
+
             if(empty($name))
             {
                 $_SESSION['msg'] = 'No se pueden colocar espacios vacios en el Nombre del cine. Por favor intente nuevamente';
-                require_once(ADMIN_PATH."edit_cinema.php");
+                $this->ShowEditView();
             }else if(empty($address))
             {
                 $_SESSION['msg'] = 'No se pueden colocar espacios vacios en la Direccion del cine. Por favor intente nuevamente';
-                require_once(ADMIN_PATH."edit_cinema.php");
+                $this->ShowEditView();
             }else if($_POST){
                 $id = $_POST["id"];
                 $Cinema = new Cinema(intval($id) , $name , $address);
                 $this->cinemaDAO->Edit($Cinema);
-                $this->ShowAdminHomeView();
+                $this->ShowRemoveView();
             }   
         }
 

@@ -27,7 +27,7 @@ require_once(VIEWS_PATH."navAdmin.php");
         <input name='name' value="<?php echo $Cinema->getName();?>" type="text" name="cinemaName" placeholder="Nombre del Cine" required>
         <br><br>
         <h1>Direccion</h1>
-        <input name='address' value="<?php echo $Cinema->getAddress();?>" type="text" name="cinemaAdress" placeholder="Precio del Cine"required>
+        <input name='address' value="<?php echo $Cinema->getAddress();?>" type="text" name="cinemaAdress" placeholder="Direccion del Cine"required>
         <br>
 
         <button type="submit">Aceptar</button>

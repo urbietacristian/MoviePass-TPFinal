@@ -28,6 +28,17 @@
         {
             require_once(ADMIN_PATH."add_room.php");
         }
+
+        public function ShowEditView()
+        {
+            if($_POST)
+            {
+                $id = $_POST['idRoom'];
+                $roomList = $this->roomDAO->GetAll();
+                $room = $this->roomDAO->returnRoomById($id);
+                require_once(ADMIN_PATH."edit_room.php");
+            }
+        }
     
 
         
@@ -72,6 +83,31 @@
         
     }
 
+    public function editRoom(){
+        $this->validateSession = ValidationController::getInstance();
+        $this->validateSession->validateAdmin();
+        $name = $_POST["roomName"];
+        $price = $_POST["roomPrice"];
+        $capacity = $_POST["roomCapacity"];
+
+
+        $name = trim($name);
+
+        if(empty($name))
+        {
+            $_SESSION['msg'] = 'No se pueden colocar espacios vacios en el Nombre de la sala. Por favor intente nuevamente';
+            $this->ShowEditView();
+        }
+        
+        else if($_POST){
+            $id = $_POST["idRoom"];
+            $idCinema = $_POST["idCinema"];
+            $Room = new Room(intval($id) , $name , $price, $capacity, intval($idCinema));
+            $this->roomDAO->Edit($Room);
+            $this->ShowRoomsByCinemaView($idCinema);
+        }
+        
+    }
     
     public function removeRoom($id_room){
         

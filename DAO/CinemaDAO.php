@@ -23,7 +23,7 @@
     
     public function Add(Cinema $Cinema){
        
-        $sql = "INSERT INTO cinemas (id_cinema, name, address, total_capacity) VALUES (:id_cinema, :name, :address, :total_capacity)";
+        $sql = "INSERT INTO cinemas (id_cinema, name, address) VALUES (:id_cinema, :name, :address)";
 
         $parameters['id_cinema'] = 0;
         $parameters['name'] = $Cinema->getName();
@@ -41,7 +41,7 @@
 
 
     public function Edit(Cinema $Cinema){
-        $sql = "UPDATE cinemas SET name = :name, address = :address, total_capacity = :total_capacity WHERE id_cinema = :id_cinema";
+        $sql = "UPDATE cinemas SET name = :name, address = :address WHERE id_cinema = :id_cinema";
 
         $parameters['id_cinema'] = $Cinema->getId();
         $parameters['name'] = $Cinema->getName();
@@ -119,7 +119,7 @@
         $value = is_array($value) ? $value : [];
 
         $resp = array_map(function($p){
-            return new Cinema($p['id_cinema'],$p['name'],$p['address'],$p['total_capacity']);
+            return new Cinema($p['id_cinema'],$p['name'],$p['address']);
         }, $value);
 
         return count($resp) > 0 ? $resp : $resp['0'];

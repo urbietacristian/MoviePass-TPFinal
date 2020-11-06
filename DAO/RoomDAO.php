@@ -103,6 +103,19 @@ class RoomDAO{
         
     }
 
+    public function returnRoomById($id){
+
+        $RoomList= $this->GetAll();
+        foreach ($RoomList as $room){
+            if ($room->getId() == $id){
+                return $room;
+            }
+        }
+        return false;
+        
+    }
+
+
 
         public function readRoomsByCinema($id_cinema){
 

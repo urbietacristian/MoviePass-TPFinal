@@ -25,7 +25,7 @@ require_once(VIEWS_PATH."navAdmin.php");
                     <td><?php echo $room->getCapacity()?></td>
                     <td>
                         <form  action="<?php echo FRONT_ROOT; echo "Room/ShowEditView?"; echo $room->getId()?>" method="POST">
-                            <input type="hidden" value="<?php echo $room->getId(); ?>" name="id">
+                            <input type="hidden" value="<?php echo $room->getId(); ?>" name="idRoom">
                             <button  type="submit" class="image">
                                 <img src="<?php echo IMG_PATH."edit.png"; ?>">
                             </button>

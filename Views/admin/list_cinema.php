@@ -31,7 +31,7 @@ require_once(VIEWS_PATH."navAdmin.php");
                         </form>
                     </td>
                     <td >
-                        <form action="<?php echo FRONT_ROOT; echo "Cinema/Remove/"; $cinema->getId();?>" method="POST">
+                        <form action="<?php echo FRONT_ROOT; echo "Cinema/removeCinema/"; $cinema->getId();?>" method="POST">
                             <input type="hidden" value="<?php echo $cinema->getName(); ?>" name="name">
                             <button type="submit" class="image">
                                 <img src="<?php echo IMG_PATH."remove.png"; ?>">
