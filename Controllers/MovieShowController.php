@@ -97,7 +97,10 @@ class MovieShowController
 
 
 
-
+        public function BuyMovie($id_movie, $id_cinema, $id_room)
+        {
+            
+        }
     
 
         public function ShowRemoveView($message = "")
