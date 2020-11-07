@@ -2,6 +2,7 @@
     namespace Controllers;
     use DAO\CinemaDAO as CinemaDAO;
     use DAO\MovieShowDAO as MovieShowDAO;
+    use DAO\RoomDAO as RoomDAO;
     Use Models\Cinema as Cinema;
 
     
@@ -10,11 +11,13 @@
     {
         private $cinemaDAO;
         private $movieshowDAO;
+        private $roomDAO;
         private $validateSession;
         
         public function __construct(){
             $this->cinemaDAO = new CinemaDAO();
             $this->movieshowDAO = new MovieShowDAO();
+            $this->roomDAO = new RoomDAO();
         }
 
         public function ShowAdminHomeView($message = "")
@@ -46,6 +49,7 @@
         {
             require_once(USER_PATH."homeUser.php");
         }
+
 
         public function ShowEditView()
         {
@@ -114,15 +118,24 @@
             
             $this->validateSession = ValidationController::getInstance();
             $this->validateSession->validateAdmin();
-            if(!($this->movieshowDAO->checkMovieShowByCinema($id_cinema)))
+            var_dump($id_cinema);
+            if($this->movieshowDAO->checkMovieShowByCinema($id_cinema) == false)
             {
+                
                 if($_POST){
                     
                     $name = $_POST["name"];
                     $this->cinemaDAO->Remove($name);
-                    $this->ShowRemoveView("Eliminado con exito");
+                    $_SESSION['msg'] = "Eliminado con exito";
+                    $this->ShowRemoveView();
                 }
             }
+            else
+            {
+                $_SESSION['msg'] = "No es posible eliminar, hay funciones en este cine";
+                $this->ShowRemoveView();
+            }
+
 
 
         }

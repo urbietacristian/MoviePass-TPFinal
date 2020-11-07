@@ -16,7 +16,6 @@
         {
             $this->movieDAO = new MovieDAO();
             $this->genreDAO = new GenreDAO();
-            $this->validateSession = ValidationController::getInstance();
         }
 
         // public function showBillboardView($message = "")
@@ -44,6 +43,18 @@
             $genre_list = $this->getActiveGenres();
 
             require_once(ADMIN_PATH."list_movies.php");
+        }
+
+        public function ShowMovieShowByCinema($id_cinema)
+        {
+            $movieList = $this->movieShowDAO->getMovieByCinema($id_cinema);
+
+            if($movieList)
+            {   
+
+                require_once(USER_PATH."movie_list.php");
+            }
+            
         }
 
         public function showActiveMovies($id = ""){

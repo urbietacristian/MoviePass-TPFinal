@@ -93,26 +93,26 @@
                 return false;
         }
 
-        public function getMoviesByDate(){ 
-            $sql = "SELECT id_api FROM  movies inner join movieshow on id_genre = :id_genre
-            group by movies.id_api";
+        // public function getMoviesByDate(){ 
+        //     $sql = "SELECT id_api FROM  movies inner join movieshow on id_genre = :id_genre
+        //     group by movies.id_api";
 
-            $parameters['id_genre'] = $id_genre;
+        //     $parameters['id_genre'] = $id_genre;
 
 
-            try{
-                $this->connection = Connection::getInstance();
-                $result = $this->connection->execute($sql, $parameters);
-            }
-            catch(\PDOException $ex){
-                throw $ex;
-            }
+        //     try{
+        //         $this->connection = Connection::getInstance();
+        //         $result = $this->connection->execute($sql, $parameters);
+        //     }
+        //     catch(\PDOException $ex){
+        //         throw $ex;
+        //     }
 
-            if(!empty($result))
-                return $this->map($result);
-            else
-                return false;
-        }
+        //     if(!empty($result))
+        //         return $this->map($result);
+        //     else
+        //         return false;
+        // }
 
 
 
@@ -165,6 +165,27 @@
 
     }
 
+    public function getMoviesByCinema($id_cinema)
+    {
+        $sql = "select movies.* from movies inner join movieshow on  movieshow.id_movie = movies.id_api inner join rooms on movieshow.id_room = rooms.id_room AND rooms.id_cinema = :id_cinema group by movies.id_api ";
+
+        $parameters['id_cinema'] = $id_cinema;
+
+        try{
+            $this->connection = Connection::getInstance();
+            $result = $this->connection->execute($sql,$parameters);
+        }
+        catch(\PDOException $ex){
+            throw $ex;
+        }
+
+        if(!empty($result))
+            return $this->getIdGenres($result);
+        else
+            return false;
+
+    }
+
 
     public function getGenresByMovie($id_movie)
     {
@@ -186,6 +207,8 @@
             return false;
 
     }
+
+
 
     protected function getIdGenres($value){
 

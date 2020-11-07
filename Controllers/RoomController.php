@@ -114,19 +114,27 @@
         
         $this->validateSession = ValidationController::getInstance();
         $this->validateSession->validateAdmin();
-        if(!($this->movieshowDAO->checkMovieShowByRoom($id_room)))
-        {
+        
+        
             if($_POST){
-                
                 $id = $_POST["id"];
                 $id_cinema = $_POST['id_cinema'];
-                $this->roomDAO->Remove($id);
+
+                if(!($this->movieshowDAO->checkMovieShowByRoom($id_room)))
+                {
+                    $this->roomDAO->Remove($id);
+                    header('Location:'.FRONT_ROOT."Room/ShowRoomsByCinemaView/$id_cinema");
+                }
+                else
+                {
+                $_SESSION['msg'] = "No es posible eliminar, hay funciones en esta sala";
                 header('Location:'.FRONT_ROOT."Room/ShowRoomsByCinemaView/$id_cinema");
+                }       
             }
         }
 
 
-    }
+    
 
 
     public function checkRoom($id_cinema,$name)
