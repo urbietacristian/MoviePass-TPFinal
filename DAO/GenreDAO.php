@@ -1,8 +1,7 @@
 <?php
-    namespace DAO;
-
-    
+    namespace DAO;    
     use Models\Genre as Genre;
+
 
     class GenreDAO
     {
@@ -26,23 +25,20 @@
             $sql = "INSERT INTO genres (id_genre, name) VALUES (:id_genre, :name)";
 
             $parameters['id_genre'] = $genre->getId();
-            $parameters['name'] = $genre->getName();
+            $parameters['name'] = $genre->getName();            
 
-
-            
-
-            try{
+            try
+            {
                 $this->connection = Connection::getInstance();
                 $save = $this->connection->executeNonQuery($sql, $parameters);
                 return $save;
             
             }
-            catch(\PDOException $ex){
+            catch(\PDOException $ex)
+            {
                 throw $ex;
             }
-
         }
-
 
         public function updateGenres()
         {
@@ -55,18 +51,19 @@
                     $this->add($new_genre);
                 }
             }
-
-
         }
-        public function getAllGenres(){ 
+
+        public function getAllGenres()
+        { 
             $sql = "SELECT * FROM  genres";
 
-
-            try{
+            try
+            {
                 $this->connection = Connection::getInstance();
                 $result = $this->connection->execute($sql);
             }
-            catch(\PDOException $ex){
+            catch(\PDOException $ex)
+            {
                 throw $ex;
             }
 
@@ -75,9 +72,6 @@
             else
                 return false;
         }
-
-
-
 
         public function getNameById($id)
         {
@@ -100,17 +94,16 @@
                 }
             }
         }
-
         
-    protected function map($value){
+        protected function map($value)
+        {
+            $value = is_array($value) ? $value : [];
 
-        $value = is_array($value) ? $value : [];
+            $resp = array_map(function($p){
+                return new Genre($p['id_genre'],$p['name']);
+            }, $value);
 
-        $resp = array_map(function($p){
-            return new Genre($p['id_genre'],$p['name']);
-        }, $value);
-
-        return count($resp) > 1 ? $resp : $resp['0'];
-    }
+            return count($resp) > 1 ? $resp : $resp['0'];
+        }
     }
 ?>

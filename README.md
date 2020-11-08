@@ -4,4 +4,4 @@
 Sus integrantes son:
 	- Miguel Rovedo, Matias Ezequiel
 	- Chiappa, Lucio
-	- Urbieta Caseres, Cristian Andres
+	- Urbieta Cáceres, Cristian Andres

@@ -13,10 +13,8 @@
             return self::$instance;
         }
 
-
         public function validateAdmin()
-        {
-            
+        {            
             if(!isset($_SESSION['loggedUser']))
             {
                 header("location:".FRONT_ROOT."Home/Index");
@@ -42,5 +40,4 @@
             }
         }
     }
-
-        ?>
+?>
