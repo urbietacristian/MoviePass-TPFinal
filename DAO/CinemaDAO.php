@@ -113,6 +113,28 @@
         
     }
 
+
+    public function getCinemasIfMovieshow()
+    {
+        $sql = "select cinemas.* from movies inner join movieshow on  movieshow.id_movie = movies.id_api inner join rooms on movieshow.id_room = rooms.id_room inner join cinemas on rooms.id_cinema = cinemas.id_cinema  group by rooms.id_cinema";
+      
+
+        try{
+            $this->connection = Connection::getInstance();
+            $result = $this->connection->execute($sql);
+        }
+        catch(\PDOException $ex){
+            throw $ex;
+        }
+
+        if(!empty($result))
+            return $this->map($result);
+        else
+            return false;
+
+    }
+    
+
     
     protected function map($value){
 

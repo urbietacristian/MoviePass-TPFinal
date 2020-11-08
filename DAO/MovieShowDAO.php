@@ -7,6 +7,7 @@
 
     private $movieshowList = array();
     private $fileName;
+    private $connection; 
     
     public function Add(MovieShow $movieShow){
 
@@ -48,7 +49,7 @@
 
         try{
             $this->connection = Connection::getInstance();
-            return $this->connection->execute($sql, $parameters);
+            $result = $this->connection->execute($sql, $parameters);
         
         }
         catch(\PDOException $ex){
@@ -56,7 +57,34 @@
         }
 
         if(!empty($result)) 
+        {   
             return true;
+        }
+        else
+            return false;
+    }
+
+    public function getMovieShowByCinema($id_cinema){
+        
+        
+        $sql = "select movieshow.* from movieshow inner join rooms on movieshow.id_room = rooms.id_room and rooms.id_cinema = :id_cinema";
+
+        $parameters['id_cinema'] = $id_cinema;
+        
+
+        try{
+            $this->connection = Connection::getInstance();
+            $result = $this->connection->execute($sql, $parameters);
+        
+        }
+        catch(\PDOException $ex){
+            throw $ex;
+        }
+
+        if(!empty($result)) 
+        {   
+            return $this->map($result);
+        }
         else
             return false;
     }
