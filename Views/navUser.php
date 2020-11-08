@@ -1,27 +1,24 @@
 <?php
-Use Models\User as User;
+  Use Models\User as User;
 
-
-
-if(!isset($_SESSION['loggedUser'])){
+  if(!isset($_SESSION['loggedUser']))
+  {
 //  if (!$user->getRol() == 'user'){
     header("location:../Home/Index");
     exit;
- // }
-}
-
+  // }
+  }
 ?>
 
-  <div class="wrapper row1">
-    <header id="header" class="hoc clear"> 
-      <div id="logo" class="fl_left">
-        <h1><a href="#">Movie Pass</a></h1>
-      </div>
-      <!-- Add path routes below -->
-      
-      <nav id="mainav" class="fl_right">
-        <li class="active"><a href="<?php echo FRONT_ROOT; ?>Movie/showActiveMovies">Lista de Peliculas</a></li>
-        <li class="active"><a href="<?php echo FRONT_ROOT; ?>User/logout">Logout</a></li>
+<div class="wrapper row1">
+  <header id="header" class="hoc clear"> 
+    <div id="logo" class="fl_left">
+      <h1><a href="#">Movie Pass</a></h1>
+    </div>      
+    <nav id="mainav" class="fl_right">
+      <li class="active"><a href="<?php echo FRONT_ROOT; ?>Movie/showActiveMovies">Lista de Peliculas en Cartelera</a></li>
+      <li class="active"><a href="<?php echo FRONT_ROOT; ?>Cinema/showActiveCinemas">Lista de Cines</a></li>
+      <li class="active"><a href="<?php echo FRONT_ROOT; ?>User/logout">Logout</a></li>
     </nav> 
-    </header>
-  </div>
+  </header>
+</div>
