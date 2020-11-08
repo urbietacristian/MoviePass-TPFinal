@@ -89,6 +89,29 @@
             return false;
     }
 
+    public function getMovieShowByRoom($id_room, $id_movie){
+        
+        $sql ="select * from movieshow where movieshow.id_movie = :id_movie and movieshow.id_room = :id_room ";
+
+        $parameters['id_room'] = $id_room;
+        $parameters['id_movie'] = $id_movie;
+        
+
+        try{
+            $this->connection = Connection::getInstance();
+            $result = $this->connection->execute($sql, $parameters);
+        }
+        catch(\PDOException $ex){
+            throw $ex;
+        }
+    
+
+        if(!empty($result)) 
+            return $this->map($result);
+        else
+            return false;
+    }
+
     
     /**
      * Comprueba si la sala mandada por parametro tiene alguna movieshow
@@ -146,16 +169,12 @@
     }
 
  
-
-
-
-
     public function getDisplayableMovieShowByMovie($id_movie){
 
         $sql =" select movieshow.*,  rooms.name as room_name, rooms.price, rooms.capacity,  cinemas.name as cinema_name  from movieshow
         inner join rooms on rooms.id_room = movieshow.id_room 
         inner join cinemas on cinemas.id_cinema = rooms.id_cinema  
-        where movieshow.id_movie = :id_movie ";
+        where movieshow.id_movie = :id_movie";
 
         $parameters['id_movie'] = $id_movie;
 
@@ -189,7 +208,7 @@
             return new MovieShow($p['id_movieshow'],$p['id_room'],$p['id_movie'],$p['day'], $p['time']);
         }, $value);
 
-        return count($resp) > 1 ? $resp : $resp['0'];
+        return count($resp) > 0 ? $resp : $resp['0'];
     }
 
 

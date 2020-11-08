@@ -102,7 +102,6 @@ class RoomDAO{
             return false;
         
     }
-
     public function returnRoomById($id){
 
         $RoomList= $this->GetAll();
@@ -111,10 +110,7 @@ class RoomDAO{
                 return $room;
             }
         }
-        return false;
-        
     }
-
 
 
         public function readRoomsByCinema($id_cinema){
@@ -138,6 +134,31 @@ class RoomDAO{
             return false;
         
     }
+
+    
+    public function getRoomsByMovieAndCinema($id_cinema, $id_movie){
+
+        $sql = "select rooms.* from movies inner join movieshow on  movieshow.id_movie = :id_movie inner join rooms on movieshow.id_room = rooms.id_room inner join cinemas on rooms.id_cinema = :id_cinema  group by rooms.id_room";
+
+        $parameters['id_cinema'] = $id_cinema;
+        $parameters['id_movie'] = $id_movie;
+
+        try{
+            $this->connection = Connection::getInstance();
+            $result = $this->connection->execute($sql,$parameters);
+        }
+        catch(\PDOException $ex){
+            throw $ex;
+        }
+
+
+        if(!empty($result))
+            return $this->map($result);
+        else
+            return false;
+        
+    }
+    
 
     public function GetAll(){
         $sql = "SELECT * FROM rooms";

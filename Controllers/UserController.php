@@ -6,21 +6,23 @@
     Use Models\User as User;
 
 
+    
+
     class UserController
     {
         private $userDAO;
+        private $validateSession;
         
-        public function __construct()
-        {
+        public function __construct(){
             $this->userDAO = new UserDAO();
         }
+
 
         public function ShowMainView($message)
         {
             require_once(VIEWS_PATH."home.php");
             echo '<script language="javascript">alert("'.$message.'");</script>';
         }
-
         public function ShowRegisterView()
         {
             require_once(VIEWS_PATH."register.php");
@@ -48,10 +50,13 @@
             
         }
 
+
         public function login()
         {
             $email = $_POST["email"];
-            $password = $_POST["password"];            
+            $password = $_POST["password"];
+
+            
 
             $count = 0;
             try{
@@ -59,10 +64,8 @@
                 {
                     $user = $this->userDAO->read($email);
 
-                    /**password_verify($password, $user->getPassword())*/
+                    if($user->getPassword() == $password){
 
-                    if(($user->getPassword() == $password))
-                    {
                         $_SESSION["loggedUser"] = $user;
                         
                         $message = "Login Successfully";
@@ -73,14 +76,14 @@
                         }
                         else if ($user->getRol() == 1) //Cuando es admin entra aca
                         {
-                            $_SESSION['home'] = FRONT_ROOT.'Movie/showMovies';
+                            $_SESSION['home'] = FRONT_ROOT.'Cinema/ShowAdminHomeView';
                             $this->ShowAdminMenuView($message);
                         }   
                     }
-                    else
-                    {
+                    else{
                         $message = "Wrong Username or Password";
                         //require_once(VIEWS_PATH."home.php");
+
                     } 
                 }
                 else
@@ -90,18 +93,16 @@
                 }
             }
             catch(\PDOException $ex){
+
             
             }
-        }
+        }  
         
-        public function register()
-        {
+        public function register(){
             
             $email = $_POST['email'];
-            /* $password = password_hash($_POST['password'], PASSWORD_DEFAULT); */
             $password = $_POST['password'];
-            try
-            {
+            try{
                 if(! $this->checkUser($_POST['email']))
                 {
                     $user = new User(null, $_POST['email'] , $_POST['password'] , 0);
@@ -112,13 +113,11 @@
                     $message = "El usuario ya se encuentra registrado";
                 
             }
-            catch(\PDOException $ex)
-            {
+            catch(\PDOException $ex){
                 $message = "Exception";
                 throw $ex;
             }
-            finally
-            {
+            finally{
                 require_once(VIEWS_PATH."home.php");
             }
             
@@ -151,6 +150,7 @@
         
         }
         */
+
         public function logout()
         {
             session_destroy();
@@ -158,6 +158,7 @@
             $message = "Logout Successfully";
 
             $this->ShowMainView($message);
-        }        
+        }
+        
     }
 ?>

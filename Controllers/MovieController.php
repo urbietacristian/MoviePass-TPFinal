@@ -47,12 +47,17 @@
 
         public function ShowMovieShowByCinema($id_cinema)
         {
-            $movieList = $this->movieShowDAO->getMovieByCinema($id_cinema);
+            $movieList = $this->movieShowDAO->getMoviesByCinema($id_cinema);
 
             if($movieList)
             {   
-
-                require_once(USER_PATH."movie_list.php");
+                $_SESSION['msg'] = '';
+                require_once(USER_PATH."list_movies_by_cinema.php");
+            }
+            else
+            {
+                $_SESSION['msg'] = 'No hay funciones en este cine';
+                require_once(USER_PATH."list_active_cinema.php");
             }
             
         }
