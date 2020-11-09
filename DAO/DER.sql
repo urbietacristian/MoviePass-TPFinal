@@ -47,6 +47,7 @@ create table movies (
 	image varchar(500),
 	language varchar(50),
 	duration int NOT NULL,
+    release_date date,
 	CONSTRAINT pk_id_movie PRIMARY KEY (id_api)
 );
 
