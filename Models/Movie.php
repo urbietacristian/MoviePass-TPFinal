@@ -12,9 +12,10 @@ class Movie
     private $duration;
     private $genre_ids=array();
     private $language;
+    private $releaseDate;
 
 
-    public function __construct($id_api,$description,  $name, $duration,  $genre_ids, $image,$language)
+    public function __construct($id_api,$description,  $name, $duration,  $genre_ids, $image,$language, $release_date)
     {
         $this->setIdApi($id_api);
         $this->setDescription($description);
@@ -23,7 +24,7 @@ class Movie
         $this->setDuration($duration);
         $this->setGenreIds($genre_ids);
         $this->setLanguage($language);
-        
+        $this->setReleaseDate($release_date);
     }
 
     public function getDuration()
@@ -84,6 +85,18 @@ class Movie
     public function setGenreIds($genre_ids)
     {
         $this->genre_ids = $genre_ids;
+    }
+
+    public function getReleaseDate()
+    {
+        return $this->releaseDate;
+    }
+
+    public function setReleaseDate($releaseDate)
+    {
+        $this->releaseDate = $releaseDate;
+
+        return $this;
     }
 }
 

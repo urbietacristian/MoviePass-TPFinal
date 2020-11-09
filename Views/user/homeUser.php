@@ -4,7 +4,7 @@
 
 <div align="center" id="mainav">
   <li><a href="<?php echo FRONT_ROOT; ?>Movie/showActiveMovies/">Todas las Películas</a></li>
-  <li><a href="<?php echo FRONT_ROOT; ?>Movie/showActiveMovies/">Ordenar Por Fecha</a></li>
+  <li><a href="<?php echo FRONT_ROOT; ?>Movie/showActiveMovies?id=fecha">Ordenar Por Fecha</a></li>
     <?php 
     
     foreach($genre_list as $value){ 

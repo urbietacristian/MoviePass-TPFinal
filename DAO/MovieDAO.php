@@ -26,7 +26,9 @@
                     ($details['runtime']),
                     ($jsonMovie['genre_ids']),
                     ($jsonMovie['poster_path']),
-                    ($jsonMovie['original_language'])
+                    ($jsonMovie['original_language']),
+                    ($details['release_date'])
+
                     );
                     array_push($this->movie_list, $new_movie);
                 }
@@ -49,11 +51,32 @@
                     ($details['runtime']),
                     ($jsonMovie['genre_ids']),
                     ($jsonMovie['poster_path']),
-                    ($jsonMovie['original_language'])
+                    ($jsonMovie['original_language']),
+                    ($details['release_date'])
                     );
-                    $this->add($new_movie);
+                    $this->update($new_movie);
                 }
             }
+        }
+
+        public function update($movie)
+        {
+            $sql = "UPDATE movies
+            SET movies.release_date = :release_date
+            WHERE movies.id_api = :id_movie;";
+
+            $parameters['id_movie'] = $movie->getIdApi();
+            $parameters['release_date'] = $movie->getReleaseDate();
+
+            try{
+                $this->connection = Connection::getInstance();
+                $save = $this->connection->executeNonQuery($sql, $parameters);
+            }
+            catch(\PDOException $ex){
+                throw $ex;
+            }
+            return $save;
+
         }
 
         public function getAllMovies(){ 
@@ -113,6 +136,25 @@
         //     else
         //         return false;
         // }
+
+        public function getMoviesOnFunctionsByDate(){ 
+            $sql = "select movies.*  from movieshow inner join movies on  movieshow.id_movie = movies.id_api group by movies.id_api ORDER BY movies.release_date ASC";
+            
+
+
+            try{
+                $this->connection = Connection::getInstance();
+                $result = $this->connection->execute($sql);
+            }
+            catch(\PDOException $ex){
+                throw $ex;
+            }
+
+            if(!empty($result))
+                return $this->map($result);
+            else
+                return false;
+        }
 
 
 
@@ -180,7 +222,7 @@
         }
 
         if(!empty($result))
-            return $this->getIdGenres($result);
+            return $this->map($result);
         else
             return false;
 
@@ -227,7 +269,7 @@
         $value = is_array($value) ? $value : [];
 
         $resp = array_map(function($p){
-            return new Movie($p['id_api'],$p['description'], $p['name'],$p['duration'], $this->getGenresByMovie($p['id_api']),$p['image'], $p['language']);
+            return new Movie($p['id_api'],$p['description'], $p['name'],$p['duration'], $this->getGenresByMovie($p['id_api']),$p['image'], $p['language'], $p['release_date']);
         }, $value);
 
         return count($resp) > 1 ? $resp : $resp['0'];

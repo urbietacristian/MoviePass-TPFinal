@@ -20,7 +20,7 @@ require_once(VIEWS_PATH."navUser.php");
                         <td><?php echo $cinema->getName()?></td>
                         <td><?php echo $cinema->getAddress()?></td>
                         <td>
-                            <a href="<?php echo FRONT_ROOT; echo "MovieShow/ShowMoviesByCinema/"; echo $cinema->getId(); ?>">Funciones en <?php echo $cinema->getName()?></a>                    
+                            <a href="<?php echo FRONT_ROOT; echo "Movie/ShowMoviesByCinema/"; echo $cinema->getId(); ?>">Funciones en <?php echo $cinema->getName()?></a>                    
                         </td>
                     </tr>
                     <?php
