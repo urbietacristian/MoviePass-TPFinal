@@ -115,7 +115,7 @@
             $idCinema = $_POST["idCinema"];
             $Room = new Room(intval($id) , $name , $price, $capacity, intval($idCinema));
             $this->roomDAO->Edit($Room);
-            $this->ShowRoomsByCinemaView($idCinema);
+            header('Location:'.FRONT_ROOT."Room/ShowRoomsByCinemaView/$idCinema");
         }
         
     }

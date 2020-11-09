@@ -1,9 +1,12 @@
 <?php
     namespace Controllers;
     use DAO\MovieDAO as MovieDAO;
+    use DAO\MovieShowDAO as MovieShowDAO;
     use DAO\GenreDAO as GenreDAO;
+    use DAO\CinemaDAO as CinemaDAO;
     use Models\Movie as Movie;
     use Models\Genre as Genre;
+    use Models\Cinema as Cinema;
     use Controllers\ValidationController as ValidationController;
 
     class MovieController
@@ -11,11 +14,15 @@
         private $validateSession;
         private $movieDAO;
         private $genreDAO;
+        private $cinemaDAO;
+        private $movieshowDAO;
 
         public function __construct()
         {
             $this->movieDAO = new MovieDAO();
             $this->genreDAO = new GenreDAO();
+            $this->cinemaDAO = new CinemaDAO();
+            $this->movieshowDAO = new MovieShowDAO();
         }
 
         // public function showBillboardView($message = "")
@@ -26,14 +33,17 @@
 
         public function ShowMovieDetail($id_movie)
         {
-            $movie = $this->movieDAO->read($id_movie);
+            $movie = $this->movieDAO->read($id_movie)['0'];
+            $displayList = $this->movieshowDAO->getDisplayableMovieShowByMovie($id_movie);
+            
             require_once(ADMIN_PATH."detail_movie.php");
         }
 
         public function UpdateMovies()
         {
+            ValidationController::getInstance()->validateAdmin();
             $this->movieDAO->updateMovies();
-            require_once(ADMIN_PATH."list_movies.php");
+            $this->showMovies();
         }
 
         public function showMovies($id = "")
@@ -53,6 +63,8 @@
 
         public function ShowMoviesByCinema($id_cinema)
         {
+            ValidationController::getInstance()->validateUser();
+
             $movie_list = $this->movieDAO->getMoviesByCinema($id_cinema);
 
             if($movie_list)
@@ -62,8 +74,9 @@
             }
             else
             {
-                $_SESSION['msg'] = 'No hay funciones en este cine';
-                require_once(USER_PATH."list_active_cinema.php");
+                $_SESSION['msg'] = 'No hay funciones en este cine'; 
+                $cinema_list = $this->cinemaDAO->getCinemasIfMovieshow();
+                require_once(USER_PATH."list_active_cinemas.php");
             }
             
         }

@@ -1,13 +1,8 @@
 <?php
   Use Models\User as User;
+  use Controllers\ValidationController as ValidationController;
 
-  if(!isset($_SESSION['loggedUser']))
-  {
-//  if (!$user->getRol() == 'user'){
-    header("location:../Home/Index");
-    exit;
-  // }
-  }
+  ValidationController::getInstance()->validateUser();
 ?>
 
 <div class="wrapper row1">

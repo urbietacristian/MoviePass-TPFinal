@@ -54,7 +54,7 @@
                     ($jsonMovie['original_language']),
                     ($details['release_date'])
                     );
-                    $this->update($new_movie);
+                    $this->add($new_movie);
                 }
             }
         }
@@ -160,7 +160,7 @@
 
         public function add($movie)
         {
-            $sql = "INSERT INTO movies (id_api, name, description, image, language, duration) VALUES (:id_api, :name, :description, :image, :language, :duration)";
+            $sql = "INSERT IGNORE INTO movies (id_api, name, description, image, language, duration, release_date) VALUES (:id_api, :name, :description, :image, :language, :duration, :release_date)";
 
             $parameters['id_api'] = $movie->getIdApi();
             $parameters['name'] = $movie->getName();
@@ -168,6 +168,7 @@
             $parameters['image'] = $movie->getImage();
             $parameters['language'] = $movie->getLanguage();
             $parameters['duration'] = $movie->getDuration();
+            $parameters['release_date'] = $movie->getReleaseDate();
 
             
 
@@ -268,11 +269,12 @@
 
         $value = is_array($value) ? $value : [];
 
+        
         $resp = array_map(function($p){
             return new Movie($p['id_api'],$p['description'], $p['name'],$p['duration'], $this->getGenresByMovie($p['id_api']),$p['image'], $p['language'], $p['release_date']);
         }, $value);
 
-        return count($resp) > 1 ? $resp : $resp['0'];
+        return count($resp) > 0 ? $resp : $resp['0'];
     }
 
         

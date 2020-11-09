@@ -134,7 +134,7 @@
         
         }
         catch(\PDOException $ex){
-            throw $ex;
+            throw $ex; 
         }
 
         if(!empty($result)) 
@@ -171,7 +171,7 @@
  
     public function getDisplayableMovieShowByMovie($id_movie){
 
-        $sql =" select movieshow.*,  rooms.name as room_name, rooms.price, rooms.capacity,  cinemas.name as cinema_name  from movieshow
+        $sql =" select movieshow.*, rooms.id_room, rooms.id_cinema, rooms.name as room_name, rooms.price, rooms.capacity,  cinemas.name as cinema_name  from movieshow
         inner join rooms on rooms.id_room = movieshow.id_room 
         inner join cinemas on cinemas.id_cinema = rooms.id_cinema  
         where movieshow.id_movie = :id_movie";
@@ -190,7 +190,7 @@
         {
             $result = is_array($result) ? $result : [];
             
-            return count($result) > 1 ? $result : $result['0'];
+            return count($result) > 0 ? $result : $result['0'];
         }
 
         else
@@ -236,9 +236,54 @@
 
 
 
+        
+    public function verifyDifferentMovieOnRoom($id_movie,$id_room){
+
+        $sql='select * from movieshow where movieshow.id_movie != :id_movie and movieshow.id_room = :id_room ';
+
+        $parameters['id_movie'] = $id_movie;
+        $parameters['id_room'] = $id_room;
+
+        try{
+            $this->connection = Connection::getInstance();
+            $result = $this->connection->execute($sql,$parameters);
+        }
+        catch(\PDOException $ex){
+            throw $ex;
+        }
+
+        if(!empty($result))
+            return false;
+        else
+            return true;
+   
+    }
 
 
         
+    public function verifyMovieOnCinemaRooms($id_cinema,$id_movie,$id_room){
+
+        $sql='select * from rooms inner join movieshow on movieshow.id_movie = :id_movie and movieshow.id_room = rooms.id_room where rooms.id_cinema = :id_cinema and rooms.id_room != :id_room group by rooms.id_room';
+
+        $parameters['id_cinema'] = $id_cinema;
+        $parameters['id_movie'] = $id_movie;
+        $parameters['id_room'] = $id_room;
+
+        try{
+            $this->connection = Connection::getInstance();
+            $result = $this->connection->execute($sql,$parameters);
+        }
+        catch(\PDOException $ex){
+            throw $ex;
+        }
+
+        if(!empty($result))
+            return false;
+        else
+            return true;
+   
+    }
+
     public function verifyMovieOnCinema($id_cinema,$id_movie,$date){
 
         $sql='SELECT * FROM movieshow inner join rooms on rooms.id_cinema != :id_cinema WHERE rooms.id_room = movieshow.id_room AND movieshow.day= :date AND movieshow.id_movie=:id_movie';

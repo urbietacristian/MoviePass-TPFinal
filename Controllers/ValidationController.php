@@ -24,7 +24,7 @@
             { 
                 $user = $_SESSION['loggedUser'];
                 if ($user->getRol() != 1){
-                    header("location:".FRONT_ROOT."Home/Index");
+                    header("location:".FRONT_ROOT."Movie/ShowActiveMovies");
                     return;
                 }
             }   

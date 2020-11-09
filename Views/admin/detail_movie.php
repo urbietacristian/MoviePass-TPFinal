@@ -15,5 +15,26 @@ require_once(VIEWS_PATH."navAdmin.php");
 
     <a href="<?php echo FRONT_ROOT; ?>MovieShow/ShowAddFunctionCinema/<?php echo $movie->getIdApi()?>">Agregar Funcion</a>
 
+    <div align="left" id="mainav">        
+        <?php
+        foreach($displayList as $value){
+        ?>            
+        <li>
+            <div class='card'>
+            Cine:  <?php echo $value['cinema_name'] ?> <br>
+            Sala:  <?php echo $value['room_name'] ?> <br>
+            Capacidad:  <?php echo $value['capacity'] ?> <br>
+            Precio:  <?php echo $value['price'] ?> <br>
+            Dia:  <?php echo $value['day'] ?> <br>
+            Horario:  <?php echo $value['time'] ?> <br>
+            
+            </div>
+        </li>    
+        <?php
+        } 
+        ?>
+    </div>    
+
+
 
 </section>

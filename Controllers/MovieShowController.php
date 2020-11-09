@@ -32,6 +32,8 @@ class MovieShowController
             
         public function ShowMovieShowByCinema($id_movie, $id_cinema)
         {
+            ValidationController::getInstance()->validateUser();
+
             $roomList = $this->roomDAO->getRoomsByMovieAndCinema($id_cinema, $id_movie);
 
             if($roomList)
@@ -52,7 +54,7 @@ class MovieShowController
             $this->validateSession->validateAdmin();   
             $id_movie = $id_movie;
             $cinemaList =  $this->cinemaDAO->GetAll();
-            $movie = $this->movieDAO->read($id_movie);
+            $movie = $this->movieDAO->read($id_movie)['0'];
             require_once(ADMIN_PATH."add_movieshow_1.php");
         }
 
@@ -69,13 +71,14 @@ class MovieShowController
                 if($flag)
                 {
                     $roomList = $this->roomDAO->readRoomsByCinema($id_cinema);
-                    $movie = $this->movieDAO->read($id_movie);
+                    $movie = $this->movieDAO->read($id_movie)['0'];
                     require_once(ADMIN_PATH."add_movieshow_2.php");
                 }
                 else
                 {
                     $roomList = $this->roomDAO->readRoomsByCinema($id_cinema);
-                    $movie = $this->movieDAO->read($id_movie);
+                    $movie = $this->movieDAO->read($id_movie)['0'];
+                    $cinemaList =  $this->cinemaDAO->GetAll();
                     $_SESSION['msg'] = "Ya existe una funcion de la pelicula en otro cine este dia";
                     require_once(ADMIN_PATH."add_movieshow_1.php");
                 }
@@ -84,8 +87,8 @@ class MovieShowController
 
         public function ShowAddFunctionCinemaEnd($id_movie)
         {
-            $this->validateSession = ValidationController::getInstance();
-            $this->validateSession->validateAdmin();
+            ValidationController::getInstance()->validateAdmin();
+            
 
             if($_POST)
             {
@@ -107,7 +110,7 @@ class MovieShowController
                 else
                 {
                     $roomList = $this->roomDAO->readRoomsByCinema($id_cinema);
-                    $movie = $this->movieDAO->read($id_movie);
+                    $movie = $this->movieDAO->read($id_movie)['0'];
                     $_SESSION['msg'] = "Ya existe una funcion en ese horario";
                     require_once(ADMIN_PATH."add_movieshow_2.php");
                 }
@@ -149,8 +152,9 @@ class MovieShowController
 
         public function ShowFunctionsByMovie($id_movie)
         {
+            ValidationController::getInstance()->validateUser();
             $displayList = $this->movieShowDAO->getDisplayableMovieShowByMovie($id_movie);
-            $movie = $this->movieDAO->read($id_movie);
+            $movie = $this->movieDAO->read($id_movie)['0'];
 
             require_once(USER_PATH."buy_movie.php");
             
@@ -202,6 +206,25 @@ class MovieShowController
         
         }
 
+        public function removeMovieShow(){
+            
+            $this->validateSession = ValidationController::getInstance();
+            $this->validateSession->validateAdmin();
+   
+           if($_POST){
+                    
+                    $id_room = $_POST["id_room"];
+                    $id_movieshow = $_POST["id_movieshow"];
+                    $this->movieShowDAO->Remove($id_movieshow, $id_room);
+                    $movieController = new MovieController();
+                    $_SESSION['msg'] = "Eliminado con exito";
+                    $movieController->ShowMovieDetail($_POST["id_cinema"]);
+            }
+    
+        }
+
+
+
 
 
         public function getMovieById($id_movie)
@@ -217,6 +240,8 @@ class MovieShowController
             }
             return false;
         }
+
+        
 
         public function verifyDate($id_room, $date, $time, $id_movie){
 
@@ -250,7 +275,7 @@ class MovieShowController
                     if($movieshow->getidRoom() == $id_room && $movieshow->getDate() == $date)
                     {
                         $startTime = date_create($movieshow->getSchedule());
-                        $movieshowFilm = $this->movieDAO->read($movieshow->getidMovie());
+                        $movieshowFilm = $this->movieDAO->read($movieshow->getidMovie())['0'];
                         $endTime = date_create($movieshow->getSchedule());
                         $duration = $movieshowFilm->getDuration() + 15;
                         date_add($endTime,date_interval_create_from_date_string($duration." minutes"));

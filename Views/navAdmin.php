@@ -10,31 +10,16 @@
   </div> -->
   <?php
 
-use Controllers\CinemaController;
+
 use DAO\CinemaDAO;
 Use Models\User as User;
+use Controllers\ValidationController as ValidationController;
 
 use DAO\MovieDAO as MovieDAO;
 use DAO\GenreDAO as GenreDAO;
 
 
-
-$cinemaController = new CinemaController();
-$cinemaDAO = new CinemaDAO();
-$cinemaList = $cinemaDAO->GetAll();
-
-
-if(!isset($_SESSION['loggedUser'])){
-  header("location:../Home/Index");
-  exit;  
-  }
-  else{ 
-    $user = $_SESSION['loggedUser'];
-    if ($user->getRol() != 1){
-      header("location:../Home/Index");
-      exit;
-  }
-}
+ValidationController::getInstance()->validateAdmin();
 
 ?>
   <div class="wrapper row1">

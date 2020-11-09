@@ -1,5 +1,10 @@
 <?php
 require_once(VIEWS_PATH."navAdmin.php");
+if(isset($_SESSION['msg']))
+{
+    echo '<script language="javascript">alert("'.$_SESSION['msg'].'");</script>';
+    $_SESSION['msg'] = null;
+}
 ?>
 <main class="d-flex align-items-center justify-content-center height-100" >
 <div >
@@ -8,7 +13,7 @@ require_once(VIEWS_PATH."navAdmin.php");
             <thead>
                 <tr>
                     <th>Nombre</th>
-                    <th>Direccion</th>
+                    <th>Precio</th>
                     <th>Capacidad</th>
                     <th></th>
                     <th></th>
@@ -24,8 +29,8 @@ require_once(VIEWS_PATH."navAdmin.php");
                     <td><?php echo $room->getPrice()?></td>
                     <td><?php echo $room->getCapacity()?></td>
                     <td>
-                        <form  action="<?php echo FRONT_ROOT; echo "Room/ShowEditView?"; echo $room->getId()?>" method="POST">
-                            <input type="hidden" value="<?php echo $room->getId(); ?>" name="id">
+                        <form  action="<?php echo FRONT_ROOT; echo "Room/ShowEditView/"; echo $room->getId()?>" method="POST">
+                            <input type="hidden" value="<?php echo $room->getId(); ?>" name="idRoom">
                             <button  type="submit" class="image">
                                 <img src="<?php echo IMG_PATH."edit.png"; ?>">
                             </button>

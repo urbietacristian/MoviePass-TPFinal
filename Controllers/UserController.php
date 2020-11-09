@@ -81,12 +81,14 @@
                     }
                     else{
                         $message = "Wrong Username or Password";
-                        //require_once(VIEWS_PATH."home.php");
+                        $_SESSION['home'] = FRONT_ROOT.'Home/Index';
+                        require_once(VIEWS_PATH."home.php");
                     } 
                 }
                 else
                 {
                     $message= "Wrong Username";
+                    $_SESSION['home'] = FRONT_ROOT.'Home/Index';
                     require_once(VIEWS_PATH."home.php");
                 }
             }

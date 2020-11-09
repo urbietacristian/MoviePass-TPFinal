@@ -27,6 +27,8 @@
 
         public function ShowRemoveView($message = "")
         {
+            $cinemaDAO = new CinemaDAO();
+            $cinemaList = $cinemaDAO->GetAll();
             if(isset($_SESSION['msg']))
             {
                 echo '<script language="javascript">alert("'.$_SESSION['msg'].'");</script>';
@@ -102,6 +104,7 @@
                         $cinema = new Cinema(0,$_POST['name'] , $_POST['address']);
                         $this->cinemaDAO->Add($cinema);
                         $_SESSION['msg'] = "Cine agregado correctamente";
+                        $this->ShowRemoveView();
                     }
                     else{
                         $_SESSION['msg'] = "El cine que intenta añadir ya existe en el sistema. Por favor intente nuevamente";
@@ -147,7 +150,7 @@
 
         public function checkCinema($name)
         {
-            $cinema = $this->cinemaDAO->read($name);
+            $cinema = $this->cinemaDAO->read($name)['0'];
 
             if($cinema)
                 return true;
