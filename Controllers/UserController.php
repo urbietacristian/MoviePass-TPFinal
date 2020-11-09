@@ -50,13 +50,10 @@
             
         }
 
-
         public function login()
         {
             $email = $_POST["email"];
             $password = $_POST["password"];
-
-            
 
             $count = 0;
             try{
@@ -64,26 +61,27 @@
                 {
                     $user = $this->userDAO->read($email);
 
-                    if($user->getPassword() == $password){
+                    if($user->getPassword() == $password)
+                    {
 
                         $_SESSION["loggedUser"] = $user;
-                        
+
                         $message = "Login Successfully";
                         if($user->getRol() == 2) //Cuando es user entra aca
                         {
-                            $_SESSION['home'] = FRONT_ROOT.'Movie/showMovies';
+                            $_SESSION['home'] = FRONT_ROOT.'Movie/showActiveMovies';
+
                             header("location: ".FRONT_ROOT."Movie/ShowActiveMovies");
                         }
                         else if ($user->getRol() == 1) //Cuando es admin entra aca
                         {
-                            $_SESSION['home'] = FRONT_ROOT.'Cinema/ShowAdminHomeView';
+                            $_SESSION['home'] = FRONT_ROOT.'Movie/showMovies';
                             $this->ShowAdminMenuView($message);
-                        }   
+                        }
                     }
                     else{
                         $message = "Wrong Username or Password";
                         //require_once(VIEWS_PATH."home.php");
-
                     } 
                 }
                 else
@@ -94,33 +92,7 @@
             }
             catch(\PDOException $ex){
 
-            
             }
-        }  
-        
-        public function register(){
-            
-            $email = $_POST['email'];
-            $password = $_POST['password'];
-            try{
-                if(! $this->checkUser($_POST['email']))
-                {
-                    $user = new User(null, $_POST['email'] , $_POST['password'] , 0);
-                    $this->userDAO->Add($user);
-                    $message = "Usuario registrado correctamente";
-                }
-                else
-                    $message = "El usuario ya se encuentra registrado";
-                
-            }
-            catch(\PDOException $ex){
-                $message = "Exception";
-                throw $ex;
-            }
-            finally{
-                require_once(VIEWS_PATH."home.php");
-            }
-            
         }
         /*
         public function registerAdmin(){

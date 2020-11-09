@@ -124,7 +124,6 @@
             
             $this->validateSession = ValidationController::getInstance();
             $this->validateSession->validateAdmin();
-            var_dump($id_cinema);
             if($this->movieshowDAO->checkMovieShowByCinema($id_cinema) == false)
             {
                 

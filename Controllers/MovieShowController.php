@@ -96,7 +96,6 @@ class MovieShowController
                 $time = $_POST['time'];
         
                 $date;
-                var_dump($date);
                 $flag2 = $this->verifyDate($id_room, $date, $time, $id_movie);
                 if($flag2)
                 {

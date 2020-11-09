@@ -21,7 +21,16 @@
         public function ShowRoomsByCinemaView($id_cinema)
         {
             $roomList = $this->roomDAO->readRoomsByCinema($id_cinema);
-            require_once(ADMIN_PATH."list_room.php");
+            if($roomList)
+            {
+                require_once(ADMIN_PATH."list_room.php");
+            }
+            else
+            {
+                $roomList = [];
+                require_once(ADMIN_PATH."list_room.php");
+            }
+
         }
 
         public function ShowAddView($id_cinema)
