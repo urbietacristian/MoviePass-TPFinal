@@ -8,7 +8,7 @@ require_once(VIEWS_PATH."navUser.php");
         ?>                        
         <li>            
             <div class='card'>
-                <a href='<?php echo FRONT_ROOT; ?>MovieShow/ShowMovieShowDetail/<?php echo $movie->getIdApi()?>?<?php echo $id_cinema?>'>
+                <a href='<?php echo FRONT_ROOT; ?>MovieShow/ShowMovieShowByCinema?id_movie=<?php echo $movie->getIdApi()?>&id_cinema=<?php echo $id_cinema?>'>
                 <div >
                     <img src='http://image.tmdb.org/t/p/w300<?php echo $movie->getImage()?>'>
                 </div>

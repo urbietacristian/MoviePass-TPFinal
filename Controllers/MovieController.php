@@ -30,6 +30,12 @@
             require_once(ADMIN_PATH."detail_movie.php");
         }
 
+        public function UpdateMovies()
+        {
+            $this->movieDAO->updateMovies();
+            require_once(ADMIN_PATH."list_movies.php");
+        }
+
         public function showMovies($id = "")
         {
             
@@ -45,11 +51,11 @@
             require_once(ADMIN_PATH."list_movies.php");
         }
 
-        public function ShowMovieShowByCinema($id_cinema)
+        public function ShowMoviesByCinema($id_cinema)
         {
-            $movieList = $this->movieShowDAO->getMoviesByCinema($id_cinema);
+            $movie_list = $this->movieDAO->getMoviesByCinema($id_cinema);
 
-            if($movieList)
+            if($movie_list)
             {   
                 $_SESSION['msg'] = '';
                 require_once(USER_PATH."list_movies_by_cinema.php");
@@ -64,8 +70,14 @@
 
         public function showActiveMovies($id = ""){
             
-            if(!($id == "")){
+            if($id == "fecha"){
+                $movie_list = $this->movieDAO->getMoviesOnFunctionsByDate();
+
+            }
+            else if(!($id == ''))
+            {
                 $movie_list = $this->getActiveMoviesByGenre($id);
+                
             }
             else{
                 $movie_list = $this->movieDAO->getMoviesOnFunctions();

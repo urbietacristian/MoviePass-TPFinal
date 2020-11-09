@@ -50,6 +50,12 @@
             require_once(USER_PATH."homeUser.php");
         }
 
+        public function ShowActiveCinemas()
+        {
+            $cinema_list = $this->cinemaDAO->getCinemasIfMovieshow();
+            require_once(USER_PATH."list_active_cinemas.php");
+        }
+
 
         public function ShowEditView()
         {

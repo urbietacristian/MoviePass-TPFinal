@@ -12,7 +12,9 @@ require_once(VIEWS_PATH."navUser.php");
                 <li>            
                     <div class='card'>
                         <div>
-                            <?php echo$movieshow->getDate();?>
+                            Fecha: <?php echo$movieshow->getDate();?> <br>
+                            Horario: <?php echo$movieshow->getSchedule();?>
+
                         </div>
                         </a>
                     </div>

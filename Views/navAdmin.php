@@ -47,7 +47,7 @@ if(!isset($_SESSION['loggedUser'])){
       <nav id="mainav" class="fl_right">
         <li class="active"><a href="<?php echo FRONT_ROOT; ?>Movie/showMovies">Listar Peliculas</a></li>
         <li class="active"><a href="<?php echo FRONT_ROOT; ?>Cinema/ShowRemoveView">Listar Cines</a></li>
-        <li class="active"><a href="<?php echo FRONT_ROOT; ?>Movie/updateMovies">Actualizar Peliculas(falta codearlo)</a></li>
+        <li class="active"><a href="<?php echo FRONT_ROOT; ?>Movie/UpdateMovies">Actualizar Peliculas</a></li>
         <li class="active"><a href="<?php echo FRONT_ROOT; ?>User/logout">Logout</a></li>        
       </nav> 
     </header>
