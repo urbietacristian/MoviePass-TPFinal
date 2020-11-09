@@ -168,9 +168,7 @@
             $parameters['image'] = $movie->getImage();
             $parameters['language'] = $movie->getLanguage();
             $parameters['duration'] = $movie->getDuration();
-            $parameters['release_date'] = $movie->getReleaseDate();
-
-            
+            $parameters['release_date'] = $movie->getReleaseDate();            
 
             try{
                 $this->connection = Connection::getInstance();
@@ -179,9 +177,8 @@
             catch(\PDOException $ex){
                 throw $ex;
             }
-            $this->moviesxgenresDAO->add($movie);
+            //$this->moviesxgenresDAO->add($movie);
             return $save;
-
         }
 
 

@@ -11,12 +11,11 @@
     class UserController
     {
         private $userDAO;
-        private $validateSession;
         
-        public function __construct(){
+        public function __construct()
+        {
             $this->userDAO = new UserDAO();
         }
-
 
         public function ShowMainView($message)
         {
@@ -46,8 +45,7 @@
             if($user)
                 return true;
             else
-                false;
-            
+                false;            
         }
 
         public function login()
@@ -124,8 +122,8 @@
         
         }*/
 
-        public function register(){
-            
+        public function register()
+        {            
             $userName = $_POST['email'];
             $password = $_POST['password'];
             $rol = '2';
@@ -143,10 +141,8 @@
             else{
                 $_SESSION['msg'] = "El email ingresado ya pertenece a una cuenta existente.";
                 require_once(VIEWS_PATH."register.php");
-            }
-        
-        }
-        
+            }        
+        }        
 
         public function logout()
         {

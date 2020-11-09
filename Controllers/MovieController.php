@@ -11,7 +11,6 @@
 
     class MovieController
     {
-        private $validateSession;
         private $movieDAO;
         private $genreDAO;
         private $cinemaDAO;
@@ -25,14 +24,10 @@
             $this->movieshowDAO = new MovieShowDAO();
         }
 
-        // public function showBillboardView($message = "")
-        // {
-        //     require_once(USER_PATH."billboard.php");
-        // }
-
-
         public function ShowMovieDetail($id_movie)
-        {
+        {            
+            ValidationController::getInstance()->validateAdmin();
+
             $movie = $this->movieDAO->read($id_movie)['0'];
             $displayList = $this->movieshowDAO->getDisplayableMovieShowByMovie($id_movie);
             
@@ -42,13 +37,15 @@
         public function UpdateMovies()
         {
             ValidationController::getInstance()->validateAdmin();
+            
             $this->movieDAO->updateMovies();
             $this->showMovies();
         }
 
         public function showMovies($id = "")
-        {
-            
+        {              
+            ValidationController::getInstance()->validateAdmin();
+
             if(!($id == "")){
                 $movie_list = $this->getMoviesByGenre($id);
             }
@@ -81,7 +78,9 @@
             
         }
 
-        public function showActiveMovies($id = ""){
+        public function showActiveMovies($id = "")
+        {
+            ValidationController::getInstance()->validateUser();
             
             if($id == "fecha"){
                 $movie_list = $this->movieDAO->getMoviesOnFunctionsByDate();
@@ -96,9 +95,7 @@
                 $movie_list = $this->movieDAO->getMoviesOnFunctions();
             }
 
-            $genre_list = $this->genreDAO->getAllGenres();
-
-           
+            $genre_list = $this->genreDAO->getAllGenres();           
 
             require_once(USER_PATH."homeUser.php");
         }

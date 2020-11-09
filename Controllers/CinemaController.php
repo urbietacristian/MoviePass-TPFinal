@@ -4,7 +4,6 @@
     use DAO\MovieShowDAO as MovieShowDAO;
     use DAO\RoomDAO as RoomDAO;
     Use Models\Cinema as Cinema;
-
     
 
     class CinemaController
@@ -12,7 +11,6 @@
         private $cinemaDAO;
         private $movieshowDAO;
         private $roomDAO;
-        private $validateSession;
         
         public function __construct(){
             $this->cinemaDAO = new CinemaDAO();
@@ -27,6 +25,8 @@
 
         public function ShowRemoveView($message = "")
         {
+            ValidationController::getInstance()->validateAdmin();
+
             $cinemaDAO = new CinemaDAO();
             $cinemaList = $cinemaDAO->GetAll();
             if(isset($_SESSION['msg']))
@@ -41,6 +41,8 @@
 
         public function ShowAddView($message = "")
         {
+            ValidationController::getInstance()->validateAdmin();
+
             require_once(ADMIN_PATH."add_cinema.php");
         }
 
@@ -60,9 +62,10 @@
             require_once(USER_PATH."list_active_cinemas.php");
         }
 
-
         public function ShowEditView()
         {
+            ValidationController::getInstance()->validateAdmin();
+
             if($_POST)
             {
                 $id = $_POST['id'];
@@ -72,19 +75,10 @@
             }
         }
 
-        public function registerCinema($message = "")
+        public function register()
         {
-            require_once(VIEWS_PATH."auxi.php");
-        }
+            ValidationController::getInstance()->validateAdmin();
 
-
-
-
-        
-        public function register(){
-
-            $this->validateSession = ValidationController::getInstance();
-            $this->validateSession->validateAdmin();
             $name = $_POST['name'];
             $address = $_POST['address'];
 
@@ -110,6 +104,7 @@
                     }
                     else{
                         $_SESSION['msg'] = "El cine que intenta añadir ya existe en el sistema. Por favor intente nuevamente";
+
                         require_once(ADMIN_PATH."add_cinema.php");
                     }
                     
@@ -119,16 +114,15 @@
                     throw $ex;
                 }
                 finally{
-                    require_once(ADMIN_PATH."homeAdmin.php");
+                    $this->ShowRemoveView();
                 }
-            }
-            
+            }            
         }
 
-        public function removeCinema($id_cinema){
-            
-            $this->validateSession = ValidationController::getInstance();
-            $this->validateSession->validateAdmin();
+        public function removeCinema($id_cinema)
+        {            
+            ValidationController::getInstance()->validateAdmin();
+
             if($this->movieshowDAO->checkMovieShowByCinema($id_cinema) == false)
             {
                 
@@ -145,9 +139,6 @@
                 $_SESSION['msg'] = "No es posible eliminar, hay funciones en este cine";
                 $this->ShowRemoveView();
             }
-
-
-
         }
 
         public function checkCinema($name)
@@ -157,15 +148,13 @@
             if($cinema)
                 return true;
             else
-                false;
-            
+                false;            
         }
 
+        public function editCinema()
+        {
+            ValidationController::getInstance()->validateAdmin();
 
-        public function editCinema(){
-
-            $this->validateSession = ValidationController::getInstance();
-            $this->validateSession->validateAdmin();
             $name = $_POST["name"];
             $address = $_POST["address"];
 
@@ -187,34 +176,5 @@
                 $this->ShowRemoveView();
             }   
         }
-
-
-        // public function showCinemas()
-        // {
-        // $cinemaList = $this->cinemaDAO->GetAll();
-        
-        // foreach($cinemaList as $cinema){
-        // echo "<div>";
-            
-        //         echo "<div>
-        //                 Nombre: ".$cinema->getName()."
-        //                 </div>
-        //                 "
-        //                 ;
-        //         echo "<div>                                        
-        //                 Direccion: ".$cinema->getAddress()."
-        //                 </div>";
-        //         echo "<div>
-        //                 Capacidad Maxima: ".$cinema->getTotalCapacity()."
-        //                 </div>";
-
-        //     echo "</div> <br>";
-        //     }
-    
-        //  }
-
-
-
-
-}
+    }
 ?>
