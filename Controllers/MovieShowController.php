@@ -50,6 +50,7 @@ class MovieShowController
 
         public function ShowAddFunctionCinema($id_movie)
         {
+            $_SESSION['msg'] = null;
             $this->validateSession = ValidationController::getInstance();
             $this->validateSession->validateAdmin();   
             $id_movie = $id_movie;

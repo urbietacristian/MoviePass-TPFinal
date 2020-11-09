@@ -34,6 +34,8 @@
                 echo '<script language="javascript">alert("'.$_SESSION['msg'].'");</script>';
                 $_SESSION['msg'] = null;
             }
+            if(!$cinemaList)
+            $cinemaList = [];
             require_once(ADMIN_PATH."list_cinema.php");
         }
 

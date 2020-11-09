@@ -27,9 +27,9 @@ require_once(VIEWS_PATH."navAdmin.php");
             <h1>Sala:</h1>
             <input name='name' type="text"><br>
             <h1>Capacidad</h1>
-            <input name='capacity'type="number"><br>
+            <input name='capacity' min='0' type="number"><br>
             <h1>Precio</h1>
-            <input type="number" name="price">
+            <input type="number" min='0' name="price">
             <br>
             <button type="submit">Aceptar</button>
         </form>

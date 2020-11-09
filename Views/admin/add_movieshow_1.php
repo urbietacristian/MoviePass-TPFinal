@@ -11,13 +11,14 @@ require_once(VIEWS_PATH."navAdmin.php");
 </head>
 <body>
     <div align = 'center'>
-        <?php
+    <?php
         if(isset($_SESSION['msg']))
         {
             echo '<script language="javascript">alert("'.$_SESSION['msg'].'");</script>';
             $_SESSION['msg'] = null;
         }
-        ?>
+    ?>
+        
         <h1>Agregar Función para <?php echo $movie->getName()?>  </h1>
         <form action="<?php echo FRONT_ROOT ?>MovieShow/ShowAddFunctionCinema2/<?php echo $id_movie ?>" method='post' >
             <h1>Cine:</h1>

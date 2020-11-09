@@ -101,7 +101,7 @@
             
             $userName = $_POST['email'];
             $password = $_POST['password'];
-            $rol = 'admin';
+            $rol = '1';
             
             $newUser = new User();
         
@@ -122,16 +122,41 @@
                 require_once(VIEWS_PATH."main.php");
             }
         
+        }*/
+
+        public function register(){
+            
+            $userName = $_POST['email'];
+            $password = $_POST['password'];
+            $rol = '2';
+            
+            if(!$this->checkUser($userName))
+            {
+                $newUser = new User(null, $userName, $password, $rol);
+
+                $newUserRepository = new UserDAO();
+                $newUserRepository->Add($newUser);
+                $_SESSION['msg'] = "Usuario creado exitosamente.";
+
+                require_once(VIEWS_PATH."home.php");
+            }
+            else{
+                $_SESSION['msg'] = "El email ingresado ya pertenece a una cuenta existente.";
+                require_once(VIEWS_PATH."register.php");
+            }
+        
         }
-        */
+        
 
         public function logout()
         {
             session_destroy();
 
-            $message = "Logout Successfully";
+            session_start();
 
-            $this->ShowMainView($message);
+            $_SESSION['msg'] = "Has cerrado sesion";
+
+            header("location: ".FRONT_ROOT."Home/Index");
         }
         
     }

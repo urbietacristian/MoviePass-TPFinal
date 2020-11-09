@@ -34,10 +34,10 @@ require_once(VIEWS_PATH."navAdmin.php");
         <input name="roomName" value="<?php echo $room->getName();?>" type="text"  placeholder="Nombre de la Sala" required>
         <br><br>
         <h1>Precio</h1>
-        <input name="roomPrice" value="<?php echo $room->getPrice();?>" type="number"  placeholder="Precio de la Sala"required>
+        <input name="roomPrice" value="<?php echo $room->getPrice();?>" type="number" min='0'  placeholder="Precio de la Sala"required>
         <br><br>
         <h1>Capacidad</h1>
-        <input name="roomCapacity" value="<?php echo $room->getCapacity();?>" type="number"  placeholder="Capacidad de la Sala"required>
+        <input name="roomCapacity" value="<?php echo $room->getCapacity();?>" type="number" min='0'  placeholder="Capacidad de la Sala"required>
         <br>
 
         <button type="submit">Aceptar</button>
