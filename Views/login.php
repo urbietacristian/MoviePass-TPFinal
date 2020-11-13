@@ -1,3 +1,7 @@
+<?php
+    require_once(VIEWS_PATH."navGuest.php");
+?>
+
 <main class="d-flex align-items-center justify-content-center height-100" >
      <div class="content">
           <div class="container">
@@ -5,16 +9,7 @@
                     <div class="form_login">
                          <div align = 'center' class="form">                 
                               <form action="<?php echo FRONT_ROOT ?>User/login" method="POST" class="login-form bg-dark-alpha p-5 bg-light">
-                              <?php
-                                   $_SESSION['home'] = FRONT_ROOT.'Cinema/ShowHomeView';
-                                   
-                                   if(isset($_SESSION['msg']))
-                                   {
-                                        echo '<script language="javascript">alert("'.$_SESSION['msg'].'");</script>';
-                                        $_SESSION['msg'] = null;
-                                   }
-                                             
-                              ?>
+                              
                                    <div class="form-group">
                                         <label for="">Email</label>
                                         <input type="email" name="email" class="form-control form-control-lg" >

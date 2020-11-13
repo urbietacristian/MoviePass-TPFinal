@@ -28,7 +28,6 @@ class MovieShowController
         
         public function ShowMovieShowByCinema($id_movie, $id_cinema)
         {
-            ValidationController::getInstance()->validateUser();
 
             $roomList = $this->roomDAO->getRoomsByMovieAndCinema($id_cinema, $id_movie);
 
@@ -38,7 +37,15 @@ class MovieShowController
                 {
                     $movieshowArray[$room->getId()] = $this->movieShowDAO->getMovieShowByRoom($room->getId(), $id_movie) ;
                 }
-                require_once(USER_PATH."list_movieshow.php");
+                if(!isset($_SESSION['loggedUser']))
+                {
+                    require_once(GUEST_PATH."list_movieshow.php");
+                }
+                else
+                {
+                    require_once(USER_PATH."list_movieshow.php");
+                }
+                
             }
         }
 

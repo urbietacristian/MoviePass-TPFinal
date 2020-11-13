@@ -27,6 +27,11 @@
             require_once(VIEWS_PATH."register.php");
         }
 
+        public function ShowLoginView()
+        {
+            require_once(VIEWS_PATH."login.php");
+        }
+
         public function ShowAdminMenuView($message)
         {  
             $movie = new MovieController();
@@ -151,6 +156,7 @@
             session_start();
 
             $_SESSION['msg'] = "Has cerrado sesion";
+            $_SESSION['home'] = FRONT_ROOT.'Home/Index';
 
             header("location: ".FRONT_ROOT."Home/Index");
         }

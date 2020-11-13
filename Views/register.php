@@ -1,3 +1,7 @@
+<?php
+    require_once(VIEWS_PATH."navGuest.php");
+?>
+
 <main class="d-flex align-items-center justify-content-center height-100" >
           <div class="content">
                <div class="container">

@@ -59,7 +59,14 @@
         public function ShowActiveCinemas()
         {
             $cinema_list = $this->cinemaDAO->getCinemasIfMovieshow();
-            require_once(USER_PATH."list_active_cinemas.php");
+            if(!isset($_SESSION['loggedUser']))
+            {
+                require_once(GUEST_PATH."list_active_cinemas.php");
+            }
+            else
+            {
+                require_once(USER_PATH."list_active_cinemas.php");
+            }
         }
 
         public function ShowEditView()
