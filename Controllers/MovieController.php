@@ -60,27 +60,39 @@
 
         public function ShowMoviesByCinema($id_cinema)
         {
-            ValidationController::getInstance()->validateUser();
 
             $movie_list = $this->movieDAO->getMoviesByCinema($id_cinema);
 
             if($movie_list)
             {   
-                $_SESSION['msg'] = '';
-                require_once(USER_PATH."list_movies_by_cinema.php");
+                $_SESSION['msg'] = null;
+                if(!isset($_SESSION['loggedUser']))
+                {
+                    require_once(GUEST_PATH."list_movies_by_cinema.php");
+                }
+                else
+                {
+                    require_once(USER_PATH."list_movies_by_cinema.php");
+                }
             }
             else
             {
                 $_SESSION['msg'] = 'No hay funciones en este cine'; 
                 $cinema_list = $this->cinemaDAO->getCinemasIfMovieshow();
-                require_once(USER_PATH."list_active_cinemas.php");
+                if(!isset($_SESSION['loggedUser']))
+                {
+                    require_once(GUEST_PATH."list_active_cinemas.php");
+                }
+                else
+                {
+                    require_once(USER_PATH."list_active_cinemas.php");;
+                }
             }
             
         }
 
         public function showActiveMovies($id = "")
         {
-            ValidationController::getInstance()->validateUser();
             
             if($id == "fecha"){
                 $movie_list = $this->movieDAO->getMoviesOnFunctionsByDate();
@@ -97,7 +109,14 @@
 
             $genre_list = $this->genreDAO->getAllGenres();           
 
-            require_once(USER_PATH."homeUser.php");
+            if(!isset($_SESSION['loggedUser']))
+            {
+                require_once(GUEST_PATH.'home_guest.php');
+            }
+            else
+            {
+                require_once(USER_PATH.'homeUser.php');
+            }
         }
 
         public function getMoviesByGenre($id)
