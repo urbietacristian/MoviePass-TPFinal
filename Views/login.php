@@ -9,24 +9,28 @@
                     <div class="form_login">
                          <div align = 'center' class="form">                 
                               <form action="<?php echo FRONT_ROOT ?>User/login" method="POST" class="login-form bg-dark-alpha p-5 bg-light">
-                              
+                                   <h5>Bienvenido</h5>
+                                   <t1>Ingrese los datos requeridos para acceder.</t1><br><br>
+                                   
                                    <div class="form-group">
                                         <label for="">Email</label>
                                         <input type="email" name="email" class="form-control form-control-lg" >
                                    </div>
                                    <div class="form-group">
-                                        <label for="">Password</label>
+                                        <label for="">Contraseña</label>
                                         <input type="password" name="password" class="form-control form-control-lg" >
                                         <br>
                                    </div>
                                    <div class="btn_cont">
-                                   <button class="btn btn-primary btn-block btn-lg" type="submit">Login</button>
+                                   <button class="btn btn-primary btn-block btn-lg" type="submit">Ingresar</button>
                                    </div>
                                    
                               </form>
+                              <br><br>
+                              <label for="">¿Aún no estás registrado?</label>
                               <div class="btn_cont">
                                    <a href="<?php echo FRONT_ROOT ?>User/ShowRegisterView" class="login-form bg-dark-alpha p-5 bg-light">
-                                        <br><button class="btn btn-primary btn-block btn-lg" >Register</button>
+                                        <button class="btn btn-primary btn-block btn-lg" >Crear una cuenta</button>
                                    </a>
                               </div>                                   
                          </div>
