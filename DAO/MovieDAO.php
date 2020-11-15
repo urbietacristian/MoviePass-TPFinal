@@ -177,7 +177,7 @@
             catch(\PDOException $ex){
                 throw $ex;
             }
-            //$this->moviesxgenresDAO->add($movie);
+            $this->moviesxgenresDAO->add($movie);
             return $save;
         }
 

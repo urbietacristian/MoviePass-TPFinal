@@ -10,7 +10,7 @@
     <p>Fecha de lanzamiento: <?php echo $movie->getReleaseDate();?></p>
 
 
-    <div align="left" id="mainav">        
+    <div align="center" id="mainav">        
         <?php
         foreach($displayList as $value){
         ?>            
@@ -19,10 +19,9 @@
             Cine:  <?php echo $value['cinema_name'] ?> <br>
             Sala:  <?php echo $value['room_name'] ?> <br>
             Capacidad:  <?php echo $value['capacity'] ?> <br>
-            Precio:  <?php echo $value['price'] ?> <br>
+            Precio:  $<?php echo $value['price'] ?> <br>
             Dia:  <?php echo $value['day'] ?> <br>
-            Horario:  <?php echo $value['time'] ?> <br>
-            
+            Horario:  <?php echo $value['time'] ?> <br>            
             </div>
         </li>    
         <?php

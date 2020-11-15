@@ -1,5 +1,10 @@
-
-
+<?php
+  if(isset($_SESSION['msg']))
+          {
+              echo '<script language="javascript">alert("'.$_SESSION['msg'].'");</script>';
+              $_SESSION['msg'] = null;
+          }
+?>
 <div class="wrapper row1">
   <header id="header" class="hoc clear"> 
     <div id="logo" class="fl_left">

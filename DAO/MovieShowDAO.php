@@ -237,7 +237,7 @@
 
 
         
-    public function verifyDifferentMovieOnRoom($id_movie,$id_room){
+    /*public function verifyDifferentMovieOnRoom($id_movie,$id_room){
 
         $sql='select * from movieshow where movieshow.id_movie != :id_movie and movieshow.id_room = :id_room ';
 
@@ -258,6 +258,7 @@
             return true;
    
     }
+    */
 
 
         

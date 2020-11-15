@@ -2,6 +2,11 @@
   use Controllers\ValidationController as ValidationController;
 
   ValidationController::getInstance()->validateAdmin();
+  if(isset($_SESSION['msg']))
+    {
+      echo '<script language="javascript">alert("'.$_SESSION['msg'].'");</script>';
+      $_SESSION['msg'] = null;
+    }
 ?>
 
 <div class="wrapper row1">
@@ -13,6 +18,7 @@
       <li class="active"><a href="<?php echo FRONT_ROOT; ?>Movie/showMovies">Listar Peliculas</a></li>
       <li class="active"><a href="<?php echo FRONT_ROOT; ?>Cinema/ShowRemoveView">Listar Cines</a></li>
       <li class="active"><a href="<?php echo FRONT_ROOT; ?>Movie/UpdateMovies">Actualizar Peliculas</a></li>
+      <li class="active"><a href="<?php echo FRONT_ROOT; ?>User/ShowRegisterAdminView">Registrar Administrador</a></li>
       <li class="active"><a href="<?php echo FRONT_ROOT; ?>User/logout">Logout</a></li>        
     </nav> 
   </header>

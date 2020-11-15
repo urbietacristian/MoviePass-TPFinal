@@ -25,7 +25,7 @@
         $parameters['id_user'] = 0;
         $parameters['email'] = $user->getEmail();
         $parameters['password'] = $user->getPassword();
-        $parameters['id_role'] = 2;
+        $parameters['id_role'] = $user->getRol();
 
         try{
             $this->connection = Connection::getInstance();

@@ -14,13 +14,6 @@ require_once(VIEWS_PATH."navAdmin.php");
     <button type="submit">Volver</button>
     </form>
     <div align = 'center'>
-    <?php
-        if(isset($_SESSION['msg']))
-        {
-            echo '<script language="javascript">alert("'.$_SESSION['msg'].'");</script>';
-            $_SESSION['msg'] = null;
-        }
-    ?>
         <h1>Agregar Sala</h1>
         <form action="<?php echo FRONT_ROOT ?>Room/register"   method='post'>
             <input type="hidden" value="<?php echo $id_cinema; ?>" name="id_cinema"><br>

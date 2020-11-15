@@ -16,11 +16,8 @@
         <?php } ?>
 
     </div>
-
-
     <div id="mainav">
-        <?php 
-        
+        <?php
         foreach($movie_list as $movie){ 
           ?>
                         

@@ -429,7 +429,7 @@ ul#horizontal-list {
 /* Tables + Comments */
 table, th, td, #comments .avatar, #comments input, #comments textarea{text-align:center; border: 0px;border-color:#D7D7D7;}
 #comments input:focus, #comments textarea:focus, #comments *:required:focus{border-color:#DC8E47;}
-th{color:#FFFFFF; background-color:#292929;}
+th{color:#DC8E47; background-color:rgb(59, 59, 59);}
 tr, #comments li, #comments input[type="submit"], #comments input[type="reset"]{color:white; background-color:#292929;}
 tr:nth-child(even), #comments li:nth-child(even){color:#FFFFFF; background-color:rgb(59, 59, 59);}
 table a, #comments a{background-color:inherit;}

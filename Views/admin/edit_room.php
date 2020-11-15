@@ -14,15 +14,6 @@ require_once(VIEWS_PATH."navAdmin.php");
     <button type="submit">Volver</button>
     </form>
     <div align = 'center'>
-
-    <?php
-    if(isset($_SESSION['msg']))
-    {
-        echo '<script language="javascript">alert("'.$_SESSION['msg'].'");</script>';
-        $_SESSION['msg'] = null;
-    }
-    ?>
-
     <br><br>
     <h1>Editar Sala</h1>
     <br><br>

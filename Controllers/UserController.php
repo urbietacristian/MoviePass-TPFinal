@@ -22,6 +22,7 @@
             require_once(VIEWS_PATH."home.php");
             echo '<script language="javascript">alert("'.$message.'");</script>';
         }
+
         public function ShowRegisterView()
         {
             require_once(VIEWS_PATH."register.php");
@@ -38,9 +39,9 @@
             $movie->ShowMovies();
         }
       
-        public function ShowAdminRegisterView()
+        public function ShowRegisterAdminView()
         {
-            require_once(VIEWS_PATH."registerAdmin.php");
+            require_once(ADMIN_PATH."register_new_admin.php");
         }
 
         public function checkUser($email)
@@ -83,16 +84,16 @@
                         }
                     }
                     else{
-                        $_SESSION['msg'] = "Wrong Username or Password";
+                        $_SESSION['msg'] = "Los datos que has introducido son incorrectos.";
                         $_SESSION['home'] = FRONT_ROOT.'Home/Index';
-                        require_once(VIEWS_PATH."home.php");
+                        require_once(VIEWS_PATH."login.php");
                     } 
                 }
                 else
                 {
-                    $_SESSION['msg'] = "Wrong Username";
+                    $_SESSION['msg'] = "El mail que has introducido no corresponde a una cuenta registrada.";
                     $_SESSION['home'] = FRONT_ROOT.'Home/Index';
-                    require_once(VIEWS_PATH."home.php");
+                    require_once(VIEWS_PATH."login.php");
                 }
             }
             catch(\PDOException $ex){
@@ -141,13 +142,35 @@
                 $newUserRepository->Add($newUser);
                 $_SESSION['msg'] = "Usuario creado exitosamente.";
 
-                require_once(VIEWS_PATH."home.php");
+                require_once(VIEWS_PATH."login.php");
             }
             else{
                 $_SESSION['msg'] = "El email ingresado ya pertenece a una cuenta existente.";
                 require_once(VIEWS_PATH."register.php");
             }        
-        }        
+        }
+
+        public function registerAdmin()
+        {            
+            $userName = $_POST['email'];
+            $password = $_POST['password'];
+            $rol = '1';
+            
+            if(!$this->checkUser($userName))
+            {
+                $newUser = new User(null, $userName, $password, $rol);
+
+                $newUserRepository = new UserDAO();
+                $newUserRepository->Add($newUser);
+                $_SESSION['msg'] = "Administrador registrado exitosamente.";
+
+                header("location: ".FRONT_ROOT."Movie/ShowMovies");
+            }
+            else{
+                $_SESSION['msg'] = "El email ingresado ya pertenece a una cuenta existente.";
+                require_once(ADMIN_PATH."register_new_admin.php");
+            }        
+        }
 
         public function logout()
         {

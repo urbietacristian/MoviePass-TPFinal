@@ -112,6 +112,27 @@
 
         
     }
+    
+    public function getCinemaByID($id)
+    {
+
+        $sql = "SELECT * FROM cinemas WHERE id_cinema = :id_cinema";
+
+        $parameters['id_cinema'] = $id;
+
+        try{
+            $this->connection = Connection::getInstance();
+            $result = $this->connection->execute($sql,$parameters);
+        }
+        catch(\PDOException $ex){
+            throw $ex;
+        }
+
+        if(!empty($result))
+            return $this->map($result);
+        else
+            return false;        
+    }
 
 
     public function getCinemasIfMovieshow()

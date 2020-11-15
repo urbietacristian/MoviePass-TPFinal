@@ -11,13 +11,6 @@ require_once(VIEWS_PATH."navAdmin.php");
 </head>
 <body>
     <div align = 'center'>
-    <?php
-    if(isset($_SESSION['msg']))
-    {
-        echo '<script language="javascript">alert("'.$_SESSION['msg'].'");</script>';
-        $_SESSION['msg'] = null;
-    }
-    ?>
     <br><br>
     <h1>Editar Cine</h1>
     <br><br>

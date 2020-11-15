@@ -13,16 +13,13 @@
                 header("location:".FRONT_ROOT."Movie/ShowActiveMovies");
             }
             else if($_SESSION['loggedUser'])
-            { 
+            {
                 $user = $_SESSION['loggedUser'];
                 if ($user->getRol() != 1){
                     header("location:".FRONT_ROOT."Movie/ShowActiveMovies");
-                    return;
                 }
-            }   
-            return;  
-                require_once(VIEWS_PATH."login.php");
-                
-        }        
-    }    
+            }
+            require_once(VIEWS_PATH."login.php");
+        }
+    }
 ?>

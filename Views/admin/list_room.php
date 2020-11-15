@@ -1,10 +1,5 @@
 <?php
 require_once(VIEWS_PATH."navAdmin.php");
-if(isset($_SESSION['msg']))
-{
-    echo '<script language="javascript">alert("'.$_SESSION['msg'].'");</script>';
-    $_SESSION['msg'] = null;
-}
 ?>
 <main class="d-flex align-items-center justify-content-center height-100" >
 <div >

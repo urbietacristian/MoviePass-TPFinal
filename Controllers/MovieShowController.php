@@ -44,8 +44,7 @@ class MovieShowController
                 else
                 {
                     require_once(USER_PATH."list_movieshow.php");
-                }
-                
+                }                
             }
         }
 
@@ -69,6 +68,7 @@ class MovieShowController
                 $id_movie = $_POST['id_movie'];
                 $id_cinema = $_POST['id_cinema'];
                 $date = $_POST['date'];
+                $cinema = $this->cinemaDAO->getCinemaByID($id_cinema)['0'];
                 $flag = $this->movieShowDAO->verifyMovieOnCinema($id_cinema, $id_movie, $date);
                 if($flag)
                 {
@@ -97,7 +97,7 @@ class MovieShowController
                 $id_cinema = $_POST['id_cinema'];
                 $date = $_POST['date'];
                 $id_room = $_POST['id_room'];
-                $time = $_POST['time'];
+                $time = $_POST['time'].':00';
         
                 $date;
                 $flag2 = $this->verifyDate($id_room, $date, $time, $id_movie);
@@ -112,7 +112,10 @@ class MovieShowController
                 {
                     $roomList = $this->roomDAO->readRoomsByCinema($id_cinema);
                     $movie = $this->movieDAO->read($id_movie)['0'];
-                    $_SESSION['msg'] = "Ya existe una funcion en ese horario";
+                    $_SESSION['msg'] = "La sala ya estará proyectando una película en ese horario. Volverá a estar disponible luego de las ".$_SESSION['endTime']." horas.";
+                    $_SESSION['endTime'] = null;
+                    $cinema = $this->cinemaDAO->getCinemaByID($id_cinema)['0'];
+
 
                     require_once(ADMIN_PATH."add_movieshow_2.php");
                 }
@@ -250,7 +253,9 @@ class MovieShowController
                         $endTime = date_create($movieshow->getSchedule());
                         $duration = $movieshowFilm->getDuration() + 15;
                         date_add($endTime,date_interval_create_from_date_string($duration." minutes"));
-                        date_format($endTime,"G:i");                        
+                        date_format($endTime,"G:i");
+
+                        $_SESSION['endTime'] = $endTime->format('H:i');
 
                         if(($newStartTime > $startTime && $newStartTime <$endTime) | ($newEndTime > $startTime && $newEndTime < $endTime))  //verifica q le pelicula no se pise con otras funciones
 					    {

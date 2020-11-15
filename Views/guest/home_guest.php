@@ -1,11 +1,5 @@
 <?php
-    require_once(VIEWS_PATH."navGuest.php");
-    if(isset($_SESSION['msg']))
-    {
-        echo '<script language="javascript">alert("'.$_SESSION['msg'].'");</script>';
-        $_SESSION['msg'] = null;
-    }
-                                             
+    require_once(VIEWS_PATH."navGuest.php");                                             
 ?>
 <div align="center" id="mainav">
   <li><a href="<?php echo FRONT_ROOT; ?>Movie/showActiveMovies/">Todas las Películas</a></li>

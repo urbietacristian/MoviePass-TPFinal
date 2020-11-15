@@ -2,6 +2,11 @@
   use Controllers\ValidationController as ValidationController;
 
   ValidationController::getInstance()->validateUser();
+  if(isset($_SESSION['msg']))
+    {
+      echo '<script language="javascript">alert("'.$_SESSION['msg'].'");</script>';
+      $_SESSION['msg'] = null;
+    }
 ?>
 
 <div class="wrapper row1">
