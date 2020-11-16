@@ -11,7 +11,7 @@ require_once(VIEWS_PATH."navAdmin.php");
 </head>
 <body>
     <form action="<?php echo FRONT_ROOT?>Room/ShowRoomsByCinemaView/<?php echo $id_cinema?>">
-    <button type="submit">Volver</button>
+        <button type="submit">Volver</button>
     </form>
     <div align = 'center'>
         <h1>Agregar Sala</h1>
@@ -26,7 +26,6 @@ require_once(VIEWS_PATH."navAdmin.php");
             <br>
             <button type="submit">Aceptar</button>
         </form>
-    </div>
-        
+    </div>        
 </body>
 </html>

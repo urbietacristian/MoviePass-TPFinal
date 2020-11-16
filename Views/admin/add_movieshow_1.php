@@ -10,7 +10,7 @@ require_once(VIEWS_PATH."navAdmin.php");
     <title>Agregar Función - Paso 1</title>
 </head>
 <body>
-    <div align = 'center'>        
+    <div align = 'center'>
         <h1>Agregar función para "<?php echo $movie->getName()?>"</h1>
         <form action="<?php echo FRONT_ROOT ?>MovieShow/ShowAddFunctionCinema2/<?php echo $id_movie ?>" method='post' >
             <h1>Cine:</h1>

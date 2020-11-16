@@ -62,6 +62,7 @@
         {
 
             $movie_list = $this->movieDAO->getMoviesByCinema($id_cinema);
+            $cinema = $this->cinemaDAO->getCinemaByID($id_cinema);
 
             if($movie_list)
             {   

@@ -6,14 +6,12 @@ class Cinema
     private $id;
     private $name;
     private $address;
-    private $total_capacity;
 
     public function __construct($id, $name, $address)
     {
         $this->id = $id;
         $this->name = $name;
-        $this->address = $address;
-        
+        $this->address = $address;        
     }
 
     /**

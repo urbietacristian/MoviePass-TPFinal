@@ -91,8 +91,8 @@
 
     
 
-    public function read($name){
-
+    public function read($name)
+    {
         $sql = "SELECT * FROM cinemas WHERE name = :name";
 
         $parameters['name'] = $name;
@@ -108,14 +108,11 @@
         if(!empty($result))
             return $this->map($result);
         else
-            return false;
-
-        
+            return false;        
     }
     
     public function getCinemaByID($id)
     {
-
         $sql = "SELECT * FROM cinemas WHERE id_cinema = :id_cinema";
 
         $parameters['id_cinema'] = $id;
