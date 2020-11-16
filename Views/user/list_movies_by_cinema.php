@@ -3,6 +3,7 @@ require_once(VIEWS_PATH."navUser.php");
 ?>
 <main class="d-flex align-items-center justify-content-center height-100" >
     <div id="mainav">
+    <h1>Películas en <?php echo $cinema->getName()?></h1>
         <?php        
         foreach($movie_list as $movie){
         ?>                        
