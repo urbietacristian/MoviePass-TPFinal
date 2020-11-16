@@ -89,6 +89,26 @@ public function __construct($id_movieshow, $id_room, $id_movie, $date, $schedule
 
 		return $this;
 	}
+
+    /**
+     * Get the value of id_movieshow
+     */ 
+    public function getId()
+    {
+        return $this->id_movieshow;
+    }
+
+    /**
+     * Set the value of id_movieshow
+     *
+     * @return  self
+     */ 
+    public function setId($id_movieshow)
+    {
+        $this->id_movieshow = $id_movieshow;
+
+        return $this;
+    }
 }
 
 ?>

@@ -21,9 +21,11 @@
             Capacidad:  <?php echo $value['capacity'] ?> <br>
             Precio:  $<?php echo $value['price'] ?> <br>
             Dia:  <?php echo $value['day'] ?> <br>
-            Horario:  <?php echo $value['time'] ?> <br>            
+            Horario:  <?php echo $value['time'] ?>
+            <a href="<?php echo FRONT_ROOT; ?>Purchase/ShowPurchaseView?title=<?php echo $movie->getName();?>&cinema=<?php echo $value['cinema_name']?>&price=<?php echo $value['price'] ?>&id_movieshow=<?php echo $value['id_movieshow'] ?>">Comprar</a> 
             </div>
-        </li>    
+        </li>   
+        
         <?php
         } 
         ?>

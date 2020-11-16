@@ -234,6 +234,28 @@
    
     }
 
+           
+    public function getMovieShowById($id_movieshow){
+
+        $sql = "SELECT * FROM movieshow WHERE id_movieshow = :id_movieshow";
+
+        $parameters['id_movieshow'] = $id_movieshow;
+
+        try{
+            $this->connection = Connection::getInstance();
+            $result = $this->connection->execute($sql,$parameters);
+        }
+        catch(\PDOException $ex){
+            throw $ex;
+        }
+
+        if(!empty($result))
+            return $this->map($result);
+        else
+            return false;
+   
+    }
+
 
 
         

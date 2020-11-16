@@ -2,51 +2,74 @@
 
 class Ticket
 {
-    private $id;
+    private $id_ticket;
     private $ticket_number;
-    private $show;
+    private $id_movieshow;
+    private $id_purchase;
 
 
-	public function __construct($ticket_number, $show)
+	public function __construct($id_ticket, $ticket_number, $id_movieshow, $id_purchase)
 	{
-		$this->setNumeroEntrada($ticket_number);
-        $this->setShow($show);
+        $this->setId($id_ticket);
+		$this->setTicketNumber($ticket_number);
+        $this->setMovieShow($id_movieshow);
+        $this->setIdPurchase($id_purchase);
 	}
     
     public function getId()
     {
-        return $this->id;
+        return $this->id_ticket;
     }
 
  
     public function setId($id)
     {
-        $this->id = $id;
+        $this->id_ticket = $id;
     }
 
-    public function getNumeroEntrada()
+    public function getTicketNumber()
     {
         return $this->ticket_number;
     }
 
  
-    public function setNumeroEntrada($ticket_number)
+    public function setTicketNumber($ticket_number)
     {
         $this->ticket_number = $ticket_number;
     }
 
-    public function getShow()
+    public function getMovieShow()
     {
-        return $this->show;
+        return $this->id_movieshow;
     }
 
  
-    public function setShow($show)
+    public function setMovieShow($id_movieshow)
     {
-        $this->show = $show;
+        $this->id_movieshow = $id_movieshow;
     }
 
    
     
+
+    /**
+     * Get the value of id_purchase
+     */ 
+    public function getIdPurchase()
+    {
+        return $this->id_purchase;
+    }
+
+    /**
+     * Set the value of id_purchase
+     *
+     * @return  self
+     */ 
+    public function setIdPurchase($id_purchase)
+    {
+        $this->id_purchase = $id_purchase;
+
+        return $this;
+    }
 }
 ?>

@@ -163,7 +163,7 @@ class MovieShowController
             if(!isset($_SESSION['loggedUser']))
                 require_once(GUEST_PATH."detail_movie.php");
             else
-                require_once(GUEST_PATH."buy_movie.php");
+                require_once(USER_PATH."buy_movie.php");
             
             
         }
