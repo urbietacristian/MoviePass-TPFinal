@@ -156,12 +156,16 @@ class MovieShowController
 
         public function ShowFunctionsByMovie($id_movie)
         {
-            ValidationController::getInstance()->validateUser();
+            
 
             $displayList = $this->movieShowDAO->getDisplayableMovieShowByMovie($id_movie);
             $movie = $this->movieDAO->read($id_movie)['0'];
-
-            require_once(USER_PATH."buy_movie.php");
+            if(!isset($_SESSION['loggedUser']))
+                require_once(GUEST_PATH."detail_movie.php");
+            else
+                require_once(GUEST_PATH."buy_movie.php");
+            
+            
         }
 
         public function register($id_movie,$id_cinema,$date, $id_room, $schedule)

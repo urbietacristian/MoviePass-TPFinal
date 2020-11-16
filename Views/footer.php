@@ -1,3 +1,4 @@
+</div>
 <footer id="footer" class="hoc clear"> 
     <div class="center">
 		<h6 class="heading">MoviePass</h6> 

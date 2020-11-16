@@ -1,7 +1,7 @@
 <?php
   require_once(VIEWS_PATH."navGuest.php");                                             
 ?>
-<div  class="hoc">
+
   <div id="mainav" align="center">
     <li><a href="<?php echo FRONT_ROOT; ?>Movie/showActiveMovies/">Todas las Películas</a></li>
     <li><a href="<?php echo FRONT_ROOT; ?>Movie/showActiveMovies?id=fecha">Ordenar Por Fecha</a></li>
@@ -33,4 +33,3 @@
       }
     ?>
   </div>
-</div>

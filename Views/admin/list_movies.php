@@ -1,7 +1,7 @@
 <?php
     require_once(VIEWS_PATH."navAdmin.php");
 ?>
-<div  class="hoc">
+
     <div id="mainav" align="center">
       <li>
         <a href="<?php echo FRONT_ROOT; ?>Movie/showMovies/">Todas las Películas</a>
@@ -34,6 +34,6 @@
         }
       ?>
     </div>
-</div>
+
 
 
