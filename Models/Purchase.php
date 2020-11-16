@@ -5,17 +5,17 @@ class Purchase
     private $id;
     private $account;
     private $date;
-    //private $discount;
-    //private $subtotal;
+    private $discount;
+    private $subtotal;
     private $total;
 
 
-	public function __construct($account,$date,$total)
+	public function __construct($account,$date,$discount, $subtotal, $total)
 	{
         $this->setAccount($account);
         $this->setDate($date);
-        //$this->setDiscount($discount);
-        //$this->setSubtotal($subtotal);
+        $this->setDiscount($discount);
+        $this->setSubtotal($subtotal);
         $this->setTotal($total);
     }
     
@@ -76,17 +76,17 @@ class Purchase
     }
 
 
-    // public function getSubtotal()
-    // {
-    //     return $this->subtotal;
-    // }
+    public function getSubtotal()
+    {
+        return $this->subtotal;
+    }
 
-    // public function setSubtotal($subtotal)
-    // {
-    //     $this->subtotal = $subtotal;
+    public function setSubtotal($subtotal)
+    {
+        $this->subtotal = $subtotal;
 
-    //     return $this;
-    // }
+        return $this;
+    }
 
  
     public function getTotal()
@@ -98,6 +98,20 @@ class Purchase
     public function setTotal($total)
     {
         $this->total = $total;
+
+        return $this;
+    }
+
+
+    public function getDiscount()
+    {
+        return $this->discount;
+    }
+
+
+    public function setDiscount($discount)
+    {
+        $this->discount = $discount;
 
         return $this;
     }

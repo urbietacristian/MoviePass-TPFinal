@@ -21,7 +21,7 @@ require_once(VIEWS_PATH."navUser.php");
     <form action="<?php echo FRONT_ROOT ?>Purchase/newPurchase"   method='post' >
         <h1>Cantidad de entradas:</h1>
         <br>
-        <input name='ticket_count' type="number" required>
+        <input name='ticket_count' type="number" min="1" required>
         <br><br>
         <input name='id_movieshow' type="hidden" value='<?php echo $id_movieshow?>'>
         <br>

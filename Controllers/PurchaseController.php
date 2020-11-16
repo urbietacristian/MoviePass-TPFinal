@@ -54,20 +54,24 @@ class PurchaseController
                         $user = $_SESSION['loggedUser'];
                         $movieshow = $this->movieShowDAO->getMovieShowById($id_movieshow)['0'];
                         //purchase
-                        var_dump($id_movieshow);
                         
-                        $total = $this->roomDAO->returnRoomById($movieshow->getIdRoom())->getPrice()  *  $ticket_count;
+                        $subtotal = $this->roomDAO->returnRoomById($movieshow->getIdRoom())->getPrice()  *  $ticket_count;
+                        
                         $today_date = date('Y-m-d');
-                        // if($ticket_count>=2 && ((date("l")=="Tuesday" || date("l")=="Wednesday")))
-                        // {
-                        //         $total=$subtotal*0.75;
-                        //         $descuento=$subtotal-$total;
-                        // }
-                        // else
-                        // {
-                        //     $descuento = 0;
-                        //     $total=$subtotal;
-                        // }
+
+                        $movieshowDate = date_create($movieshow->getDate());
+                        $date = date_format($movieshowDate, "w");
+
+                        if($ticket_count>=2 && ($date =="2" || $date=="3"))
+                        {
+                            $discount = true;
+                            $total= $subtotal*0.75;
+                        }
+                        else
+                        {
+                            $discount = false;
+                            $total=$subtotal;
+                        }
                         
                         $qrsToSend=array();
 
@@ -79,10 +83,6 @@ class PurchaseController
                         }
                         $capacity = intval($this->roomDAO->returnRoomById($movieshow->getIdRoom())->getCapacity());
 
-                        var_dump($last_ticket);
-                        var_dump($ticket_count + $last_ticket);
-                        var_dump($capacity);
-
                         
 
                         if( ($last_ticket+$ticket_count) > $capacity ) //entra si no hay mas capacidad
@@ -93,7 +93,7 @@ class PurchaseController
                         else//entra si hay capacidad disponible
                         {
                             
-                            $purchase= new Purchase($user->getId(),$today_date,$total);
+                            $purchase= new Purchase($user->getId(),$today_date,$discount, $subtotal, $total);
                             
                             $purchase =$this->purchaseDAO->Add($purchase);
                             $id_purchase = $this->purchaseDAO->getLastIdPurchase();
@@ -102,9 +102,7 @@ class PurchaseController
                             //echo ($last_ticket+$ticket_count);
                             $ticket_number=$last_ticket+1; //agrego +1 al la ultima ticket guardada           
                             for ($i = 0; $i < $ticket_count; $i++) //genero la cantidad de tickets pasadas por parametro
-                            { 
-                                
-                                
+                            {                
             
                                 $ticket= new Ticket(null,$ticket_number,$id_movieshow,$id_purchase); 
                                 $ticket =$this->ticketDAO->Add($ticket);

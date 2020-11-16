@@ -8,13 +8,15 @@
         public function Add($purchase){
          
             $sql = 'INSERT INTO purchases 
-            (id_user, date, total) 
+            (id_user, date, total, discount, subtotal) 
             VALUES 
-            (:id_user, :date, :total)';            
+            (:id_user, :date, :total, :discount, :subtotal)';            
             
             $parameters['id_user'] = $purchase->getAccount();
             $parameters['date'] = $purchase->getDate();
             $parameters['total'] = $purchase->getTotal();
+            $parameters['discount'] = $purchase->getDiscount();
+            $parameters['subtotal'] = $purchase->getSubtotal();
     
             try{
                 $this->connection = Connection::getInstance();
@@ -75,7 +77,7 @@
             $value = is_array($value) ? $value : [];
 
             $resp = array_map(function($p){
-                return new Purchase($p['id_purchase'],$p['id_user'],$p['date'],$p['total']);
+                return new Purchase($p['id_purchase'],$p['id_user'],$p['date'],$p['discount'], $p['subtotal'], $p['total']);
             }, $value);
 
 
