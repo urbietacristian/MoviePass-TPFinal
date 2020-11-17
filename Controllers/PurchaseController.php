@@ -56,7 +56,8 @@ class PurchaseController
                         //purchase
                         
                         $subtotal = $this->roomDAO->returnRoomById($movieshow->getIdRoom())->getPrice()  *  $ticket_count;
-                        
+                        date_default_timezone_set('America/Argentina/Buenos_Aires');
+
                         $today_date = date('Y-m-d');
 
                         $movieshowDate = date_create($movieshow->getDate());
@@ -64,12 +65,12 @@ class PurchaseController
 
                         if($ticket_count>=2 && ($date =="2" || $date=="3"))
                         {
-                            $discount = true;
+                            $discount = 1;
                             $total= $subtotal*0.75;
                         }
                         else
                         {
-                            $discount = false;
+                            $discount = 0;
                             $total=$subtotal;
                         }
                         
@@ -83,7 +84,7 @@ class PurchaseController
                         }
                         $capacity = intval($this->roomDAO->returnRoomById($movieshow->getIdRoom())->getCapacity());
 
-                        
+                        var_dump($last_ticket+$ticket_count);
 
                         if( ($last_ticket+$ticket_count) > $capacity ) //entra si no hay mas capacidad
                         {
@@ -92,6 +93,8 @@ class PurchaseController
                         }
                         else//entra si hay capacidad disponible
                         {
+                            var_dump($capacity);
+
                             
                             $purchase= new Purchase($user->getId(),$today_date,$discount, $subtotal, $total);
                             
