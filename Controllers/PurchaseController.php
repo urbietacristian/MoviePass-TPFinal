@@ -36,6 +36,11 @@ class PurchaseController
             require_once(USER_PATH."buy_ticket.php");
         }
 
+        public function ShowCreditCardView()
+        {
+            require_once(USER_PATH.'credit_card.php');
+        }
+
 
 
 

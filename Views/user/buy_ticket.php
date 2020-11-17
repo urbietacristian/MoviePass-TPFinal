@@ -18,7 +18,7 @@ require_once(VIEWS_PATH."navUser.php");
 
 
     <h1>Comprar Entrada</h1>
-    <form action="<?php echo FRONT_ROOT ?>Purchase/newPurchase"   method='post' >
+    <form action="<?php echo FRONT_ROOT ?>Purchase/ShowCreditCardView"   method='post' >
         <h1>Cantidad de entradas:</h1>
         <br>
         <input name='ticket_count' type="number" min="1" required>
