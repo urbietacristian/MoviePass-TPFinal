@@ -24,7 +24,7 @@
         <div class='card'>
           <a href='<?php echo FRONT_ROOT; ?>Movie/ShowMovieDetail/<?php echo $movie->getIdApi()?>'>
             <div ><img src='http://image.tmdb.org/t/p/w300<?php echo $movie->getImage()?>'></div>
-              <div class='title' style='display:block;text-overflow: ellipsis;width: 300px;overflow: hidden; white-space: nowrap'>
+              <div class='title' style='display:block;text-overflow: ellipsis;width: 270px;overflow: hidden; white-space: nowrap'>
                 <p><?php echo $movie->getName()?></p>
             </div>
           </a>
