@@ -71,6 +71,52 @@
             
         }
 
+
+        public function totalByCinema($id_cinema, $dateIn, $dateOut)
+        {            
+            $sql = 'call '.'sp_totalByCinema(:id_cinema,:dateIn,:dateOut)';
+    
+            $parameters['id_cinema'] = $id_cinema;
+            $parameters['dateIn'] = $dateIn;
+            $parameters['dateOut'] = $dateOut;
+
+            try{
+                $this->connection = Connection::getInstance();
+                $result = $this->connection->execute($sql,$parameters);
+            }
+            catch(\PDOException $ex){
+                throw $ex;
+            }
+
+            if(!empty($result))
+                return $result['0'];
+            else
+                return null;
+        }
+
+        
+        public function totalByMovie($id_movie, $dateIn, $dateOut)
+        {            
+            $sql = 'call '.'sp_totalByMovie(:id_movie,:dateIn,:dateOut)';
+    
+            $parameters['id_movie'] = $id_movie;
+            $parameters['dateIn'] = $dateIn;
+            $parameters['dateOut'] = $dateOut;
+
+            try{
+                $this->connection = Connection::getInstance();
+                $result = $this->connection->execute($sql,$parameters);
+            }
+            catch(\PDOException $ex){
+                throw $ex;
+            }
+
+            if(!empty($result))
+                return $result['0'];
+            else
+                return null;
+        }
+        
                 
         protected function map($value){
 

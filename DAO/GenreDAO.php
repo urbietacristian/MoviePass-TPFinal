@@ -22,7 +22,7 @@
 
         public function add($genre)
         {
-            $sql = "INSERT INTO genres (id_genre, name) VALUES (:id_genre, :name)";
+            $sql = "INSERT IGNORE INTO genres (id_genre, name) VALUES (:id_genre, :name)";
 
             $parameters['id_genre'] = $genre->getId();
             $parameters['name'] = $genre->getName();            

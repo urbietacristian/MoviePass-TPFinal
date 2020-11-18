@@ -161,6 +161,7 @@
             {
                 foreach($movie->getGenreIds() as $genre_id)
                 {
+                    
                     array_push($active_genres_ids, $genre_id);
                 }                
             }

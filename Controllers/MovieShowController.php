@@ -194,6 +194,21 @@ class MovieShowController
             }        
         }
 
+
+        public function dateTimeToString($movieshow)
+        {
+            $days = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");
+            $months = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+
+            $movieshowDate = date_create($movieshow->getDate());
+            $weekDay = date_format($movieshowDate, "w");
+            $date = date_format($movieshowDate, "d");
+            $month = date_format($movieshowDate, "n");
+            $time = new DateTime($movieshow->getSchedule());
+            $time = date_format($time, "G:i");
+            return $movieshow_datetime = $days[$weekDay]." ".$date." de ".$months[$month-1]. " a las ".$time ;
+        }
+
         public function removeMovieShow()
         {
             ValidationController::getInstance()->validateAdmin();

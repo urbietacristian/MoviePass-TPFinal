@@ -66,7 +66,7 @@
             catch(\PDOException $ex){
                 throw $ex;
             }
-            var_dump($result);
+
 
             if(!empty($result))
                 return $result['ticket_number'];

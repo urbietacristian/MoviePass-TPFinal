@@ -1,4 +1,6 @@
-USE moviepassdefault;
+#USE moviepassdefault;
+#create database moviepassdefault
+#drop database moviepassdefault
 
 -- CREACIÓN DE TABLAS --
 
@@ -40,6 +42,7 @@ create table genres (
 	CONSTRAINT pk_id_genre PRIMARY KEY (id_genre)
 );
 
+
 create table movies (
 	id_api int NOT NULL,
 	name varchar(50),
@@ -71,25 +74,65 @@ create table moviesxgenres (
 	CONSTRAINT fk_genre FOREIGN KEY (id_genre) REFERENCES genres (id_genre)
 );
 
+CREATE TABLE `tickets` (
+  `id_ticket` int NOT NULL AUTO_INCREMENT,
+  `id_movieshow` int NOT NULL,
+  `id_purchase` int DEFAULT NULL,
+  `ticket_number` int DEFAULT NULL,
+  PRIMARY KEY (`id_ticket`),
+  KEY `fk_movieshow` (`id_movieshow`),
+  KEY `fk_purchase` (`id_purchase`),
+  CONSTRAINT `fk_movieshow` FOREIGN KEY (`id_movieshow`) REFERENCES `movieshow` (`id_movieshow`),
+  CONSTRAINT `fk_purchase` FOREIGN KEY (`id_purchase`) REFERENCES `purchases` (`id_purchase`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+CREATE TABLE `purchases` (
+  `id_purchase` int NOT NULL AUTO_INCREMENT,
+  `id_user` int DEFAULT NULL,
+  `date` date DEFAULT NULL,
+  `total` int DEFAULT NULL,
+  `subtotal` int DEFAULT NULL,
+  `discount` boolean DEFAULT NULL,
+  PRIMARY KEY (`id_purchase`),
+  KEY `fk_id_user` (`id_user`),
+  CONSTRAINT `fk_id_user` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+DELIMITER $$
+create procedure sp_returnLastTicket(in id_movieshowE int)
+begin
+select tickets.ticket_number from tickets where tickets.id_movieshow = 2 order by tickets.ticket_number desc limit 1;
+end$$
+
+
+DELIMITER $$
+create procedure sp_totalByMovie(in id_movieI int,in dateIN date,IN dateOUT date)
+begin
+	SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
+    select sum(purchases.total) as totalVendido from purchases 
+	inner join (select tickets.* from tickets inner join purchases on purchases.id_purchase = tickets.id_purchase group by purchases.id_purchase) as tick on tick.id_purchase=purchases.id_purchase 
+	inner join movieshow on tick.id_movieshow= movieshow.id_movieshow 
+	inner join rooms on movieshow.id_room=rooms.id_room 
+	inner join movies on movies.id_api=movieshow.id_movie
+	where movies.id_api= id_movieI and purchases.date BETWEEN dateIN AND dateOUT;
+end$$
+
+DELIMITER $$
+create procedure sp_totalByCinema(in idCinemaI int,in dateIN date,In dateOUT date)
+begin
+   SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
+	select sum(purchases.total) as totalVendido from purchases 
+	inner join (select tickets.* from tickets inner join purchases on purchases.id_purchase = tickets.id_purchase group by purchases.id_purchase) as tick on tick.id_purchase=purchases.id_purchase 
+	inner join movieshow on tick.id_movieshow= movieshow.id_movieshow 
+	inner join rooms on movieshow.id_room=rooms.id_room 
+	inner join cinemas on cinemas.id_cinema=rooms.id_cinema
+	where cinemas.id_cinema= idCinemaI and purchases.date BETWEEN dateIN AND dateOUT;
+end$$
+
+
 -- INSERTANDO AL ADMIN --
 
 INSERT INTO roles (id_role, name) VALUES (1, 'admin');  
 INSERT INTO users (email, password, id_role) VALUES ('admin@utn.com', 'admin', 1);
 
--- SELECTS ÚTILES --
-
-select * from cinemas;
-
-select * from genres;
-
-select * from movies;
-
-select * from movieshow;
-
-select * from moviesxgenres;
-
-select * from roles;
-
-select * from rooms;
-
-select * from users;

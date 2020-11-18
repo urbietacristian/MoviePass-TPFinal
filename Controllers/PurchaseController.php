@@ -7,7 +7,8 @@
     use DAO\PurchaseDAO as PurchaseDAO;
     use DAO\RoomDAO as RoomDAO;
     use DAO\TicketDAO;
-    use Models\Ticket as Ticket;
+use DateTime;
+use Models\Ticket as Ticket;
     use PDOException;
 
 class PurchaseController
@@ -18,6 +19,7 @@ class PurchaseController
         private $cinemaDAO;
         private $roomDAO;
         private $ticketDAO;
+        private $movieshowController;
 
         public function __construct()
         {
@@ -26,7 +28,60 @@ class PurchaseController
             $this->cinemaDAO = new CinemaDAO;
             $this->roomDAO = new RoomDAO();            
             $this->ticketDAO = new TicketDAO();            
-            $this->purchaseDAO = new PurchaseDAO();            
+            $this->purchaseDAO = new PurchaseDAO();  
+            $this->movieshowController = new MovieShowController();          
+        }
+
+        public function ShowSalesView()
+        {
+            ValidationController::getInstance()->validateAdmin();
+            $cinemaList = $this->cinemaDAO->GetAll();
+            $movieList = $this->movieDAO->getAllMovies();
+            require_once(ADMIN_PATH."show_sales.php");
+        }
+
+        public function ShowSalesByMovieView()
+        {
+            ValidationController::getInstance()->validateAdmin();
+            if(isset($_GET))
+            {
+                $id_movie = $_GET['id_movie'];
+                $dateIn = $_GET['dateIn'];
+                $dateOut = $_GET['dateOut'];
+
+                $totales_vendidos = $this->purchaseDAO->totalByMovie($id_movie, $dateIn, $dateOut);
+                if($totales_vendidos)
+                {
+                    require_once(ADMIN_PATH."show_sales_by_movie.php");
+                }
+                else
+                {
+                $_SESSION['msg'] = "No hubo ventas de esta pelicula entre esas fechas";
+                $this->ShowSalesView();
+                }
+            }
+        }
+
+        public function ShowSalesByCinemaView()
+        {
+            ValidationController::getInstance()->validateAdmin();
+            if(isset($_GET))
+            {
+                $id_cinema = $_GET['id_cinema'];
+                $dateIn = $_GET['dateIn'];
+                $dateOut = $_GET['dateOut'];
+
+                $totales_vendidos = $this->purchaseDAO->totalByCinema($id_cinema, $dateIn, $dateOut);
+                if($totales_vendidos)
+                {
+                    require_once(ADMIN_PATH."show_sales_by_cinema.php");
+                }
+                else
+                {
+                $_SESSION['msg'] = "No hubo ventas de esta pelicula entre esas fechas";
+                $this->ShowSalesView();
+                }
+            }
         }
 
         public function ShowPurchaseView($title, $cinema, $price, $id_movieshow)
@@ -38,6 +93,42 @@ class PurchaseController
 
         public function ShowCreditCardView()
         {
+            if(isset($_POST))
+            {
+            
+                $ticket_count = $_POST['ticket_count'];
+                $id_movieshow = $_POST['id_movieshow'];
+                $movieshow = $this->movieShowDAO->getMovieShowById($id_movieshow)['0'];
+                $room = $this->roomDAO->returnRoomById($movieshow->getidRoom());
+                $cinema = $this->cinemaDAO->returnCinemaById($room->getIdCinema());
+                $movie = $this->movieDAO->read($movieshow->getIdMovie())['0'];
+                $movieshowDate = date_create($movieshow->getDate());
+                $weekDay = date_format($movieshowDate, "w");
+                $date = date_format($movieshowDate, "d");
+                $month = date_format($movieshowDate, "n");
+                $time = new DateTime($movieshow->getSchedule());
+                $time = date_format($time, "G:i");
+                $movieshow_datetime = $this->movieshowController->dateTimeToString($movieshow);
+
+                
+                $subtotal = $this->roomDAO->returnRoomById($movieshow->getIdRoom())->getPrice()  *  $ticket_count;
+                date_default_timezone_set('America/Argentina/Buenos_Aires');
+
+                $movieshowDate = date_create($movieshow->getDate());
+                $date = date_format($movieshowDate, "w");
+
+                if($ticket_count>=2 && ($date =="2" || $date=="3"))
+                {
+                    $discount = 1;
+                    $total= $subtotal*0.75;
+                }
+                else
+                {
+                    $discount = 0;
+                    $total=$subtotal;
+                }
+            }
+            
             require_once(USER_PATH.'credit_card.php');
         }
 
@@ -48,10 +139,14 @@ class PurchaseController
             try
             {
                 $id_movieshow = $_POST['id_movieshow'];
-                if($_POST['ticket_count'])
+                if(isset($_POST))
                 {
                     $ticket_count = $_POST['ticket_count'];
                     $id_movieshow = $_POST['id_movieshow'];
+                    $discount = $_POST['discount'];
+                    $subtotal = $_POST['subtotal'];
+                    $total = $_POST['total'];
+                    
                     if(isset($_SESSION['loggedUser']))
                     {
                         //tomo el obj funcion de la sesion !PROVISORIO!
@@ -60,26 +155,9 @@ class PurchaseController
                         $movieshow = $this->movieShowDAO->getMovieShowById($id_movieshow)['0'];
                         //purchase
                         
-                        $subtotal = $this->roomDAO->returnRoomById($movieshow->getIdRoom())->getPrice()  *  $ticket_count;
-                        date_default_timezone_set('America/Argentina/Buenos_Aires');
-
+                        $qrsToSend=array();
                         $today_date = date('Y-m-d');
 
-                        $movieshowDate = date_create($movieshow->getDate());
-                        $date = date_format($movieshowDate, "w");
-
-                        if($ticket_count>=2 && ($date =="2" || $date=="3"))
-                        {
-                            $discount = 1;
-                            $total= $subtotal*0.75;
-                        }
-                        else
-                        {
-                            $discount = 0;
-                            $total=$subtotal;
-                        }
-                        
-                        $qrsToSend=array();
 
                         $last_ticket = $this->ticketDAO->lastTicketNumber($movieshow->getId()); // valor de la ultima ticket en bd
 
@@ -89,7 +167,6 @@ class PurchaseController
                         }
                         $capacity = intval($this->roomDAO->returnRoomById($movieshow->getIdRoom())->getCapacity());
 
-                        var_dump($last_ticket+$ticket_count);
 
                         if( ($last_ticket+$ticket_count) > $capacity ) //entra si no hay mas capacidad
                         {
@@ -98,7 +175,7 @@ class PurchaseController
                         }
                         else//entra si hay capacidad disponible
                         {
-                            var_dump($capacity);
+                            
 
                             
                             $purchase= new Purchase($user->getId(),$today_date,$discount, $subtotal, $total);
@@ -151,7 +228,6 @@ class PurchaseController
             }
             catch(PDOException $ex)
             {
-                var_dump($capacity);
                 $_SESSION['Error']="Error al crear una nueva purchase)";
             }
                     
