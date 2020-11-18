@@ -11,13 +11,13 @@
     use Models\Room;
     use PDOException;
 
-class MovieShowController
+    class MovieShowController
     {
         private $movieShowDAO;
         private $movieDAO;
         private $cinemaDAO;
         private $roomDAO;    
-        
+
         public function __construct()
         {
             $this->movieShowDAO = new MovieShowDAO();
@@ -25,28 +25,10 @@ class MovieShowController
             $this->cinemaDAO = new CinemaDAO;
             $this->roomDAO = new RoomDAO;            
         }
-        
-        public function ShowMovieShowByCinema($id_movie, $id_cinema)
-        {
 
-            $roomList = $this->roomDAO->getRoomsByMovieAndCinema($id_cinema, $id_movie);
+        /* SHOW FUNCTIONS */
+        /*      ADMIN SHOW FUNCTIONS */
 
-            if($roomList)
-            {   
-                foreach($roomList as $room)
-                {
-                    $movieshowArray[$room->getId()] = $this->movieShowDAO->getMovieShowByRoom($room->getId(), $id_movie) ;
-                }
-                if(!isset($_SESSION['loggedUser']))
-                {
-                    require_once(GUEST_PATH."list_movieshow.php");
-                }
-                else
-                {
-                    require_once(USER_PATH."list_movieshow.php");
-                }                
-            }
-        }
 
         public function ShowAddFunctionCinema($id_movie)
         {
@@ -60,7 +42,7 @@ class MovieShowController
         }
 
         public function ShowAddFunctionCinema2($id_movie)
-        {            
+        {
             ValidationController::getInstance()->validateAdmin();
 
             if($_POST)
@@ -88,8 +70,8 @@ class MovieShowController
         }
 
         public function ShowAddFunctionCinemaEnd($id_movie)
-        {            
-            ValidationController::getInstance()->validateAdmin();            
+        {
+            ValidationController::getInstance()->validateAdmin();
 
             if($_POST)
             {
@@ -98,7 +80,7 @@ class MovieShowController
                 $date = $_POST['date'];
                 $id_room = $_POST['id_room'];
                 $time = $_POST['time'].':00';
-        
+
                 $date;
                 $flag2 = $this->verifyDate($id_room, $date, $time, $id_movie);
                 if($flag2)
@@ -106,7 +88,7 @@ class MovieShowController
                     $movieController = new MovieController();
                     $this->register($id_movie,$id_cinema,$date,$id_room, $time);
 
-                    header("location: ".FRONT_ROOT."Movie/ShowMovieDetail/$id_movie");                   
+                    header("location: ".FRONT_ROOT."Movie/ShowMovieDetail/$id_movie");
                 }
                 else
                 {
@@ -116,57 +98,46 @@ class MovieShowController
                     $_SESSION['endTime'] = null;
                     $cinema = $this->cinemaDAO->getCinemaByID($id_cinema)['0'];
 
-
                     require_once(ADMIN_PATH."add_movieshow_2.php");
                 }
             }
-        }    
-
-        public function ShowRemoveView($message = "")
-        {
-            ValidationController::getInstance()->validateAdmin();
-
-            require_once(ADMIN_PATH."list_cinema.php");
         }
 
-        public function ShowAddView($message = "")
+        /*      USER SHOW FUNCTIONS */
+
+
+        public function ShowMovieShowByCinema($id_movie, $id_cinema)
         {
-            ValidationController::getInstance()->validateAdmin();
+            $roomList = $this->roomDAO->getRoomsByMovieAndCinema($id_cinema, $id_movie);
 
-            require_once(ADMIN_PATH."add_cinema.php");
-        }
-
-        public function ShowHomeView($message = "")
-        {
-            require_once(VIEWS_PATH."home.php");
-        }
-
-        public function ShowEditView()
-        {
-            ValidationController::getInstance()->validateAdmin();
-            
-            if($_POST){
-                $id = $_POST['id'];
-                $cinemaList = $this->movieShowDAO->GetAll();
-                $Cinema = $this->cinemaDAO->returnCinemaById($id);
-
-                require_once(ADMIN_PATH."edit_cinema.php");
-            }            
+            if($roomList)
+            {
+                foreach($roomList as $room)
+                {
+                    $movieshowArray[$room->getId()] = $this->movieShowDAO->getMovieShowByRoom($room->getId(), $id_movie);
+                }
+                if(!isset($_SESSION['loggedUser']))
+                {
+                    require_once(GUEST_PATH."list_movieshow.php");
+                }
+                else
+                {
+                    require_once(USER_PATH."list_movieshow.php");
+                }
+            }
         }
 
         public function ShowFunctionsByMovie($id_movie)
         {
-            
-
             $displayList = $this->movieShowDAO->getDisplayableMovieShowByMovie($id_movie);
             $movie = $this->movieDAO->read($id_movie)['0'];
             if(!isset($_SESSION['loggedUser']))
                 require_once(GUEST_PATH."detail_movie.php");
             else
                 require_once(USER_PATH."buy_movie.php");
-            
-            
         }
+
+        /* FUNCTIONAL FUNCTIONS */
 
         public function register($id_movie,$id_cinema,$date, $id_room, $schedule)
         {
@@ -191,13 +162,13 @@ class MovieShowController
             else
             {
                 $_SESSION['msg'] = "No se puede agregar funcion en ese horario o sala";
-            }        
+            }
         }
 
         public function removeMovieShow()
         {
             ValidationController::getInstance()->validateAdmin();
-   
+
             if($_POST)
             {
                 $id_room = $_POST["id_room"];
@@ -206,7 +177,7 @@ class MovieShowController
                 $movieController = new MovieController();
                 $_SESSION['msg'] = "Eliminado con exito";
                 $movieController->ShowMovieDetail($_POST["id_cinema"]);
-            }    
+            }
         }
 
         public function getMovieById($id_movie)
@@ -221,7 +192,7 @@ class MovieShowController
                 }
             }
             return false;
-        }        
+        }
 
         public function verifyDate($id_room, $date, $time, $id_movie)
         {
@@ -235,19 +206,19 @@ class MovieShowController
             }
             $movie= $this->getMovieById($id_movie);
 
-            $newStartTime=date_create($time); 
+            $newStartTime=date_create($time);
 
             $movie_duration = $movie->getDuration();
 
             $newEndTime = date_create($time);
             date_add($newEndTime,date_interval_create_from_date_string($movie_duration." minutes"));
-            
+
             if($movieshowList == null)
             {
                 return true;
             }
             else
-            {                
+            {
                 foreach($movieshowList as $movieshow)
                 {
                     if($movieshow->getidRoom() == $id_room && $movieshow->getDate() == $date)
@@ -268,7 +239,7 @@ class MovieShowController
                     }
                 }
                 return true;
-            }            
+            }
         }
     }
 ?>
