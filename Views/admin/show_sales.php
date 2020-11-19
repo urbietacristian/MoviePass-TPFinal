@@ -38,3 +38,9 @@ require_once(VIEWS_PATH."navAdmin.php");
             </form>
         </aside>
     </div>
+    <br><br>
+    <div>
+        <?php if(isset($_SESSION['totals'])){  ?>
+        <h1>Totales Vendidos para '<?php echo $_SESSION['totals']?>': $<?php echo $totales_vendidos ?> entre el <?php echo $dateIn; echo " y el "; echo $dateOut; $_SESSION['totals'] = NULL;?> </h1>
+        <?php }else echo "<br><br><br>"  ?>
+    </div>

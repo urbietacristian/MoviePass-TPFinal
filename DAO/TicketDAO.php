@@ -73,8 +73,56 @@
                 return $result['0'];
             else
                 return null;
+        }
+
 
         
+        public function soldTicketsByMovie($id_movie)
+        {            
+            $sql = 'call sp_SoldTicketsByMovie(:id_movie)';
+    
+            $parameters['id_movie'] = $id_movie;
+
+            try{
+                $this->connection = Connection::getInstance();
+                $result = $this->connection->execute($sql,$parameters);
+            }
+            catch(\PDOException $ex){
+                throw $ex;
+            }
+
+
+            if(!empty($result))
+            {
+                $result = is_array($result) ? $result : [];
+                
+                return count($result) > 0 ? $result : $result['0'];
+            }
+    
+            else
+                return false;
+        }
+
+        public function soldTicketsByCinema($id_cinema)
+        {            
+            $sql = 'call sp_returnLastTicket(:id_cinema)';
+    
+            $parameters['id_cinema'] = $id_cinema;
+
+            try{
+                $this->connection = Connection::getInstance();
+                $result = $this->connection->execute($sql,$parameters);
+            }
+            catch(\PDOException $ex){
+                throw $ex;
+            }
+            var_dump($result);
+
+
+            if(!empty($result))
+                return $result;
+            else
+                return null;
         }
 
         

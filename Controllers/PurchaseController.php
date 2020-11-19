@@ -40,6 +40,37 @@ class PurchaseController
             require_once(ADMIN_PATH."show_sales.php");
         }
 
+        public function ShowTicketsSoldView()
+        {
+            ValidationController::getInstance()->validateAdmin();
+            $cinemaList = $this->cinemaDAO->GetAll();
+            $movieList = $this->movieDAO->getAllMovies();
+            require_once(ADMIN_PATH."show_tickets_sold.php");
+        }
+
+        public function ShowSoldTicketsByMovieView()
+        {
+            ValidationController::getInstance()->validateAdmin();
+            if(isset($_GET))
+            {
+                $id_movie = $_GET['id_movie'];
+                
+                $ticketList = $this->ticketDAO->soldTicketsByMovie($id_movie);
+                if($ticketList)
+                {
+                    $_SESSION['totals'] = $this->movieDAO->read($id_movie)['0']->getName();
+                    $cinemaList = $this->cinemaDAO->GetAll();
+                    $movieList = $this->movieDAO->getAllMovies();
+                    require_once(ADMIN_PATH."show_tickets_sold.php");
+                }
+                else
+                {
+                $_SESSION['msg'] = "No hubo ventas de esta pelicula entre esas fechas";
+                $this->ShowTicketsSoldView();
+                }
+            }
+        }
+
         public function ShowSalesByMovieView()
         {
             ValidationController::getInstance()->validateAdmin();
@@ -49,10 +80,13 @@ class PurchaseController
                 $dateIn = $_GET['dateIn'];
                 $dateOut = $_GET['dateOut'];
 
-                $totales_vendidos = $this->purchaseDAO->totalByMovie($id_movie, $dateIn, $dateOut);
+                $totales_vendidos = $this->purchaseDAO->totalByMovie($id_movie, $dateIn, $dateOut)['0'];
                 if($totales_vendidos)
                 {
-                    require_once(ADMIN_PATH."show_sales_by_movie.php");
+                    $_SESSION['totals'] = $this->movieDAO->read($id_movie)['0']->getName();
+                    $cinemaList = $this->cinemaDAO->GetAll();
+                    $movieList = $this->movieDAO->getAllMovies();
+                    require_once(ADMIN_PATH."show_sales.php");
                 }
                 else
                 {
@@ -71,10 +105,13 @@ class PurchaseController
                 $dateIn = $_GET['dateIn'];
                 $dateOut = $_GET['dateOut'];
 
-                $totales_vendidos = $this->purchaseDAO->totalByCinema($id_cinema, $dateIn, $dateOut);
+                $totales_vendidos = $this->purchaseDAO->totalByCinema($id_cinema, $dateIn, $dateOut)['0'];
                 if($totales_vendidos)
                 {
-                    require_once(ADMIN_PATH."show_sales_by_cinema.php");
+                    $cinemaList = $this->cinemaDAO->GetAll();
+                    $movieList = $this->movieDAO->getAllMovies();
+                    $_SESSION['totals'] = $this->cinemaDAO->getCinemaByID($id_cinema)['0']->getName();
+                    require_once(ADMIN_PATH."show_sales.php");
                 }
                 else
                 {
