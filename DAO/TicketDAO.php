@@ -55,7 +55,7 @@
 
         public function lastTicketNumber($id_movieshow)
         {            
-            $sql = 'call '.'sp_returnLastTicket(:id_movieshowE)';
+            $sql = 'call sp_returnLastTicket(:id_movieshowE)';
     
             $parameters['id_movieshowE'] = $id_movieshow;
 
@@ -66,10 +66,11 @@
             catch(\PDOException $ex){
                 throw $ex;
             }
+            var_dump($result);
 
 
             if(!empty($result))
-                return $result['ticket_number'];
+                return $result['0'];
             else
                 return null;
 

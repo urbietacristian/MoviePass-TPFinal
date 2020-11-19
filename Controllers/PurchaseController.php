@@ -159,11 +159,12 @@ class PurchaseController
                         $today_date = date('Y-m-d');
 
 
-                        $last_ticket = $this->ticketDAO->lastTicketNumber($movieshow->getId()); // valor de la ultima ticket en bd
+                        $last_ticket = $this->ticketDAO->lastTicketNumber($id_movieshow)['ticket_number']; // valor de la ultima ticket en bd
+                
 
                         if($last_ticket== null) //busco la ultima ticket vendida y retorno, si es null(todavia no hay tickets para esa funcion) es 0
                         {
-                            $last_ticket='0';
+                            $last_ticket=0;
                         }
                         $capacity = intval($this->roomDAO->returnRoomById($movieshow->getIdRoom())->getCapacity());
 
