@@ -36,6 +36,36 @@ class PurchaseController
             $this->purchaseDAO = new PurchaseDAO();  
             $this->movieshowController = new MovieShowController();          
         }
+        
+        public function showMyTicketsView($order = false)
+        {
+            ValidationController::getInstance()->validateUser();
+            $user = $_SESSION['loggedUser'];
+            if($order)
+            $ticket_list = $this->ticketDAO->userTicketsByMovieshowDate($user->getId());
+            else
+                $ticket_list = $this->ticketDAO->userTicketsByMovie($user->getId());
+                       
+            if($ticket_list)
+            {
+                $total_tickets = 0;
+                $ticket_list2 = array();
+
+                foreach($ticket_list as $ticket)
+                {
+                    $total_tickets++;
+                    $ticket['date'] = $this->movieshowController->dateTimeToString($this->movieShowDAO->getMovieShowById($ticket['id_movieshow'])['0']);
+                    array_push($ticket_list2, $ticket);
+                }
+            
+                require_once(USER_PATH."show_my_tickets.php");
+            }
+            else
+            {
+                $_SESSION['msg'] = "No hay entradas compradas.";
+                header("location: ".FRONT_ROOT."Movie/ShowActiveMovies");
+            }
+        }
 
         public function ShowSalesView()
         {
@@ -45,12 +75,6 @@ class PurchaseController
             require_once(ADMIN_PATH."show_sales.php");
         }
 
-        public function showMyTickets()
-        {
-            $user = $_SESSION['loggedUser'];
-            $ticketList = $this->ticketDAO->userTicketsByMovie($user->getId());
-
-        }
         public function ShowTicketsSoldView()
         {
             ValidationController::getInstance()->validateAdmin();

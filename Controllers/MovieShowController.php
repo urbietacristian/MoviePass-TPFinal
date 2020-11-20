@@ -127,9 +127,19 @@
             }
         }
 
-        public function ShowFunctionsByMovie($id_movie)
+        public function ShowFunctionsByMovie($id_movie, $cinema_name = false)
         {
             $displayList = $this->movieShowDAO->getDisplayableMovieShowByMovie($id_movie);
+            $displayListbyCinema = array();
+            if($cinema_name)
+            {
+                foreach($displayList as $display)
+                {
+                    if($display['cinema_name'] == $cinema_name)
+                        array_push($displayListbyCinema, $display);
+                }
+                $displayList = $displayListbyCinema;
+            }
             $movie = $this->movieDAO->read($id_movie)['0'];
             if(!isset($_SESSION['loggedUser']))
                 require_once(GUEST_PATH."detail_movie.php");
