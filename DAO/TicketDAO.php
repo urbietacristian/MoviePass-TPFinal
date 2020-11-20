@@ -105,7 +105,7 @@
 
         public function soldTicketsByCinema($id_cinema)
         {            
-            $sql = 'call sp_returnLastTicket(:id_cinema)';
+            $sql = 'call sp_SoldTicketsByCinema(:id_cinema)';
     
             $parameters['id_cinema'] = $id_cinema;
 
@@ -116,11 +116,15 @@
             catch(\PDOException $ex){
                 throw $ex;
             }
-            var_dump($result);
+
 
 
             if(!empty($result))
-                return $result;
+            {
+                $result = is_array($result) ? $result : [];
+                
+                return count($result) > 0 ? $result : $result['0'];
+            }
             else
                 return null;
         }

@@ -174,7 +174,7 @@
         $sql =" select movieshow.*, rooms.id_room, rooms.id_cinema, rooms.name as room_name, rooms.price, rooms.capacity,  cinemas.name as cinema_name  from movieshow
         inner join rooms on rooms.id_room = movieshow.id_room 
         inner join cinemas on cinemas.id_cinema = rooms.id_cinema  
-        where movieshow.id_movie = :id_movie";
+        where movieshow.id_movie = :id_movie AND movieshow.day > CURDATE()" ;
 
         $parameters['id_movie'] = $id_movie;
 

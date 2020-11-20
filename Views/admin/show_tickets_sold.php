@@ -32,13 +32,14 @@ require_once(VIEWS_PATH."navAdmin.php");
     </div>
     <br><br>
     <div id='mainav'>
-        <?php if(isset($_SESSION['totals'])){ 
-            foreach($ticketList as $value){ ?>            
+        <?php if(isset($_SESSION['totals'])){ ?>
+            <h1>Totales Entradas vendidas: <?php echo $total_sold; echo " / "; echo $total_capacity ?></h1>
+            <?php foreach($ticketList as $value){ ?>            
                 <li>
                     <div class='planecard'>
                     Movieshow:  <?php echo $value['id_movieshow'] ?> <br>
                     Vendidos:  <?php echo $value['sold']; echo ' / '; echo $value['capacity']; ?> <br>
                     </div>
                 </li>    
-        <?php }} else echo "<br><br><br>"  ?>
+        <?php }$_SESSION['totals'] = NULL;} else echo "<br><br><br>"  ?>
     </div>

@@ -1,15 +1,20 @@
 <?php
     namespace Controllers;
-    use DAO\CinemaDAO as CinemaDAO;
+
+use chillerlan\QRCode\QRCode;
+use DAO\CinemaDAO as CinemaDAO;
     use DAO\MovieDAO as MovieDAO;
     use Models\Purchase as Purchase;
     use DAO\MovieShowDAO;
     use DAO\PurchaseDAO as PurchaseDAO;
     use DAO\RoomDAO as RoomDAO;
     use DAO\TicketDAO;
-use DateTime;
-use Models\Ticket as Ticket;
+    use DateTime;
+    use Models\Ticket as Ticket;
     use PDOException;
+    use Exception;
+    use PHPMailer\PHPMailer;
+    use PHPMailer\SMPT;
 
 class PurchaseController
     {
@@ -48,6 +53,37 @@ class PurchaseController
             require_once(ADMIN_PATH."show_tickets_sold.php");
         }
 
+        public function ShowSoldTicketsByCinemaView()
+        {
+            ValidationController::getInstance()->validateAdmin();
+            if(isset($_GET))
+            {
+                $id_cinema = $_GET['id_cinema'];
+                
+                $ticketList = $this->ticketDAO->soldTicketsByCinema($id_cinema);
+                $total_sold =0;
+                $total_capacity=0;
+                foreach($ticketList as $ticket)
+                {
+                    $total_sold += $ticket['sold'];
+                    $total_capacity += $ticket['capacity'];
+                }
+                if($ticketList)
+                {
+                    $_SESSION['totals'] = $this->cinemaDAO->getCinemaByID($id_cinema)['0']->getName();
+                
+                    $cinemaList = $this->cinemaDAO->GetAll();
+                    $movieList = $this->movieDAO->getAllMovies();
+                    require_once(ADMIN_PATH."show_tickets_sold.php");
+                }
+                else
+                {
+                $_SESSION['msg'] = "No hubo ventas de esta pelicula entre esas fechas";
+                $this->ShowTicketsSoldView();
+                }
+            }
+        }
+
         public function ShowSoldTicketsByMovieView()
         {
             ValidationController::getInstance()->validateAdmin();
@@ -56,6 +92,13 @@ class PurchaseController
                 $id_movie = $_GET['id_movie'];
                 
                 $ticketList = $this->ticketDAO->soldTicketsByMovie($id_movie);
+                $total_sold =0;
+                $total_capacity=0;
+                foreach($ticketList as $ticket)
+                {
+                    $total_sold += $ticket['sold'];
+                    $total_capacity += $ticket['capacity'];
+                }
                 if($ticketList)
                 {
                     $_SESSION['totals'] = $this->movieDAO->read($id_movie)['0']->getName();
@@ -188,8 +231,12 @@ class PurchaseController
                     {
                         //tomo el obj funcion de la sesion !PROVISORIO!
                         
-                        $user = $_SESSION['loggedUser'];
+                        $user = $_SESSION['loggedUser'];                       
                         $movieshow = $this->movieShowDAO->getMovieShowById($id_movieshow)['0'];
+                        $room = $this->roomDAO->returnRoomById($movieshow->getidRoom());
+                        $cinema = $this->cinemaDAO->getCinemaByID($room->getIdCinema());
+                        $movieshowDate = $this->movieshowController->dateTimeToString($movieshow);
+                        $movie = $this->movieDAO->read($movieshow->getIdMovie())['0'];
                         //purchase
                         
                         $qrsToSend=array();
@@ -208,8 +255,8 @@ class PurchaseController
 
                         if( ($last_ticket+$ticket_count) > $capacity ) //entra si no hay mas capacidad
                         {
-                            $_SESSION['msg']="Error  disponibles!";
-                            //header("location: ".FRONT_ROOT."Purchase/ShowPurchaseView");
+                            $_SESSION['msg']="No hay suficientes entradas disponibles para esta funcion !";
+                            header("location: ".FRONT_ROOT."MovieShow/ShowFunctionsByMovie/".$movieshow->getIdMovie()."");
                         }
                         else//entra si hay capacidad disponible
                         {
@@ -230,20 +277,61 @@ class PurchaseController
                                 $ticket= new Ticket(null,$ticket_number,$id_movieshow,$id_purchase); 
                                 $ticket =$this->ticketDAO->Add($ticket);
                                 $ticket_number++;
-                                // $qr=new QR();
-                                // $qr->setTicket($ticket);
+
+                                // $info = 
+                                // "Pelicula: ".$movie->getName().
+                                // "Cine:  ".$cinema->getName().
+                                // "Sala:  ".$room->getName().
+                                // "Fecha y hora:  ".$movieshowDate.
+                                // "Numero Ticket: ".$ticket_number;
+
                                 
-                                // $id_qr=$this->DAOQR->add($qr);
+                                // //ob_start();
+                                // QRCode::png($info);
+                                // //$png = ob_end_clean()
                                 
                                 // array_push($qrsToSend,$id_qr);
                                 
                                 
                             }//end for
+                        
             
+                            $mail = new PHPMailer\PHPMailer(true);
+
+                            try {
+                                //Server settings
+                                $mail->SMTPDebug = 0;                      // Enable verbose debug output
+                                $mail->isSMTP();                                            // Send using SMTP
+                                $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
+                                $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+                                $mail->Username   = 'lucio.chapaman@gmail.com';                     // SMTP username
+                                $mail->Password   = 'lmlquapjyvwhwvcs';                               // SMTP password
+                                $mail->SMTPSecure = PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+                                $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+
+                                //Recipients
+                                $mail->setFrom('lucio.chapaman@gmail.com', 'MoviePass');
+                                $mail->addAddress($user->getEmail(), 'Joe User');     // Add a recipient
+                                // foreach($qrsToSend as $qr)
+                                // {
+                                //     $mail->addEmbeddedImage()
+                                // }
+                                
+                                // Attachments
                             
-            
-                            //$this->mailsController->enviarMailPurchase($purchase,$qrsToSend);
-                            //si no hay session lo llevo a home
+                                //$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+
+                                // Content
+                                $mail->isHTML(true);                                  // Set email format to HTML
+                                $mail->Subject = 'Compra exitosa';
+                                $mail->Body    = 'Has realizado la compra correctamente';
+
+                                $mail->send();
+                                echo 'Message has been sent';
+                            } catch (Exception $e) {
+                                echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+                            }            
+
                             $_SESSION['msg']="Compra Exitosa!";
                             header("location: ".FRONT_ROOT."Movie/ShowActiveMovies");
             

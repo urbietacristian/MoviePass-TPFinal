@@ -165,6 +165,19 @@
             }
         }
 
+        public function movieshowByCurrentDate()
+        {
+            $movieshowList = $this->movieShowDAO->GetAll();
+            $newMovieshowList = array();
+            foreach($movieshowList as $movieshow)
+            {
+                if(date("Y-m-d") <= $movieshow->getDate())
+                {
+                    array_push($newMovieshowList, $movieshow);
+                }
+            }
+        }
+
 
         public function dateTimeToString($movieshow)
         {
