@@ -94,23 +94,26 @@ class PurchaseController
                 $total_sold =0;
                 $total_capacity=0;
                 $ticketListAux = array();
-                foreach($ticketList as $ticket)
+                if($ticketList)
                 {
-                    $total_sold += $ticket['sold'];
-                    $total_capacity += $ticket['capacity'];
-                    $movieshow= $this->movieShowDAO->getMovieShowById($ticket['id_movieshow'])['0'];
-                    $movie = $this->movieDAO->read($movieshow->getIdMovie())['0'];
-                    $room = $this->roomDAO->returnRoomById($movieshow->getIdRoom());
-                    $cinema = $this->cinemaDAO->getCinemaByID($room->getIdcinema())['0'];
-                    $ticket['cinema_name'] = $cinema->getName();
-                    $ticket['room_name'] = $room->getName();
-                    $ticket['movie_name'] = $movie->getName();
-                    $ticket['date'] = $this->movieshowController->dateTimeToString($movieshow);
+                    foreach($ticketList as $ticket)
+                    {
+                        $total_sold += $ticket['sold'];
+                        $total_capacity += $ticket['capacity'];
+                        $movieshow= $this->movieShowDAO->getMovieShowById($ticket['id_movieshow'])['0'];
+                        $movie = $this->movieDAO->read($movieshow->getIdMovie())['0'];
+                        $room = $this->roomDAO->returnRoomById($movieshow->getIdRoom());
+                        $cinema = $this->cinemaDAO->getCinemaByID($room->getIdcinema())['0'];
+                        $ticket['cinema_name'] = $cinema->getName();
+                        $ticket['room_name'] = $room->getName();
+                        $ticket['movie_name'] = $movie->getName();
+                        $ticket['date'] = $this->movieshowController->dateTimeToString($movieshow);
 
-                    array_push($ticketListAux,$ticket);
+                        array_push($ticketListAux,$ticket);
 
+                    }
+                    $ticketList = $ticketListAux;
                 }
-                $ticketList = $ticketListAux;
                 if($ticketList)
                 {
                     $_SESSION['totals'] = $this->cinemaDAO->getCinemaByID($id_cinema)['0']->getName();
@@ -121,7 +124,7 @@ class PurchaseController
                 }
                 else
                 {
-                $_SESSION['msg'] = "No hubo ventas de esta pelicula entre esas fechas";
+                $_SESSION['msg'] = "No hubo ventas en este cine";
                 $this->ShowTicketsSoldView();
                 }
             }
@@ -138,21 +141,25 @@ class PurchaseController
                 $total_sold =0;
                 $total_capacity=0;
                 $ticketListAux = array();
-                foreach($ticketList as $ticket)
+                if($ticketList)
                 {
-                    $total_sold += $ticket['sold'];
-                    $total_capacity += $ticket['capacity'];
-                    $movieshow= $this->movieShowDAO->getMovieShowById($ticket['id_movieshow'])['0'];
-                    $movie = $this->movieDAO->read($movieshow->getIdMovie())['0'];
-                    $room = $this->roomDAO->returnRoomById($movieshow->getIdRoom());
-                    $cinema = $this->cinemaDAO->getCinemaByID($room->getIdcinema())['0'];
-                    $ticket['cinema_name'] = $cinema->getName();
-                    $ticket['room_name'] = $room->getName();
-                    $ticket['movie_name'] = $movie->getName();
-                    $ticket['date'] = $this->movieshowController->dateTimeToString($movieshow);
+                    foreach($ticketList as $ticket)
+                    {
+                        $total_sold += $ticket['sold'];
+                        $total_capacity += $ticket['capacity'];
+                        $movieshow= $this->movieShowDAO->getMovieShowById($ticket['id_movieshow'])['0'];
+                        $movie = $this->movieDAO->read($movieshow->getIdMovie())['0'];
+                        $room = $this->roomDAO->returnRoomById($movieshow->getIdRoom());
+                        $cinema = $this->cinemaDAO->getCinemaByID($room->getIdcinema())['0'];
+                        $ticket['cinema_name'] = $cinema->getName();
+                        $ticket['room_name'] = $room->getName();
+                        $ticket['movie_name'] = $movie->getName();
+                        $ticket['date'] = $this->movieshowController->dateTimeToString($movieshow);
 
-                    array_push($ticketListAux,$ticket);
+                        array_push($ticketListAux,$ticket);
 
+                    }
+                    $ticketList = $ticketListAux;
                 }
                 $ticketList = $ticketListAux;
                 if($ticketList)
@@ -164,7 +171,7 @@ class PurchaseController
                 }
                 else
                 {
-                $_SESSION['msg'] = "No hubo ventas de esta pelicula entre esas fechas";
+                $_SESSION['msg'] = "No hubo ventas de esta pelicula";
                 $this->ShowTicketsSoldView();
                 }
             }
