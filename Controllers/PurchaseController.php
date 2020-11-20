@@ -45,6 +45,12 @@ class PurchaseController
             require_once(ADMIN_PATH."show_sales.php");
         }
 
+        public function showMyTickets()
+        {
+            $user = $_SESSION['loggedUser'];
+            $ticketList = $this->ticketDAO->userTicketsByMovie($user->getId());
+
+        }
         public function ShowTicketsSoldView()
         {
             ValidationController::getInstance()->validateAdmin();

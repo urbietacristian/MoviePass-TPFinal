@@ -10,11 +10,16 @@ CREATE TABLE roles (
 	CONSTRAINT pk_role PRIMARY KEY (id_role)
 );
 
+select * from users;
+
 CREATE TABLE users (
 	id_user int NOT NULL AUTO_INCREMENT,
 	email varchar(50) NOT NULL UNIQUE,
 	password varchar(100) NOT NULL,
 	id_role int NOT NULL,
+    firstname varchar(45) NOT NULL,
+    lastname varchar(45) NOT NULL,
+    dni int NOT NULL,
 	CONSTRAINT pk_user PRIMARY KEY (id_user),
 	CONSTRAINT fk_id_role FOREIGN KEY (id_role) REFERENCES roles (id_role)  
 );
@@ -130,9 +135,48 @@ begin
 	where cinemas.id_cinema= idCinemaI and purchases.date BETWEEN dateIN AND dateOUT;
 end$$
 
+DELIMITER $$
+CREATE DEFINER=`moviepass`@`%` PROCEDURE `sp_SoldTicketsByCinema`(in id_cinemaI int)
+begin
+	SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
+	select movieshow.id_movieshow as id_movieshow, ifnull((select tickets.ticket_number as tn from tickets where tickets.id_movieshow = movieshow.id_movieshow order by tickets.ticket_number desc limit 1),0) as sold , rooms.capacity as capacity
+	from movieshow  
+	inner join rooms on rooms.id_room = movieshow.id_room and rooms.id_cinema = id_cinemaI
+	group by movieshow.id_movieshow;
+end$$
+
+
+DELIMITER $$
+create procedure sp_userTicketsByMovieshowDate(in userIN int)
+begin
+	SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
+	select tickets.* , movieshow.* from tickets
+	inner join (select purchases.* from purchases inner join users on purchases.id_user = userIN ) as purchases on purchases.id_purchase = tickets.id_purchase
+	inner join movieshow on movieshow.id_movieshow = tickets.id_movieshow
+	group by tickets.id_ticket 
+	order by movieshow.day asc;
+end$$
+
+DELIMITER $$
+create procedure sp_userTicketsByMovie(in userIN int)
+begin
+	SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
+	select tickets.* , movies.name from tickets
+	inner join (select purchases.* from purchases inner join users on purchases.id_user = userIN ) as purchases on purchases.id_purchase = tickets.id_purchase
+	inner join movieshow on movieshow.id_movieshow = tickets.id_movieshow
+	inner join movies on movieshow.id_movie = movies.id_api
+	group by tickets.id_ticket 
+	order by movies.name asc;
+end$$
 
 -- INSERTANDO AL ADMIN --
 
 INSERT INTO roles (id_role, name) VALUES (1, 'admin');  
 INSERT INTO users (email, password, id_role) VALUES ('admin@utn.com', 'admin', 1);
 
+
+
+
+ use moviepassdefault
+ 
+select * from movieshow

@@ -129,6 +129,54 @@
                 return null;
         }
 
+        public function userTicketsByMovieshowDate($id_user)
+        {            
+            $sql = 'call sp_userTicketsByMovieshowDate(:id_user)';
+    
+            $parameters['id_user'] = $id_user;
+
+            try{
+                $this->connection = Connection::getInstance();
+                $result = $this->connection->execute($sql,$parameters);
+            }
+            catch(\PDOException $ex){
+                throw $ex;
+            }
+
+            if(!empty($result))
+            {
+                $result = is_array($result) ? $result : [];
+                
+                return count($result) > 0 ? $result : $result['0'];
+            }
+            else
+                return null;
+        }
+
+        public function userTicketsByMovie($id_user)
+        {            
+            $sql = 'call sp_userTicketsByMovie(:id_user)';
+    
+            $parameters['id_user'] = $id_user;
+
+            try{
+                $this->connection = Connection::getInstance();
+                $result = $this->connection->execute($sql,$parameters);
+            }
+            catch(\PDOException $ex){
+                throw $ex;
+            }
+
+            if(!empty($result))
+            {
+                $result = is_array($result) ? $result : [];
+                
+                return count($result) > 0 ? $result : $result['0'];
+            }
+            else
+                return null;
+        }
+
         
         public function getByIdPurchase($id_purchase){
 
