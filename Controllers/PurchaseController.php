@@ -93,11 +93,24 @@ class PurchaseController
                 $ticketList = $this->ticketDAO->soldTicketsByCinema($id_cinema);
                 $total_sold =0;
                 $total_capacity=0;
+                $ticketListAux = array();
                 foreach($ticketList as $ticket)
                 {
                     $total_sold += $ticket['sold'];
                     $total_capacity += $ticket['capacity'];
+                    $movieshow= $this->movieShowDAO->getMovieShowById($ticket['id_movieshow'])['0'];
+                    $movie = $this->movieDAO->read($movieshow->getIdMovie())['0'];
+                    $room = $this->roomDAO->returnRoomById($movieshow->getIdRoom());
+                    $cinema = $this->cinemaDAO->getCinemaByID($room->getIdcinema())['0'];
+                    $ticket['cinema_name'] = $cinema->getName();
+                    $ticket['room_name'] = $room->getName();
+                    $ticket['movie_name'] = $movie->getName();
+                    $ticket['date'] = $this->movieshowController->dateTimeToString($movieshow);
+
+                    array_push($ticketListAux,$ticket);
+
                 }
+                $ticketList = $ticketListAux;
                 if($ticketList)
                 {
                     $_SESSION['totals'] = $this->cinemaDAO->getCinemaByID($id_cinema)['0']->getName();
@@ -124,11 +137,24 @@ class PurchaseController
                 $ticketList = $this->ticketDAO->soldTicketsByMovie($id_movie);
                 $total_sold =0;
                 $total_capacity=0;
+                $ticketListAux = array();
                 foreach($ticketList as $ticket)
                 {
                     $total_sold += $ticket['sold'];
                     $total_capacity += $ticket['capacity'];
+                    $movieshow= $this->movieShowDAO->getMovieShowById($ticket['id_movieshow'])['0'];
+                    $movie = $this->movieDAO->read($movieshow->getIdMovie())['0'];
+                    $room = $this->roomDAO->returnRoomById($movieshow->getIdRoom());
+                    $cinema = $this->cinemaDAO->getCinemaByID($room->getIdcinema())['0'];
+                    $ticket['cinema_name'] = $cinema->getName();
+                    $ticket['room_name'] = $room->getName();
+                    $ticket['movie_name'] = $movie->getName();
+                    $ticket['date'] = $this->movieshowController->dateTimeToString($movieshow);
+
+                    array_push($ticketListAux,$ticket);
+
                 }
+                $ticketList = $ticketListAux;
                 if($ticketList)
                 {
                     $_SESSION['totals'] = $this->movieDAO->read($id_movie)['0']->getName();
@@ -333,8 +359,8 @@ class PurchaseController
                                 $mail->isSMTP();                                            // Send using SMTP
                                 $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
                                 $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-                                $mail->Username   = 'lucio.chapaman@gmail.com';                     // SMTP username
-                                $mail->Password   = 'lmlquapjyvwhwvcs';                               // SMTP password
+                                $mail->Username   = 'moviepasstestapp@gmail.com';                     // SMTP username
+                                $mail->Password   = 'qfzsjkesnwolgbix';                               // SMTP password
                                 $mail->SMTPSecure = PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
                                 $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 

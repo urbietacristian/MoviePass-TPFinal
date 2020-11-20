@@ -36,8 +36,11 @@
         <h1>Totales Entradas vendidas: <?php echo $total_sold; echo " / "; echo $total_capacity ?></h1>
         <?php foreach($ticketList as $value){ ?>            
             <li>
-                <div class='planecard'>
-                Movieshow:  <?php echo $value['id_movieshow'] ?> <br>
+                <div class='planecard' style="width: 350px;">
+                Pelicula:  <?php echo $value['movie_name'] ?> <br>
+                Cine:  <?php echo $value['cinema_name'] ?> <br>
+                Sala:  <?php echo $value['room_name'] ?> <br>
+                Fecha:  <?php echo $value['date'] ?> <br>
                 Vendidos:  <?php echo $value['sold']; echo ' / '; echo $value['capacity']; ?> <br>
                 </div>
             </li>    

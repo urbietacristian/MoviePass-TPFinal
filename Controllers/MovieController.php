@@ -65,8 +65,7 @@
             $cinema = $this->cinemaDAO->getCinemaByID($id_cinema)['0'];
 
             if($movie_list)
-            {   
-                $_SESSION['msg'] = null;
+            {     
                 if(!isset($_SESSION['loggedUser']))
                 {
                     require_once(GUEST_PATH."list_movies_by_cinema.php");

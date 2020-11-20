@@ -66,8 +66,6 @@
             catch(\PDOException $ex){
                 throw $ex;
             }
-            var_dump($result);
-
 
             if(!empty($result))
                 return $result['0'];

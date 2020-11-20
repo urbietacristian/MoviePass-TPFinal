@@ -10,9 +10,6 @@ require_once(VIEWS_PATH."navAdmin.php");
     <title>Document</title>
 </head>
 <body>
-    <form action="<?php echo FRONT_ROOT?>Room/ShowRoomsByCinemaView/<?php echo $room->getIdCinema();?>">
-    <button type="submit">Volver</button>
-    </form>
     <div align = 'center'>
     <br><br>
     <h1>Editar Sala</h1>

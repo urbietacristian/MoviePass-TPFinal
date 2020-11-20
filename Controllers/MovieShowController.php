@@ -3,12 +3,14 @@
     use DAO\CinemaDAO as CinemaDAO;
     use DAO\MovieDAO as MovieDAO;
     use Controllers\MovieController as MovieController;
-    use DAO\MovieShowDAO;
+    use DAO\MovieShowDAO as MovieShowDAO;
+    use DAO\TicketDAO as TicketDAO;
     use DAO\RoomDAO as RoomDAO;
     use DateTime;
     Use Models\Cinema as Cinema;
     use Models\MovieShow;
     use Models\Room;
+    use Models\Ticket;
     use PDOException;
 
     class MovieShowController
@@ -17,6 +19,7 @@
         private $movieDAO;
         private $cinemaDAO;
         private $roomDAO;    
+        private $ticketDAO; 
 
         public function __construct()
         {
@@ -24,6 +27,7 @@
             $this->movieDAO = new MovieDAO();
             $this->cinemaDAO = new CinemaDAO;
             $this->roomDAO = new RoomDAO;            
+            $this->ticketDAO = new TicketDAO;      
         }
 
         /* SHOW FUNCTIONS */
@@ -130,9 +134,27 @@
         public function ShowFunctionsByMovie($id_movie, $cinema_name = false)
         {
             $displayList = $this->movieShowDAO->getDisplayableMovieShowByMovie($id_movie);
+            $displayListAux = array();
+            foreach($displayList as $display)
+            {
+                $movieshow = $this->movieShowDAO->getMovieShowById($display["id_movieshow"])['0'];
+                $last_ticket = $this->ticketDAO->lastTicketNumber($movieshow->getId())['ticket_number']; // valor de la ultima ticket en bd
+                if($last_ticket== null) //busco la ultima ticket vendida y retorno, si es null(todavia no hay tickets para esa funcion) es 0
+                {
+                    $last_ticket=0;
+                }
+                $capacity = intval($this->roomDAO->returnRoomById($movieshow->getIdRoom())->getCapacity());
+                if( ($last_ticket) < $capacity ) //entra si no hay mas capacidad
+                {
+                    array_push($displayListAux, $display);
+                }
+                
+            }
+            $displayList = $displayListAux;
             $displayListbyCinema = array();
             if($cinema_name)
             {
+                $cinema = $this->cinemaDAO->read($cinema_name)['0'];
                 foreach($displayList as $display)
                 {
                     if($display['cinema_name'] == $cinema_name)
@@ -140,11 +162,24 @@
                 }
                 $displayList = $displayListbyCinema;
             }
+            
+            if(!$displayList)
+            {
+                $_SESSION['msg'] = "No quedan entradas en ninguna funcion";   
+                if($cinema_name)
+                    header("location: ".FRONT_ROOT."Movie/ShowMoviesByCinema/".$cinema->getId()."");
+                else 
+                    header("location: ".FRONT_ROOT."Movie/Movie/showActiveMovies");
+            }
+            else
+            {
             $movie = $this->movieDAO->read($id_movie)['0'];
+            
             if(!isset($_SESSION['loggedUser']))
                 require_once(GUEST_PATH."detail_movie.php");
             else
                 require_once(USER_PATH."buy_movie.php");
+            }
         }
 
         /* FUNCTIONAL FUNCTIONS */

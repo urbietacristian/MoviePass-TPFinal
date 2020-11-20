@@ -4,6 +4,10 @@ require_once(VIEWS_PATH."navAdmin.php");
 <main class="d-flex align-items-center justify-content-center height-100" >
 <div >
     <div class="mainav" align='center' >
+        <br><br>
+        <a href="<?php echo FRONT_ROOT; echo "Room/ShowAddView/"; echo $id_cinema; ?>">Agregar Sala</a>
+        <br><br><br>
+
         <table class='table'>
             <thead>
                 <tr>
@@ -45,7 +49,6 @@ require_once(VIEWS_PATH."navAdmin.php");
             </tbody>
         </table>
         <br>
-        <a href="<?php echo FRONT_ROOT; echo "Room/ShowAddView/"; echo $id_cinema; ?>">Agregar Sala</a>
     </div>
 </div>
 </main>
