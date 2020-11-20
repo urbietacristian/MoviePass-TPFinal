@@ -151,31 +151,17 @@
             
         }
 
+        protected function map($value){
+
+            $value = is_array($value) ? $value : [];
+
+            $resp = array_map(function($p){
+                return new Ticket($p['id_ticket'],$p['ticket_number'],$p['id_movieshow'],$p['id_purchase']);
+            }, $value);
 
 
-
-        
-    protected function map($value){
-
-        $value = is_array($value) ? $value : [];
-
-        $resp = array_map(function($p){
-            return new Ticket($p['id_ticket'],$p['ticket_number'],$p['id_movieshow'],$p['id_purchase']);
-        }, $value);
-
-
-        return count($resp) > 1 ? $resp : $resp['0'];
-    }
-
-
-
-
-
-
-
-
-
-
+            return count($resp) > 1 ? $resp : $resp['0'];
+        }
 
     }
 ?>

@@ -69,7 +69,7 @@ class Movie
     {
         $this->description = $description;
     }
-    public function getName ()
+    public function getName()
     {
         return $this->name;
     }

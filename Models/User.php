@@ -5,17 +5,23 @@ class User
     private $id_user;
 	private $email;
 	private $password;
-	private $rol;
+    private $rol;
+    private $first_name;
+    private $last_name;
+    private $dni;
+
     //private $client;
 
     
-    public function __construct($id_user, $email, $password, $rol)
+    public function __construct($id_user, $email, $password, $rol, $first_name, $last_name, $dni)
 	{
         $this->setId($id_user);
 		$this->setEmail($email);
 		$this->setPassword($password);
-		$this->setRol($rol);
-		
+        $this->setRol($rol);
+        $this->setFirstName($first_name);
+        $this->setLastName($last_name);
+        $this->setDni($dni);
     }
     
     
@@ -67,22 +73,35 @@ class User
         $this->rol = $rol;
     }
 
-    /*
-    public function getClient()
+    public function getFirstName()
     {
-        return $this->client;
+        return $this->first_name;
+    }
+    
+    public function setFirstName($first_name)
+    {
+        $this->first_name = $first_name;
     }
 
-    
-    public function setClient($client)
+    public function getLastName()
     {
-        $this->client = $client;
-    }   
-    */
-
+        return $this->last_name;
+    }
     
+    public function setLastName($last_name)
+    {
+        $this->last_name = $last_name;
+    }
 
-
+    public function getDni()
+    {
+        return $this->dni;
+    }
+    
+    public function setDni($dni)
+    {
+        $this->dni = $dni;
+    }
 }
 
 ?>

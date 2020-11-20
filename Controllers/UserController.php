@@ -4,9 +4,7 @@
     use Controllers\MovieController;
     use DAO\UserDAO as UserDAO;
     Use Models\User as User;
-
-
-    
+        
 
     class UserController
     {
@@ -133,10 +131,13 @@
             $userName = $_POST['email'];
             $password = $_POST['password'];
             $rol = '2';
+            $first_name = $_POST['first_name'];
+            $last_name =$_POST['last_name'];
+            $dni = $_POST['dni'];
             
             if(!$this->checkUser($userName))
             {
-                $newUser = new User(null, $userName, $password, $rol);
+                $newUser = new User(null, $userName, $password, $rol, $first_name, $last_name, $dni);
 
                 $newUserRepository = new UserDAO();
                 $newUserRepository->Add($newUser);
@@ -155,10 +156,13 @@
             $userName = $_POST['email'];
             $password = $_POST['password'];
             $rol = '1';
+            $first_name = $_POST['first_name'];
+            $last_name =$_POST['last_name'];
+            $dni = $_POST['dni'];
             
             if(!$this->checkUser($userName))
             {
-                $newUser = new User(null, $userName, $password, $rol);
+                $newUser = new User(null, $userName, $password, $rol, $first_name, $last_name, $dni);
 
                 $newUserRepository = new UserDAO();
                 $newUserRepository->Add($newUser);

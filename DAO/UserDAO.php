@@ -20,12 +20,15 @@
         // array_push($this->userList,$user);    
         // $this->SaveData();
 
-        $sql = "INSERT INTO users (id_user, email, password, id_role) VALUES (:id_user, :email, :password, :id_role)";
+        $sql = "INSERT INTO users (id_user, email, password, id_role, firstname, lastname, dni) VALUES (:id_user, :email, :password, :id_role, :firstname, :lastname, :dni)";
 
         $parameters['id_user'] = 0;
         $parameters['email'] = $user->getEmail();
         $parameters['password'] = $user->getPassword();
         $parameters['id_role'] = $user->getRol();
+        $parameters['firstname'] = $user->getFirstName();
+        $parameters['lastname'] = $user->getLastName();
+        $parameters['dni'] = $user->getDni();
 
         try{
             $this->connection = Connection::getInstance();
@@ -84,7 +87,7 @@
         $value = is_array($value) ? $value : [];
 
         $resp = array_map(function($p){
-            return new User($p['id_user'],$p['email'],$p['password'],$p['id_role']);
+            return new User($p['id_user'],$p['email'],$p['password'],$p['id_role'],$p['firstname'], $p['lastname'], $p['dni']);
         }, $value);
 
         return count($resp) > 1 ? $resp : $resp['0'];

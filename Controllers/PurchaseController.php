@@ -234,7 +234,7 @@ class PurchaseController
                         $user = $_SESSION['loggedUser'];                       
                         $movieshow = $this->movieShowDAO->getMovieShowById($id_movieshow)['0'];
                         $room = $this->roomDAO->returnRoomById($movieshow->getidRoom());
-                        $cinema = $this->cinemaDAO->getCinemaByID($room->getIdCinema());
+                        $cinema = $this->cinemaDAO->getCinemaByID($room->getIdCinema())['0'];
                         $movieshowDate = $this->movieshowController->dateTimeToString($movieshow);
                         $movie = $this->movieDAO->read($movieshow->getIdMovie())['0'];
                         //purchase
@@ -270,30 +270,29 @@ class PurchaseController
                             
                             //ticket
                             //echo ($last_ticket+$ticket_count);
-                            $ticket_number=$last_ticket+1; //agrego +1 al la ultima ticket guardada           
+                            $ticket_number=$last_ticket+1; //agrego +1 al la ultima ticket guardada     
+                            $cant = 0;      
                             for ($i = 0; $i < $ticket_count; $i++) //genero la cantidad de tickets pasadas por parametro
                             {                
             
                                 $ticket= new Ticket(null,$ticket_number,$id_movieshow,$id_purchase); 
                                 $ticket =$this->ticketDAO->Add($ticket);
                                 $ticket_number++;
-
-                                // $info = 
-                                // "Pelicula: ".$movie->getName().
-                                // "Cine:  ".$cinema->getName().
-                                // "Sala:  ".$room->getName().
-                                // "Fecha y hora:  ".$movieshowDate.
-                                // "Numero Ticket: ".$ticket_number;
-
+                                $cant++;
                                 
                                 // //ob_start();
                                 // QRCode::png($info);
                                 // //$png = ob_end_clean()
                                 
-                                // array_push($qrsToSend,$id_qr);
-                                
-                                
+                                // array_push($qrsToSend,$id_qr);     
                             }//end for
+
+                            $info = 
+                            "Pelicula: ".$movie->getName()."<br>".
+                            "Cine:  ".$cinema->getName()."<br>".
+                            "Sala:  ".$room->getName()."<br>".
+                            "Fecha y hora:  ".$movieshowDate."<br>".
+                            "Cantidad de Tickets: ".$cant;
                         
             
                             $mail = new PHPMailer\PHPMailer(true);
@@ -324,7 +323,7 @@ class PurchaseController
                                 // Content
                                 $mail->isHTML(true);                                  // Set email format to HTML
                                 $mail->Subject = 'Compra exitosa';
-                                $mail->Body    = 'Has realizado la compra correctamente';
+                                $mail->Body    = $info;
 
                                 $mail->send();
                                 echo 'Message has been sent';
@@ -355,13 +354,10 @@ class PurchaseController
             catch(PDOException $ex)
             {
                 $_SESSION['Error']="Error al crear una nueva purchase)";
-            }
-                    
+            }              
             
             
         
         }//new purchase
-        //
-        //
-        //
+        
     }

@@ -20,6 +20,7 @@ use Controllers\ValidationController as ValidationController;
 		<nav id="mainav" class="fl_right">
 			<li class="active"><a href="<?php echo FRONT_ROOT; ?>Movie/showActiveMovies">Lista de Peliculas en Cartelera</a></li>
 			<li class="active"><a href="<?php echo FRONT_ROOT; ?>Cinema/showActiveCinemas">Lista de Cines</a></li>
+			<li class="active"><a href="<?php echo FRONT_ROOT; ?>Purchase/showMyTickets">Mis Entradas</a></li>
 			<li class="active"><a href="<?php echo FRONT_ROOT; ?>User/logout">Logout</a></li>
 			<?php if($_SESSION['loggedUser']->getRol() == 1){?> <li class="active"><a href="<?php echo FRONT_ROOT; ?>Movie/showMovies">Vista Admin</a></li><?php }?>
 		</nav> 
