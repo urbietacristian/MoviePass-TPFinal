@@ -87,12 +87,27 @@
 
                 $date;
                 $flag2 = $this->verifyDate($id_room, $date, $time, $id_movie);
+                $flag1 = $this->movieShowDAO->verifyDifferentMovieOnRoom($id_cinema, $id_room, $date);
                 if($flag2)
                 {
+                    if($flag1)
+                    {
                     $movieController = new MovieController();
                     $this->register($id_movie,$id_cinema,$date,$id_room, $time);
 
                     header("location: ".FRONT_ROOT."Movie/ShowMovieDetail/$id_movie");
+                    }
+                    else 
+                    {
+                        $roomList = $this->roomDAO->readRoomsByCinema($id_cinema);
+                        $movie = $this->movieDAO->read($id_movie)['0'];
+                        $_SESSION['msg'] = "Ya existe una funcion de esta pelicula en otra sala de este cine hoy";
+                        $_SESSION['endTime'] = null;
+                        $cinema = $this->cinemaDAO->getCinemaByID($id_cinema)['0'];
+
+                    require_once(ADMIN_PATH."add_movieshow_2.php");
+
+                    }
                 }
                 else
                 {

@@ -8,6 +8,7 @@
     <p>Idioma: <?php echo $movie->getLanguage();?></p>
     <p>Duracion: <?php echo $movie->getDuration();?> minutos</p>
     <p>Fecha de lanzamiento: <?php echo $movie->getReleaseDate();?></p>
+    <hr align="right" noshade="noshade" size="1" width="50%" />
 
 
     <div align="center" id="mainav">        

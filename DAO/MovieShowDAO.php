@@ -259,12 +259,15 @@
 
 
         
-    public function verifyDifferentMovieOnRoom($id_movie,$id_room){
+    public function verifyDifferentMovieOnRoom($id_cinema,$id_room,$date){
 
-        $sql='select * from movieshow where movieshow.id_movie != :id_movie and movieshow.id_room = :id_room ';
+        $sql='select * from movieshow
+        inner join rooms on rooms.id_room = movieshow.id_room and rooms.id_cinema = :id_cinema
+        where movieshow.id_room != :id_room and movieshow.day = :date';
 
-        $parameters['id_movie'] = $id_movie;
+        $parameters['id_cinema'] = $id_cinema;
         $parameters['id_room'] = $id_room;
+        $parameters['date'] = $date;
 
         try{
             $this->connection = Connection::getInstance();
