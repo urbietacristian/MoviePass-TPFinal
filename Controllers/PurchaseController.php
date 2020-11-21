@@ -1,7 +1,7 @@
 <?php
     namespace Controllers;
 
-use chillerlan\QRCode\QRCode;
+//use chillerlan\QRCode\QRCode;
 use DAO\CinemaDAO as CinemaDAO;
     use DAO\MovieDAO as MovieDAO;
     use Models\Purchase as Purchase;
@@ -15,6 +15,8 @@ use DAO\CinemaDAO as CinemaDAO;
     use Exception;
     use PHPMailer\PHPMailer;
     use PHPMailer\SMPT;
+    use Models\QrCode as QrCode;
+//use QrCode as GlobalQrCode;
 
 class PurchaseController
     {
@@ -25,6 +27,7 @@ class PurchaseController
         private $roomDAO;
         private $ticketDAO;
         private $movieshowController;
+        private $qrCode;
 
         public function __construct()
         {
@@ -34,7 +37,8 @@ class PurchaseController
             $this->roomDAO = new RoomDAO();            
             $this->ticketDAO = new TicketDAO();            
             $this->purchaseDAO = new PurchaseDAO();  
-            $this->movieshowController = new MovieShowController();          
+            $this->movieshowController = new MovieShowController();    
+            $this->qrCode = new QrCode();      
         }
 
         public function ShowSalesView()

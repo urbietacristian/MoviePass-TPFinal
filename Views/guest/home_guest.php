@@ -1,5 +1,14 @@
 <?php
-  require_once(VIEWS_PATH."navGuest.php");                                             
+  require_once(VIEWS_PATH."navGuest.php");
+  
+  use Models\QrCode;
+  use Controllers\QrCodeController;
+
+  $string = 'Prueba QR';
+  $qrController = new QrCode();
+
+  $qrController->text($string);
+  $qrController->Create();
 ?>
 
   <div id="mainav" align="center">
