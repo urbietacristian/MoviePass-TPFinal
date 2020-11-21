@@ -1,23 +1,6 @@
 <?php
     require_once(VIEWS_PATH."navGuest.php");
 ?>
-<script>
-     window.fbAsyncInit = function () {
-    //FB JavaScript SDK configuration and setup
-    FB.init({
-        appId: '1234567890', //FB App ID
-        cookie: true,  //enable cookies to allow the server to access the session
-        xfbml: true,  //parse social plugins on this page
-        version: 'v3.2' //use this graph api version 3.2
-    });
-
-    FB.getLoginStatus(function (response) {
-    console.log(response);
-
-});
-
-}
-</script>
 
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
 <main class="d-flex align-items-center justify-content-center height-100" >
@@ -42,7 +25,9 @@
                                    <div class="btn_cont">
                                    <button class="btn btn-primary btn-block btn-lg" type="submit">Ingresar</button>
                                    </div>
-                                   <a href="<?php echo $loginUrl?>">Log in with Facebook!</a>
+                                   <br>
+                                   <div><a class="btn btn-primary btn-block btn-lg" style="background-color:dodgerblue; border-color:dodgerblue" href="<?php echo $loginUrl?>">Ingresar Con Facebook</a></div>
+                                   
                                    
                               </form>
                               <br><br>
