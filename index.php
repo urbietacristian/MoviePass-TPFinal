@@ -5,6 +5,7 @@
 	error_reporting(E_ALL);
 	
 	require "vendor/Autoload.php";
+	require "phpqrcode/qrlib.php";
 	require "Config/Autoload.php";
 	require "Config/Config.php";
 

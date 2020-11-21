@@ -1,7 +1,7 @@
 <?php
     namespace Controllers;
 
-use chillerlan\QRCode\QRCode;
+
 use DAO\CinemaDAO as CinemaDAO;
     use DAO\MovieDAO as MovieDAO;
     use Models\Purchase as Purchase;
@@ -15,6 +15,7 @@ use DAO\CinemaDAO as CinemaDAO;
     use Exception;
     use PHPMailer\PHPMailer;
     use PHPMailer\SMPT;
+    use QRcode;
 
 class PurchaseController
     {
@@ -350,14 +351,22 @@ class PurchaseController
                                 // array_push($qrsToSend,$id_qr);     
                             }//end for
 
+                            $qrToSend = 
+                            "Pelicula: ".$movie->getName().
+                            "\n Cine:  ".$cinema->getName().
+                            "\n Sala:  ".$room->getName().
+                            "\n Fecha y hora:  ".$movieshowDate.
+                            "\n Cantidad de Tickets: ".$cant;
+
                             $info = 
-                            "Pelicula: ".$movie->getName()."<br>".
+                            "<div>Pelicula: ".$movie->getName()."<br>".
                             "Cine:  ".$cinema->getName()."<br>".
                             "Sala:  ".$room->getName()."<br>".
                             "Fecha y hora:  ".$movieshowDate."<br>".
-                            "Cantidad de Tickets: ".$cant;
-                        
-            
+                            "Cantidad de Tickets: ".$cant."<br></div>";
+
+                            QRcode::png($qrToSend, "C:/wamp64/www/MoviePass-TPFinal/Views/img/qrtosend.png");
+
                             $mail = new PHPMailer\PHPMailer(true);
 
                             try {
@@ -374,6 +383,7 @@ class PurchaseController
                                 //Recipients
                                 $mail->setFrom('lucio.chapaman@gmail.com', 'MoviePass');
                                 $mail->addAddress($user->getEmail(), 'Joe User');     // Add a recipient
+                            
                                 // foreach($qrsToSend as $qr)
                                 // {
                                 //     $mail->addEmbeddedImage()
@@ -381,7 +391,7 @@ class PurchaseController
                                 
                                 // Attachments
                             
-                                //$mail->addAttachment('/var/tmp/file.tar.gz');         // Add attachments
+                                $mail->addAttachment('C:/wamp64/www/MoviePass-TPFinal/Views/img/qrtosend.png');         // Add attachments
 
                                 // Content
                                 $mail->isHTML(true);                                  // Set email format to HTML
