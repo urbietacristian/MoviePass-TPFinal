@@ -4,6 +4,8 @@
     use Controllers\MovieController;
     use DAO\UserDAO as UserDAO;
     Use Models\User as User;
+    use Facebook;
+    
         
 
     class UserController
@@ -28,6 +30,16 @@
 
         public function ShowLoginView()
         {
+
+            $fb = new Facebook\Facebook(array(
+                'app_id' => '813085052788956',
+                'app_secret' => 'efd7113ea0a3119968ce477683bbb9ac',
+                'default_graph_version' => 'v9.0',
+            ));
+             
+            $helper = $fb->getRedirectLoginHelper();
+            $permissions = ['email'];
+            $loginUrl = $helper->getLoginUrl('https://localhost/MoviePass-TPFinal/User/facebookLogin',$permissions);
             require_once(VIEWS_PATH."login.php");
         }
 
@@ -52,12 +64,86 @@
                 false;            
         }
 
+
+        public function facebookLogin()
+        {
+            $fb = new Facebook\Facebook([
+                'app_id' => '813085052788956',
+                'app_secret' => 'efd7113ea0a3119968ce477683bbb9ac',
+                'default_graph_version' => 'v9.0',
+                ]);
+              
+
+                $helper = $fb->getRedirectLoginHelper();
+                try {
+                  $accessToken = $helper->getAccessToken();
+                } catch(Facebook\Exceptions\FacebookResponseException $e) {
+                  // When Graph returns an error
+                  echo 'Graph returned an error: ' . $e->getMessage();
+                  exit;
+                } catch(Facebook\Exceptions\FacebookSDKException $e) {
+                  // When validation fails or other local issues
+                  echo 'Facebook SDK returned an error: ' . $e->getMessage();
+                  exit;
+                }
+                
+                if (isset($accessToken)) {
+                  // Logged in!
+                  $_SESSION['facebook_access_token'] = (string) $accessToken;
+                  try {
+                    // Returns a `Facebook\Response` object
+                    $response = $fb->get('/me?fields=id,email,first_name,last_name', $accessToken);
+                    $userNode = $response->getGraphUser();
+                    $graphNode = $response->getGraphNode();
+                    
+                    if($this->checkUser($userNode['email']))
+                    {
+                        $user = $this->userDAO->read($userNode['email']);
+                        $_SESSION["loggedUser"] = $user;
+                        $message = "Login Successfully";
+                        if($user->getRol() == 2) //Cuando es user entra aca
+                        {
+                            $_SESSION['home'] = FRONT_ROOT.'Movie/showActiveMovies';
+
+                            header("location: ".FRONT_ROOT."Movie/ShowActiveMovies");
+                        }
+                        else if ($user->getRol() == 1) //Cuando es admin entra aca
+                        {
+                            $_SESSION['home'] = FRONT_ROOT.'Movie/showMovies';
+                            $this->ShowAdminMenuView($message);
+                        }
+                    }
+                    else
+                    {
+                        $password = $userNode->getId();
+                        $newUser = new User(null, $userNode->getEmail(), $password, '2', $userNode->getFirstName(), $userNode->getLastName(), 12345678);
+
+                        $newUserRepository = new UserDAO();
+                        $newUserRepository->Add($newUser);
+                        $user = $this->userDAO->read($userNode['email']);
+                        $_SESSION["loggedUser"] = $user;
+                        $_SESSION['msg'] = "Usuario creado y logueado exitosamente.";
+                        $_SESSION['home'] = FRONT_ROOT.'Movie/showActiveMovies';
+                        header("location: ".FRONT_ROOT."Movie/ShowActiveMovies");
+                    }
+                    } catch(Facebook\Exceptions\FacebookResponseException $e) {
+                    echo 'Graph returned an error: ' . $e->getMessage();
+                    exit;
+                    } catch(Facebook\Exceptions\FacebookSDKException $e) {
+                    echo 'Facebook SDK returned an error: ' . $e->getMessage();
+                    exit;
+                     }    
+                }
+                
+        }
+
         public function login()
         {
             $email = $_POST["email"];
             $password = $_POST["password"];
 
-            $count = 0;
+            $count = 0;       
+
             try{
                 if($this->checkUser($email))
                 {
@@ -150,6 +236,8 @@
                 require_once(VIEWS_PATH."register.php");
             }        
         }
+
+        
 
         public function registerAdmin()
         {            
