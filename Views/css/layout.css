@@ -79,7 +79,7 @@ File: Layout CSS
 
 /* Top Bar
 --------------------------------------------------------------------------------------------------------------- */
-#topbar{padding:15px 0; font-size:.8rem; text-transform:uppercase;}
+#topbar{padding:15px 0; font-size:1	.8rem; text-transform:uppercase;}
 
 #topbar *{margin:0;}
 #topbar ul li{display:inline-block; margin-right:15px;}
@@ -92,8 +92,9 @@ File: Layout CSS
 --------------------------------------------------------------------------------------------------------------- */
 #header{padding:0 15px; border:solid; border-width:1px 0;}
 
-#header #logo{margin:28px 0 0 0;}
+#header #logo{margin:3px 0 0 0;}
 #header #logo h1{margin:0; padding:0; font-size:22px; line-height:1; text-transform:uppercase;}
+
 
 
 /* Page Intro

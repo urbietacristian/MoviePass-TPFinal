@@ -11,8 +11,8 @@
 
 <div class="wrapper row1">
   <header id="header" class="hoc clear"> 
-    <div id="logo" class="fl_left">
-      <h1><a href="<?php echo FRONT_ROOT; ?>Movie/ShowMovies">Movie Pass</a></h1>
+    <div style="vertical-align: middle;" id="logo" class="imgl">
+      <h1><a href="<?php echo FRONT_ROOT; ?>Movie/ShowMovies"><img  src="<?php echo IMG_PATH."logo.png"?>" > Movie Pass</a></h1>
     </div>    
     <nav id="mainav" class="fl_right">
       <li class="active"><a href="<?php echo FRONT_ROOT; ?>Purchase/ShowSalesView">Totales vendidos</a></li>

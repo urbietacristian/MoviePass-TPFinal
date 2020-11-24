@@ -177,7 +177,7 @@
                 {
                     $_SESSION['msg'] = "El mail que has introducido no corresponde a una cuenta registrada.";
                     $_SESSION['home'] = FRONT_ROOT.'Home/Index';
-                    require_once(VIEWS_PATH."login.php");
+                    header("location: ".FRONT_ROOT."User/ShowLoginView");
                 }
             }
             catch(\PDOException $ex){
