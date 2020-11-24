@@ -170,7 +170,7 @@
                     else{
                         $_SESSION['msg'] = "Los datos que has introducido son incorrectos.";
                         $_SESSION['home'] = FRONT_ROOT.'Home/Index';
-                        require_once(VIEWS_PATH."login.php");
+                        header("location: ".FRONT_ROOT."User/ShowLoginView");
                     } 
                 }
                 else

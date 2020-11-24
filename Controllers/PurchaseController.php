@@ -335,14 +335,26 @@ class PurchaseController
                             //ticket
                             //echo ($last_ticket+$ticket_count);
                             $ticket_number=$last_ticket+1; //agrego +1 al la ultima ticket guardada     
-                            $cant = 0;      
+                            $cant = 0; 
+                            $qrList = array();     
                             for ($i = 0; $i < $ticket_count; $i++) //genero la cantidad de tickets pasadas por parametro
                             {                
             
                                 $ticket= new Ticket(null,$ticket_number,$id_movieshow,$id_purchase); 
                                 $ticket =$this->ticketDAO->Add($ticket);
                                 $ticket_number++;
+                                
+
+                                $qrToSend = 
+                                "Pelicula: ".$movie->getName().
+                                "\n Cine:  ".$cinema->getName().
+                                "\n Sala:  ".$room->getName().
+                                "\n Fecha y hora:  ".$movieshowDate.
+                                "\n Numero de entrada: ".$ticket_number;
+
+                                QRcode::png($qrToSend, "C:/wamp64/www/MoviePass-TPFinal/Views/img/qrtosend".$cant.".png");
                                 $cant++;
+                                $qrToSend = null;
                                 
                                 // //ob_start();
                                 // QRCode::png($info);
@@ -351,12 +363,6 @@ class PurchaseController
                                 // array_push($qrsToSend,$id_qr);     
                             }//end for
 
-                            $qrToSend = 
-                            "Pelicula: ".$movie->getName().
-                            "\n Cine:  ".$cinema->getName().
-                            "\n Sala:  ".$room->getName().
-                            "\n Fecha y hora:  ".$movieshowDate.
-                            "\n Cantidad de Tickets: ".$cant;
 
                             $info = 
                             "<div>Pelicula: ".$movie->getName()."<br>".
@@ -365,7 +371,7 @@ class PurchaseController
                             "Fecha y hora:  ".$movieshowDate."<br>".
                             "Cantidad de Tickets: ".$cant."<br></div>";
 
-                            QRcode::png($qrToSend, "C:/wamp64/www/MoviePass-TPFinal/Views/img/qrtosend.png");
+
 
                             $mail = new PHPMailer\PHPMailer(true);
 
@@ -384,14 +390,14 @@ class PurchaseController
                                 $mail->setFrom('lucio.chapaman@gmail.com', 'MoviePass');
                                 $mail->addAddress($user->getEmail(), 'Joe User');     // Add a recipient
                             
-                                // foreach($qrsToSend as $qr)
-                                // {
-                                //     $mail->addEmbeddedImage()
-                                // }
+                                 for($i=0; $i<$cant; $i++)
+                                 {
+                                     $mail->addEmbeddedImage("C:/wamp64/www/MoviePass-TPFinal/Views/img/qrtosend".$i.".png", "QREntrada".$i."");
+                                 }
                                 
-                                // Attachments
-                            
-                                $mail->addAttachment('C:/wamp64/www/MoviePass-TPFinal/Views/img/qrtosend.png');         // Add attachments
+                                
+                                
+                                
 
                                 // Content
                                 $mail->isHTML(true);                                  // Set email format to HTML
