@@ -381,14 +381,14 @@ class PurchaseController
                                 $mail->isSMTP();                                            // Send using SMTP
                                 $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
                                 $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-                                $mail->Username   = 'moviepasstestapp@gmail.com';                     // SMTP username
-                                $mail->Password   = 'qfzsjkesnwolgbix';                               // SMTP password
+                                $mail->Username   = 'MAIL';                     // SMTP username
+                                $mail->Password   = 'MAIL_PASSWORD';                               // SMTP password
                                 $mail->SMTPSecure = PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
                                 $mail->Port       = 587;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
                                 //Recipients
-                                $mail->setFrom('lucio.chapaman@gmail.com', 'MoviePass');
-                                $mail->addAddress($user->getEmail(), 'Joe User');     // Add a recipient
+                                //$mail->setFrom('algunmail', 'MoviePass');
+                                //$mail->addAddress($user->getEmail(), 'Joe User');     // Add a recipient
                             
                                  for($i=0; $i<$cant; $i++)
                                  {
