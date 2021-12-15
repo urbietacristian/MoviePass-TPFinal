@@ -1,0 +1,147 @@
+*., *::before, *::after {
+    font-family: 'Open Sans', sans-serif;
+}
+
+body{
+    background-color: rgba(59, 2, 2, 0.801);
+    box-sizing: border-box;
+    align-self: center;
+}
+
+
+
+.carta{  
+    --padding: .75rem;
+    background-color: rgb(105, 0, 0);        
+    border: 1px solid rgb(235, 235, 235);
+    border-radius: .5rem;
+    padding: 0;
+    float: left;
+    cursor: pointer;
+    overflow: hidden;
+    transition: 200ms transform ease-in-out;
+    margin-right: 20px;    
+    margin-top: 20px;    
+    max-width: 300px;
+}
+
+.carta-grid{    
+    position: relative;
+    float: inline-start;    
+    grid-template-columns: repeat(auto-fill, minmax(300px,5fr));
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.carta > a{    
+    padding: 0px;
+    margin-top: 0;
+    padding-top: 0px;
+}
+
+.carta-body.carta-image{
+    overflow: hidden;    
+}
+
+.carta.shadow-carta:hover > .carta-body.carta-image > img{
+    transform: scale(1.025);    
+}
+
+
+
+
+.carta:hover{
+    transform: scale(1.015);    
+}
+
+
+
+.carta-body.carta-image > img{
+    display: block;
+    width: 100%;    
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    object-position: center; 
+    transition: 200ms transform ease-in-out;       
+}
+
+
+
+@-webkit-keyframes anim {
+    from {
+        left: 0%;         
+    }
+    to {
+        left:-100%;
+    }
+}
+
+@keyframes anim {
+        0% {left: 0%;}        
+        100% {left:-100%;}
+}
+
+
+
+.carta:hover > .carta-footer > p{
+    position: relative;
+    white-space: nowrap;    
+    animation: anim 4s linear;  
+    animation-direction: normal;
+    animation-fill-mode: forwards;
+}
+
+.carta-footer{           
+    font-size: 1.5rem;
+    padding: var(--padding);
+    margin-top: 0.75rem;
+    padding-top: 0;
+}
+.carta-footer > p{
+    white-space: nowrap;    
+    margin-right: 20px;
+    margin: 0;
+    color: black;
+
+}
+
+.carta-body{
+    font-size: 1.rem;
+    margin-bottom: .5rem;    
+}
+
+
+
+.carta.shadow-carta{
+    
+    border: none;
+    box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.2);
+}
+
+
+
+/* Listas main */
+
+.list > li {
+    position: relative;
+    display: inline;
+}
+
+
+.main > div{
+    width: 100%;
+    display: inline;
+}
+
+.main {
+    width: 100%;
+    display: contents;
+    align-items: center;
+
+}
+
+.nav{
+    box-sizing: border-box;
+    
+}
+
