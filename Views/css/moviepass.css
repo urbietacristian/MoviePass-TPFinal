@@ -1,0 +1,161 @@
+*., *::before, *::after {
+    font-family: 'Open Sans', sans-serif;    
+}
+
+
+@import "body.css";
+
+
+.movies{
+    display: table;
+    margin: 0 auto;
+    padding: 0;
+}
+
+
+.carta-grid .carta{  
+    --padding: .75rem;
+    display: inline-block;
+    *display: inline;
+    *zoom:1;
+    background-color: rgb(80, 90, 177);       
+    border-radius: .5rem;
+    padding: 0;
+    cursor: pointer;
+    overflow: hidden;
+    transition: 200ms transform ease-in-out;
+    margin-right: 20px;    
+    margin-top: 20px;        
+    max-width: 300px;
+    border: none;
+    box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.2);
+}
+
+.carta-grid{    
+
+    display: inline-block; 
+    position: inherit;
+    margin: 0; 
+    margin-top: 2rem;    
+    padding: 0;
+}
+
+.carta > a{    
+    padding: 0px;
+    margin-top: 0;
+    padding-top: 0px;
+}
+
+.carta-body.carta-image{
+    overflow: hidden;    
+}
+
+.carta.shadow-carta:hover > .carta-body.carta-image > img{
+    transform: scale(1.025);    
+}
+
+
+
+
+.carta:hover{
+    transform: scale(1.015);    
+}
+
+
+
+.carta-body.carta-image > img{
+    display: block;
+    width: 100%;    
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    object-position: center; 
+    transition: 200ms transform ease-in-out;       
+}
+
+
+
+@-webkit-keyframes anim {
+    from {
+        left: 0%;         
+    }
+    to {
+        left:-100%;
+    }
+}
+
+@keyframes anim {
+        0% {left: 0%;}        
+        100% {left:-100%;}
+}
+
+
+
+.carta:hover > .carta-footer > p{
+    position: relative;
+    white-space: nowrap;    
+    animation: anim 4s linear;  
+    animation-direction: normal;
+    animation-fill-mode: forwards;
+}
+
+.carta-footer{           
+    font-size: 1.5rem;
+    padding: var(--padding);
+    margin-top: 0.75rem;
+    padding-top: 0;
+}
+.carta-footer > p{
+    white-space: nowrap;    
+    margin-right: 20px;
+    margin: 0;
+    color: black;
+
+}
+
+.carta-body{
+    font-size: 1.rem;
+    margin-bottom: .5rem;    
+}
+
+
+
+.carta.shadow-carta{    
+
+}
+
+
+
+/* Listas main */
+
+.list > li >a {
+    border: 1px ;
+    border-radius: 2%;
+    border-color: black;
+}
+
+
+.list > li {
+    display: inline;
+}
+.list{
+    
+}
+
+
+.main > div{
+    width: 100%;
+    display: inline;
+}
+
+.main {
+    width: 100%;
+    display: contents;
+    
+
+}
+.logo{
+    width: min-content;
+    margin-right: 0px;
+    padding: 0;
+}
+
