@@ -1,6 +1,8 @@
-*., *::before, *::after {
-    font-family: 'Open Sans', sans-serif;    
+*., *::before, *::after {     
+    font-family: 'Open Sans', sans-serif, white;    
+
 }
+
 
 
 @import "body.css";
@@ -89,8 +91,12 @@
 }
 
 
+.carta > a   {
+    text-decoration: none;    
+    text-align: left;
+}
 
-.carta:hover > .carta-footer > p{
+.carta:hover > a > .carta-footer> p{
     position: relative;
     white-space: nowrap;    
     animation: anim 4s linear;  
@@ -104,11 +110,11 @@
     margin-top: 0.75rem;
     padding-top: 0;
 }
-.carta-footer > p{
+.carta-footer  > p{
     white-space: nowrap;    
     margin-right: 20px;
     margin: 0;
-    color: black;
+    color: rgb(235, 235, 235);;
 
 }
 
@@ -118,10 +124,6 @@
 }
 
 
-
-.carta.shadow-carta{    
-
-}
 
 
 
@@ -136,9 +138,6 @@
 
 .list > li {
     display: inline;
-}
-.list{
-    
 }
 
 
