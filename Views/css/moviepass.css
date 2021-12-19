@@ -1,36 +1,43 @@
 *., *::before, *::after {
-    font-family: 'Open Sans', sans-serif;
-}
-
-body{
-    background-color: rgba(59, 2, 2, 0.801);
-    box-sizing: border-box;
-    align-self: center;
+    font-family: 'Open Sans', sans-serif;    
 }
 
 
+@import "body.css";
 
-.carta{  
+
+.movies{
+    display: table;
+    margin: 0 auto;
+    padding: 0;
+}
+
+
+.carta-grid .carta{  
     --padding: .75rem;
-    background-color: rgb(105, 0, 0);        
-    border: 1px solid rgb(235, 235, 235);
+    display: inline-block;
+    *display: inline;
+    *zoom:1;
+    background-color: rgb(80, 90, 177);       
     border-radius: .5rem;
     padding: 0;
-    float: left;
     cursor: pointer;
     overflow: hidden;
     transition: 200ms transform ease-in-out;
     margin-right: 20px;    
-    margin-top: 20px;    
+    margin-top: 20px;        
     max-width: 300px;
+    border: none;
+    box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.2);
 }
 
 .carta-grid{    
-    position: relative;
-    float: inline-start;    
-    grid-template-columns: repeat(auto-fill, minmax(300px,5fr));
-    align-items: center;
-    margin-top: 2rem;
+
+    display: inline-block; 
+    position: inherit;
+    margin: 0; 
+    margin-top: 2rem;    
+    padding: 0;
 }
 
 .carta > a{    
@@ -112,19 +119,26 @@ body{
 
 
 
-.carta.shadow-carta{
-    
-    border: none;
-    box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.2);
+.carta.shadow-carta{    
+
 }
 
 
 
 /* Listas main */
 
+.list > li >a {
+    border: 1px ;
+    border-radius: 2%;
+    border-color: black;
+}
+
+
 .list > li {
-    position: relative;
     display: inline;
+}
+.list{
+    
 }
 
 
@@ -136,12 +150,12 @@ body{
 .main {
     width: 100%;
     display: contents;
-    align-items: center;
+    
 
 }
-
-.nav{
-    box-sizing: border-box;
-    
+.logo{
+    width: min-content;
+    margin-right: 0px;
+    padding: 0;
 }
 
