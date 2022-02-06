@@ -10,7 +10,7 @@
 <header > 
     <!-- <div id="logo" class="imgl"> -->
     <div class="nav-left">
-      <a href="<?php echo FRONT_ROOT; ?>Movie/ShowMovies"><img  src="<?php echo IMG_PATH."logo.png"?>"/> Movie Pass</a>    
+    <a href="<?php echo FRONT_ROOT; ?>Movie/ShowMovies"><img  src="<?php echo IMG_PATH."logo.png"?>"/></a>    
     </div>
     <div class="nav-right">    
       <a href="<?php echo FRONT_ROOT; ?>Movie/showActiveMovies">Lista de Peliculas en Cartelera</a>

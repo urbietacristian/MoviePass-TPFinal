@@ -5,7 +5,7 @@ require_once(VIEWS_PATH."navAdmin.php");
 <div >
     <div class="mainav" align='center'>
         <br><br>
-        <a href="<?php echo FRONT_ROOT; echo "Cinema/ShowAddView"; ?>">Agregar Cine</a>
+        <a class="button" href="<?php echo FRONT_ROOT; echo "Cinema/ShowAddView"; ?>">Agregar Cine</a>
         <br><br><br>
 
         <table class='table'>
@@ -13,9 +13,8 @@ require_once(VIEWS_PATH."navAdmin.php");
                 <tr>
                     <th>Nombre</th>
                     <th>Direccion</th>
-                    <th></th>
-                    <th></th>
                     <th>Ver Salas</th>
+                    <th></th>
                 </tr>
             </thead>
 
@@ -26,6 +25,9 @@ require_once(VIEWS_PATH."navAdmin.php");
                 <tr>
                     <td><?php echo $cinema->getName()?></td>
                     <td><?php echo $cinema->getAddress()?></td>
+                    <td>
+                        <a href="<?php echo FRONT_ROOT; echo "Room/ShowRoomsByCinemaView/"; echo $cinema->getId(); ?>">Lista de Salas</a>                    
+                    </td>
                     <td>
                         <form  action="<?php echo FRONT_ROOT; echo "Cinema/ShowEditView?"; echo $cinema->getId()?>" method="POST">
                             <input type="hidden" value="<?php echo $cinema->getId(); ?>" name="id">
@@ -43,10 +45,7 @@ require_once(VIEWS_PATH."navAdmin.php");
                                 <img src="<?php echo IMG_PATH."remove.png"; ?>">
                             </button>
                         </form>
-                    </td>
-                    <td>
-                        <a href="<?php echo FRONT_ROOT; echo "Room/ShowRoomsByCinemaView/"; echo $cinema->getId(); ?>">Lista de Salas</a>                    
-                    </td>
+                    </td>                    
                 </tr>
             <?php }?>
             </tbody>

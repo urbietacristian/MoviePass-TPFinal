@@ -2,9 +2,9 @@
 <?php
 require_once(VIEWS_PATH."navAdmin.php");
 ?>
-<div id="sales" align="center">
+<div  id="sales" align="center">
     <br><br>
-    <aside>
+    <aside class ="carta">
         <h1>Totales Vendidos por Pelicula</h1>
         <form action="<?php echo FRONT_ROOT ?>Purchase/ShowSalesByMovieView"   method='get'>
             <select type="select" name="id_movie" required>

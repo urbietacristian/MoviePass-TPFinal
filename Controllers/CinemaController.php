@@ -145,7 +145,7 @@
 
         public function checkCinema($name)
         {
-            $cinema = $this->cinemaDAO->read($name)['0'];
+            $cinema = $this->cinemaDAO->read($name);
 
             if($cinema)
                 return true;

@@ -1,11 +1,238 @@
-*., *::before, *::after {     
-    font-family: 'Open Sans', sans-serif, white;    
 
+* {     
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+body {
+    --main-color: rgb(0, 68, 88);
+    --background-color:rgb(187, 179, 152); 
+    --hover-color:rgb(4, 85, 110);    
+    position: fixed;
+    display: block;
+    flex-direction: column;
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    /* background-color: #03163fcc; */
+    background-color: var(--background-color); 
+    text-align: center;
+    width: 100%;
+
+}
+
+.body {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;        
 }
 
 
 
-@import "body.css";
+footer {
+
+    text-align: center;
+    margin-top: auto;
+}
+
+header {
+    font-size: larger;
+    display: flex;
+    background: var(--main-color);
+    width: 100%;
+    text-align: center;
+    margin-bottom: 1rem;
+    height: 80px;
+
+
+    /* flex-direction: row;
+    text-align: left;
+    width: 100%;
+    position: static;
+    background-color: black;
+    left: 0;
+    display: inline-block;
+    align-items: center;    
+    top: 0; */
+}
+
+@-webkit-keyframes anim {
+    from {
+        left: 0%;
+    }
+
+    to {
+        left: -100%;
+    }
+}
+
+@keyframes anim {
+    0% {
+        left: 0%;
+    }
+
+    100% {
+        left: -100%;
+    }
+}
+
+
+.nav-right {
+    text-align: center;
+    overflow: hidden;
+
+}
+
+.nav-right a {
+    display: inline-block;
+    text-decoration: none;
+    color: rgb(214, 214, 214);
+    transition: 200ms transform ease-in-out;
+    padding: 29px;
+    border-left: 1px solid black;
+    /* border-right: 2px solid black; */
+}
+
+
+
+
+
+.nav-right>a:hover {
+    background-color:var(--hover-color);    
+    display: inline-block;
+    transform: scale(1.05);
+    border-right: 1px solid white;
+    border-left: 1px solid white;
+    color: rgb(235, 235, 235);
+}
+
+.nav-right>a:hover:first-child {
+    border-left: 0px solid white;
+}
+
+
+
+.nav-left>a>img {
+    vertical-align: middle;
+
+}
+
+.nav-left>a {
+    display: block;
+    overflow: hidden;
+    border: 2px;
+    border-color: black;
+    display: inline-block;
+    align-self: center;
+    text-decoration: none;
+    color: rgb(235, 235, 235);
+}
+
+.nav-left {
+    margin: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.genre-list {    
+    padding: 1rem;
+    display: inline-block;
+    transform: scale(1.05);
+    /* border-right: 1px solid white;
+    border-left: 1px solid white; */
+    color: rgb(235, 235, 235);    
+}
+
+.genre-list li {
+    transition: 200ms transform ease-in-out;
+    margin-right: 1rem;
+    display: inline;
+}
+
+.genre-list li a {
+    text-decoration: solid;
+    color: rgb(9, 9, 75); 
+
+}
+
+.genre-list li:hover {
+    display: inline-block;
+    transform: scale(1.05);    
+}
+.genre-list li:hover > a {
+    color: var(--main-color);
+}
+
+header>div:last-child {
+    margin-left: auto;
+}
+
+
+table, th, td {
+    border: 2px solid;
+    border-collapse: collapse;
+    vertical-align: top;
+}
+
+table, th, td, a {
+    color: rgb(214, 214, 214);
+    border-left: none;
+    border-right: none;
+}
+
+table, th, td, a:hover {
+    text-decoration: none;
+    transform: scale(1.015);
+}
+
+table, th {
+    table-layout: auto;
+    border: none;
+}
+
+
+table {
+    color: rgb(214, 214, 214);
+    border: 2px black;
+    border-radius: 15px;
+    background: var(--hover-color);
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+
+th, td {
+    padding: 5px 8px;
+    text-align: center;
+}
+
+td {
+    border-width: 0 1px;
+}
+
+tbody tr:nth-child(odd) {
+    background: var(--main-color);
+}
+
+
+body h1 {
+    color: var(--main-color);
+}
+
+.button {
+    border: 1px var(--main-color) solid;
+    border-radius: 2em;
+    text-decoration: none;     
+    background-color: var(--main-color);
+    padding: 1em;
+}
+
+
+.button:hover {        
+    background-color:var(--hover-color);      
+}
+
+
 
 
 .movies{
@@ -20,7 +247,7 @@
     display: inline-block;
     *display: inline;
     *zoom:1;
-    background-color: rgb(80, 90, 177);       
+    background-color: var(--main-color);       
     border-radius: .5rem;
     padding: 0;
     cursor: pointer;
@@ -109,6 +336,7 @@
     padding: var(--padding);
     margin-top: 0.75rem;
     padding-top: 0;
+    background-color: inherit;
 }
 .carta-footer  > p{
     white-space: nowrap;    
