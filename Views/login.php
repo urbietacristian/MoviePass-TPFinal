@@ -26,8 +26,11 @@
                                    <button class="btn btn-primary btn-block btn-lg" type="submit">Ingresar</button>
                                    </div>
                                    <br>
-                                   <div><a class="btn btn-primary btn-block btn-lg" style="background-color:dodgerblue; border-color:dodgerblue" href="<?php echo $loginUrl?>">Ingresar Con Facebook</a></div>
                                    
+                                   <!--
+                                        Ingresar con Facebook dejó de funcionar
+                                   <div><a class="btn btn-primary btn-block btn-lg" style="background-color:dodgerblue; border-color:dodgerblue" href="<?php echo $loginUrl?>">Ingresar Con Facebook</a></div>
+                                   -->
                                    
                               </form>
                               <br><br>

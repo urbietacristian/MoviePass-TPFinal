@@ -13,9 +13,9 @@ require_once(VIEWS_PATH."navAdmin.php");
                 <?php } ?>
             </select> 
             <p>Fecha Inicial</p>
-            <input type="date" name="dateIn" min = <?php echo date('2020-06-00'); ?> />
+            <input type="date" name="dateIn" min = <?php echo date('2020-06-00'); ?> value = <?php echo date('Y-m-d'); ?> />
             <p>Fecha Final</p>
-            <input type="date" name="dateOut" min = <?php echo date('2020-06-00'); ?> />
+            <input type="date" name="dateOut" min = <?php echo date('2020-06-00'); ?> value = <?php echo date('Y-m-d'); ?> />
             <br>
             <button type="submit">Buscar</button>
         </form>
@@ -30,9 +30,9 @@ require_once(VIEWS_PATH."navAdmin.php");
                 <?php } ?>
             </select> 
             <p>Fecha Inicial</p>
-            <input type="date" name="dateIn" min = <?php echo date('2020-06-00'); ?> />
+            <input type="date" name="dateIn" min = <?php echo date('2020-06-00'); ?> value = <?php echo date('Y-m-d'); ?> />
             <p>Fecha Final</p>
-            <input type="date" name="dateOut" min = <?php echo date('2020-06-00'); ?> />
+            <input type="date" name="dateOut" min = <?php echo date('2020-06-00'); ?> value = <?php echo date('Y-m-d'); ?> />
             <br>
             <button type="submit">Buscar</button>
         </form>

@@ -43,7 +43,7 @@ class PurchaseController
             ValidationController::getInstance()->validateUser();
             $user = $_SESSION['loggedUser'];
             if($order)
-            $ticket_list = $this->ticketDAO->userTicketsByMovieshowDate($user->getId());
+                $ticket_list = $this->ticketDAO->userTicketsByMovieshowDate($user->getId());
             else
                 $ticket_list = $this->ticketDAO->userTicketsByMovie($user->getId());
                        
