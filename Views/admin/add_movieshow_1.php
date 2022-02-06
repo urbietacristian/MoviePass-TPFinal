@@ -27,7 +27,7 @@ require_once(VIEWS_PATH."navAdmin.php");
             <br><br>
             <h1>Fecha</h1>
             <br>
-            <input type="date" name="date" min = <?php echo date('Y-m-d'); ?> />
+            <input type="date" name="date" value = <?php echo date('Y-m-d'); ?>  min = <?php echo date('Y-m-d'); ?> required/>
             <input type="hidden" name="id_movie" value='<?php echo $id_movie?>' />
             <br><br><br>            
 

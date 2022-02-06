@@ -147,26 +147,43 @@ end$$
 
 
 DELIMITER $$
-create procedure sp_userTicketsByMovieshowDate(in userIN int)
+CREATE DEFINER=`moviepass`@`%` PROCEDURE `sp_userTicketsByMovieshowDate`(in userIN int)
 begin
 	SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
-	select tickets.* , movieshow.* from tickets
+select 
+	movies.name as movie_name,
+        movieshow.* ,        
+        cinemas.name as cinema_name,
+        rooms.name as room_name
+        from tickets
 	inner join (select purchases.* from purchases inner join users on purchases.id_user = userIN ) as purchases on purchases.id_purchase = tickets.id_purchase
 	inner join movieshow on movieshow.id_movieshow = tickets.id_movieshow
+    inner join movies on movies.id_api = movieshow.id_movie
+    inner join rooms on rooms.id_room = movieshow.id_room
+    inner join cinemas on cinemas.id_cinema = rooms.id_cinema
 	group by tickets.id_ticket 
 	order by movieshow.day asc;
+end  
 end$$
 
 DELIMITER $$
-create procedure sp_userTicketsByMovie(in userIN int)
+CREATE DEFINER=`moviepass`@`%` PROCEDURE `sp_userTicketsByMovieshowDate`(in userIN int)
 begin
 	SET sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''));
-	select tickets.* , movies.name from tickets
+select 
+	movies.name as movie_name,
+        movieshow.* ,        
+        cinemas.name as cinema_name,
+        rooms.name as room_name
+        from tickets
 	inner join (select purchases.* from purchases inner join users on purchases.id_user = userIN ) as purchases on purchases.id_purchase = tickets.id_purchase
 	inner join movieshow on movieshow.id_movieshow = tickets.id_movieshow
-	inner join movies on movieshow.id_movie = movies.id_api
+    inner join movies on movies.id_api = movieshow.id_movie
+    inner join rooms on rooms.id_room = movieshow.id_room
+    inner join cinemas on cinemas.id_cinema = rooms.id_cinema
 	group by tickets.id_ticket 
-	order by movies.name asc;
+	order by movieshow.day asc;
+end  
 end$$
 
 -- INSERTANDO AL ADMIN --
