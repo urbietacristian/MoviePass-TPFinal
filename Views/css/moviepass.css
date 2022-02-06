@@ -7,7 +7,8 @@
 body {
     --main-color: rgb(0, 68, 88);
     --background-color:rgb(187, 179, 152); 
-    --hover-color:rgb(4, 85, 110);    
+    --hover-color:rgb(4, 85, 110);  
+    --white: rgb(214, 214, 214);  
     position: fixed;
     display: block;
     flex-direction: column;
@@ -386,3 +387,35 @@ body h1 {
     padding: 0;
 }
 
+aside{
+    display: inline-block;
+    margin-right: 4rem;
+}
+
+.login{
+
+}
+
+
+.login button {
+    margin-top: 2rem;
+    color: var(--white);
+    box-shadow: none;
+    border: 0;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    background-color: var(--main-color);    
+}
+.login button:hover {    
+    transform: scale(1.015);  
+}
+.logn form table {
+    border-radius: 2rem;
+}
+
+form input {  
+    
+    margin-top: 1rem;  
+    border: 0.5px;
+    border-radius: 0.25rem;
+}
