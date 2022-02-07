@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="<?php echo CSS_PATH;?>moviepass.css" >  
-  <link href="<?php echo CSS_PATH;?>layout.css" rel="stylesheet" type="text/css" media="all">
+  <!-- <link href="<?php echo CSS_PATH;?>layout.css" rel="stylesheet" type="text/css" media="all"> -->
   <link href="<?php echo CSS_PATH;?>moviepass.css" rel="stylesheet" type="text/css" media="all">
 </head>
-<body id="top" styles="font-family: 'Montserrat', sans-serif;">
+<body id="top" >

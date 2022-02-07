@@ -13,17 +13,18 @@ use Controllers\ValidationController as ValidationController;
 ?>
 
 <div class="wrapper row1">
-	<header id="header" class="hoc clear"> 
-		<div id="logo" class="fl_left">
-		<h1><a href="<?php echo FRONT_ROOT; ?>Movie/ShowMovies"><img  src="<?php echo IMG_PATH."logo.png"?>" > Movie Pass</a></h1>
-		</div>
-		<nav id="mainav" class="fl_right">
-			<li class="active"><a href="<?php echo FRONT_ROOT; ?>Movie/showActiveMovies">Peliculas</a></li>
-			<li class="active"><a href="<?php echo FRONT_ROOT; ?>Cinema/showActiveCinemas">Cines</a></li>
-			<li class="active"><a href="<?php echo FRONT_ROOT; ?>Purchase/showMyTicketsView">Mis Entradas</a></li>
-			<li class="active"><a href="<?php echo FRONT_ROOT; ?>User/logout">Logout</a></li>
-			<?php if($_SESSION['loggedUser']->getRol() == 1){?> <li class="active"><a href="<?php echo FRONT_ROOT; ?>Movie/showMovies">Vista Admin</a></li><?php }?>
-		</nav> 
-	</header>
+
+<header > 
+    <!-- <div id="logo" class="imgl"> -->
+    <div class="nav-left">
+    <a href="<?php echo FRONT_ROOT; ?>Movie/ShowMovies"><img  src="<?php echo IMG_PATH."logo.png"?>"/></a>    
+    </div>
+    <div class="nav-right">    
+        <a href="<?php echo FRONT_ROOT; ?>Movie/showActiveMovies">Peliculas</a>
+		<a href="<?php echo FRONT_ROOT; ?>Cinema/showActiveCinemas">Cines</a>
+		<a href="<?php echo FRONT_ROOT; ?>Purchase/showMyTicketsView">Mis Entradas</a>
+		<a href="<?php echo FRONT_ROOT; ?>User/logout">Logout</a>
+      <?php if($_SESSION['loggedUser']->getRol() == 1){?> <a href="<?php echo FRONT_ROOT; ?>Movie/showMovies">Vista Admin</a><?php }?>
+    </div>
 </div>
-<div  class="hoc">
+<div  class="body">

@@ -1,9 +1,11 @@
 <?php
   require_once(VIEWS_PATH."navUser.php");
 ?>
-
-  <div id="mainav" align="center">
-    <li><a href="<?php echo FRONT_ROOT; ?>Movie/showActiveMovies/">Todas las Películas</a></li>
+<div class="movies" >
+    <div class="genre-list">
+      <li>
+        <a href="<?php echo FRONT_ROOT; ?>Movie/showMovies/">Todas las Películas</a>
+      </li>
     <li><a href="<?php echo FRONT_ROOT; ?>Movie/showActiveMovies?id=fecha">Ordenar Por Fecha</a></li>
       <?php      
         foreach($genre_list as $value){ 
@@ -15,22 +17,19 @@
         }
       ?>
   </div>
-  <div id="mainav" align="center">
+  <ul class="carta-grid" >
     <?php
       foreach($movie_list as $movie){ 
-    ?>                      
-    <li>      
-      <div class='card'>
+    ?>                               
+      <li class='carta'>
       <a href='<?php echo FRONT_ROOT; ?>MovieShow/ShowFunctionsByMovie/<?php echo $movie->getIdApi()?>'>
-        <div ><img src='http://image.tmdb.org/t/p/w300<?php echo $movie->getImage()?>'></div>
-          <div class='title' style='display:block;text-overflow: ellipsis;width: 270px;overflow: hidden; white-space: nowrap'>
-            <p><?php echo $movie->getName()?></p>
-          </div>
-        </a>
-      </div>      
+        <div class="carta-body carta-image"><img src='http://image.tmdb.org/t/p/w300<?php echo $movie->getImage()?>'/></div>        
+        <div class="carta-footer"><p><?php echo $movie->getName()?></p></div>           
+        </a>      
     </li>
     <?php
       }
     ?>
+    </ul>
   </div>
 
