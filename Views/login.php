@@ -15,11 +15,11 @@ require_once(VIEWS_PATH . "navGuest.php");
                 </thead>
                 <tr>
                     <td><label for="">Email</label></td>
-                    <td><input type="email" name="email" class="form-control form-control-lg"></td>
+                    <td><input type="email" name="email" class="form-control form-control-lg" required></td>
                 </tr>
                 <tr>
                     <td><label for="">Contraseña</label></td>
-                    <td><input type="password" name="password" class="form-control form-control-lg"></td>
+                    <td><input type="password" name="password" class="form-control form-control-lg" required></td>
                 </tr>
             </table>
 

@@ -34,15 +34,18 @@
 <div id='mainav'>
     <?php if(isset($_SESSION['totals'])){ ?>
         <h1>Totales Entradas vendidas: <?php echo $total_sold; echo " / "; echo $total_capacity ?></h1>
+        <ul class="carta-grid">
         <?php foreach($ticketList as $value){ ?>            
-            <li>
-                <div class='planecard' style="width: 350px;">
+            <li class='ticket'>
+                <div>
                 Pelicula:  <?php echo $value['movie_name'] ?> <br>
                 Cine:  <?php echo $value['cinema_name'] ?> <br>
                 Sala:  <?php echo $value['room_name'] ?> <br>
                 Fecha:  <?php echo $value['date'] ?> <br>
                 Vendidos:  <?php echo $value['sold']; echo ' / '; echo $value['capacity']; ?> <br>
                 </div>
-            </li>    
-    <?php }$_SESSION['totals'] = NULL;} else echo "<br><br><br>"  ?>
+            </li>  
+        <?php }$_SESSION['totals'] = NULL;
+    } else echo "<br><br><br>"  ?>  
+        </ul>
 </div>
