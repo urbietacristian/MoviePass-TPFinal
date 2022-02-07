@@ -1,5 +1,6 @@
 
-* {     
+* { 
+    font-size: large;    
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -202,18 +203,23 @@ table {
 }
 
 
-th, td {
-    padding: 5px 8px;
+
+tbody tr td:first-child{    
+    text-align: right;
+}
+tbody tr td:last-child{    
     text-align: center;
 }
 
-td {
-    border-width: 0 1px;
+th, td {
+    border: 0;
+    padding-top: 0.25rem;    
+    padding-bottom: 0.25rem;    
 }
 
-tbody tr:nth-child(odd) {
-    background: var(--main-color);
-}
+
+
+
 
 
 body h1 {
@@ -392,10 +398,10 @@ aside{
     margin-right: 4rem;
 }
 
-.login{
-
+.login {
+    margin: auto;
+    width: 25%;    
 }
-
 
 .login button {
     margin-top: 2rem;
@@ -409,13 +415,56 @@ aside{
 .login button:hover {    
     transform: scale(1.015);  
 }
-.logn form table {
-    border-radius: 2rem;
+.login table {    
+    border-radius: 0.5rem;    
+    margin-bottom: 0;
 }
 
-form input {  
-    
-    margin-top: 1rem;  
-    border: 0.5px;
-    border-radius: 0.25rem;
+.login table td {
+        
+    margin-bottom: 0;
 }
+
+
+form label {      
+    margin-top: 1rem;      
+    border-radius: inherit;
+}
+table tr:last-child td:last-child {
+    border-bottom-right-radius:0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+
+.login form td input {  
+    margin: auto;    
+    border: 0.5px;    
+}
+
+.carta-grid .ticket{
+    padding: 1rem;
+    color: var(--white);  
+    --padding: .75rem;
+    display: inline-block;
+    *display: inline;
+    *zoom:1;
+    background-color: var(--main-color);       
+    border-radius: .5rem;        
+    overflow: hidden;
+    transition: 200ms transform ease-in-out;
+    margin-right: 20px;    
+    margin-top: 20px;        
+    max-width: 300px;
+    border: none;
+    box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.2);
+}
+
+tbody tr:nth-child(odd) {    
+    background: var(--main-color);
+    border: inherit;
+}
+
+table tr:last-child td:first-child {
+    border-bottom-left-radius: 0.5rem;
+}
+

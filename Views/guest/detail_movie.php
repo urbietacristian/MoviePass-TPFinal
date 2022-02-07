@@ -8,26 +8,22 @@
         <p>Idioma: <?php echo $movie->getLanguage();?></p>
         <p>Duracion: <?php echo $movie->getDuration();?> minutos</p>
         <p>Fecha de lanzamiento: <?php echo $movie->getReleaseDate();?></p>
-        <hr align="right" noshade="noshade" size="1" width="50%" />
-    <div style="margin-left:50%;width:50%";></div>
-
-        <div align="center" id="mainav">        
-            <?php
-            foreach($displayList as $value){
-            ?>            
-            <li>
-                <div class='card'>
-                Cine:  <?php echo $value['cinema_name'] ?> <br>
-                Sala:  <?php echo $value['room_name'] ?> <br>
-                Capacidad:  <?php echo $value['capacity'] ?> <br>
-                Precio:  $<?php echo $value['price'] ?> <br>
-                Dia:  <?php echo $value['day'] ?> <br>
-                Horario:  <?php echo $value['time'] ?> <br>            
-                </div>
-            </li>    
-            <?php
-            } 
-            ?>
-        </div>    
+        <hr align="right" noshade="noshade" size="1" width="50%" />    
+        <ul class="carta-grid">        
+        <?php
+        foreach($displayList as $value){
+        ?>            
+        <li class="ticket">                        
+            Cine:  <?php echo $value['cinema_name'] ?> <br>
+            Sala:  <?php echo $value['room_name'] ?> <br>
+            Capacidad:  <?php echo $value['capacity'] ?> <br>
+            Precio:  $<?php echo $value['price'] ?> <br>
+            Dia:  <?php echo $value['day'] ?> <br>
+            Horario:  <?php echo $value['time'] ?><br>                        
+        </li>   
+        
+        <?php
+        } 
+        ?>
+    </ul>              
     </section>
-</div>    
