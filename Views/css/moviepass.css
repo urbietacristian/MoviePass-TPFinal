@@ -512,10 +512,11 @@ table tr:last-child td:first-child {
     color: white;
     cursor: pointer;
     padding: 15px;
-    border-radius: 4px;
+    border-radius: 50%;
   }
   
   #top:hover {
+    transform:none;
     background-color: var(--hover-color);
   }
 
