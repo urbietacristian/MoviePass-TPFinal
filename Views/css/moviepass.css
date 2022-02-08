@@ -202,16 +202,29 @@ table {
     margin-bottom: 15px;
 }
 
-
-
-tbody tr td:first-child{    
-    text-align: right;
-}
-tbody tr td:last-child{    
+ tbody tr td{    
     text-align: center;
 }
 
-th, td {
+ th, td {
+    border: 0;
+    padding-top: 0.25rem;    
+    padding-bottom: 0.25rem;    
+}
+
+
+
+.login tbody tr td:first-child{    
+    text-align: right;
+    padding-right: 0;
+}
+.login tbody tr td:last-child{    
+    padding-left: 0;
+    margin-left: 0;
+    text-align: center;
+}
+
+.login th, td {
     border: 0;
     padding-top: 0.25rem;    
     padding-bottom: 0.25rem;    
