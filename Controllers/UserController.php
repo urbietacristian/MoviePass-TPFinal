@@ -32,8 +32,8 @@
         {
 
             $fb = new Facebook\Facebook(array(
-                'app_id' => '813085052788956',
-                'app_secret' => 'efd7113ea0a3119968ce477683bbb9ac',
+                'app_id' => fb_app_id,
+                'app_secret' => fb_app_secret,
                 'default_graph_version' => 'v9.0',
             ));
              
@@ -68,8 +68,8 @@
         public function facebookLogin()
         {
             $fb = new Facebook\Facebook([
-                'app_id' => '813085052788956',
-                'app_secret' => 'efd7113ea0a3119968ce477683bbb9ac',
+                'app_id' => fb_app_id,
+                'app_secret' => fb_app_secret,
                 'default_graph_version' => 'v9.0',
                 ]);
               
