@@ -202,12 +202,15 @@ table {
     margin-bottom: 15px;
 }
 
+tbody tr td{    
+    text-align: center;
+}
 
 
-tbody tr td:first-child{    
+.login tbody tr td:first-child{    
     text-align: right;
 }
-tbody tr td:last-child{    
+.login tbody tr td:last-child{    
     text-align: center;
 }
 
