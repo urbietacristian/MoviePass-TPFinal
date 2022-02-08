@@ -10,7 +10,7 @@ require_once(VIEWS_PATH . "navGuest.php");
 
         <table>
             <thead>
-                <td colspan="2">Ingrese los datos requeridos para registrarse.</td>
+                <td colspan="2">Ingrese los datos solicitados:</td>
             </thead>
             <!-- <tbody> -->
             <tr>

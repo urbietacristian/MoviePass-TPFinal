@@ -11,7 +11,7 @@ require_once(VIEWS_PATH . "navGuest.php");
 
             <table>
                 <thead>
-                    <td colspan="2">Ingrese los datos requeridos para acceder.</td>
+                    <td colspan="2">Ingrese los datos solicitados para acceder.</td>
                 </thead>
                 <tr>
                     <td><label for="">Email</label></td>

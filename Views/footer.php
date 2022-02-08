@@ -1,5 +1,5 @@
 </div>
-<footer id="footer" class="hoc clear"> 
+<footer> 
     <div class="center">
 		<h6 class="heading">MoviePass</h6> 
 		<nav>
@@ -14,9 +14,10 @@
 		</div>
 	</div>
 </footer>
+<button onclick="topFunction()" id="top" title="Go to top">Top</button>
 
 <a id="backtotop" href="#top"><i class="fas fa-chevron-up"></i></a>
 <!-- JAVASCRIPTS -->
 <script src="<?php echo JS_PATH ?>jquery.min.js"></script>
 <script src="<?php echo JS_PATH ?>jquery.backtotop.js"></script>
-<script src="<?php echo JS_PATH ?>jquery.mobilemenu.js"></script>
+<!-- <script src="<?php echo JS_PATH ?>jquery.mobilemenu.js"></script> -->

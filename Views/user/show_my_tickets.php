@@ -2,16 +2,16 @@
   require_once(VIEWS_PATH."navUser.php");
 ?>
 
-<div class = "genre-list">
-    <li class="active"><a href="<?php echo FRONT_ROOT; ?>Purchase/showMyTicketsView">Ordenar por Película</a></li>
-    <li class="active"><a href="<?php echo FRONT_ROOT; ?>Purchase/showMyTicketsView/1">Ordenar por Fecha</a></li>
-</div>
-<br><br>
+<br>
 <div id='mainav'align="center">
     <?php 
         if($ticket_list){
     ?>
     <h1>Total de Entradas Compradas: <?php echo $total_tickets ?></h1>
+    <div class = "genre-list">
+    <li class="active"><a href="<?php echo FRONT_ROOT; ?>Purchase/showMyTicketsView">Ordenar por Película</a></li>
+    <li class="active"><a href="<?php echo FRONT_ROOT; ?>Purchase/showMyTicketsView/1">Ordenar por Fecha</a></li>
+    </div>    
     <ul class="carta-grid">
     <?php 
             foreach($ticket_list2 as $value){

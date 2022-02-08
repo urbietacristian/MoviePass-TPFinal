@@ -17,21 +17,21 @@ require_once(VIEWS_PATH."navUser.php");
     <p>Total con descuentos: <?php echo $total;?></p>
     <p>Funcion: <?php echo $movieshow_datetime;?></p>
 
-    <form action="<?php echo FRONT_ROOT ?>Purchase/newPurchase"  method="POST" class="login-form bg-dark-alpha p-5 bg-light">
-    <!-- <script
+    <form action="<?php echo FRONT_ROOT ?>Purchase/newPurchase"  method="POST" >
+    <script
         src="https://www.mercadopago.com.ar/integrations/v1/web-tokenize-checkout.js"
         data-public-key="TEST-2a5d0b3a-05f0-42b8-8dd4-41de491cd5b8"
-        data-button-label="Pagar"
+        data-button-label="Pagar con MercadoPago"
         data-transaction-amount=<?php echo $total; ?>>
-    </script> -->
+    </script>
     <br>
     <input name='id_movieshow' type="hidden" value='<?php echo $id_movieshow?>'>
     <input name='ticket_count' type="hidden" value='<?php echo $ticket_count?>' min="1" required>
     <input name='discount' type="hidden" value='<?php echo $discount?>' min="1" required>
     <input name='subtotal' type="hidden" value='<?php echo $subtotal?>' min="1" required>
     <input name='total' type="hidden" value='<?php echo $total?>' min="1" required>
-    <div class="form-group">
-    <button type="submit">Aceptar</button>
+    
+    <!-- <button type="submit">Aceptar</button> -->
     </form>
     </aside>
 </div>
