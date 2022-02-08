@@ -23,11 +23,9 @@ require_once(VIEWS_PATH . "navGuest.php");
                 </tr>
             </table>
 
-            <button  type="submit">Ingresar</button>
-            <!--
-                    Ingresar con Facebook dejó de funcionar
-                <div><a class="btn btn-primary btn-block btn-lg" style="background-color:dodgerblue; border-color:dodgerblue" href="<?php echo $loginUrl ?>">Ingresar Con Facebook</a></div>
-                -->
+            <button  type="submit">Ingresar</button>                                
+            <div><a class="btn btn-primary btn-block btn-lg" style="background-color:dodgerblue; border-color:dodgerblue" href="<?php echo $loginUrl ?>">Ingresar Con Facebook</a></div>
+               
         </form>
         <br><br>
         <label for="">¿Aún no estás registrado?</label>

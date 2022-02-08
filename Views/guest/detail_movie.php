@@ -1,14 +1,14 @@
 <?php
     require_once(VIEWS_PATH."navGuest.php");
 ?>
-    <section align='center'>
+    <section >
         <img src='http://image.tmdb.org/t/p/w300<?php echo $movie->getImage();?>'>
         <h1>Titulo: <?php echo $movie->getName();?></h1>
         <p>Descripcion: <?php echo $movie->getDescription();?></p>
         <p>Idioma: <?php echo $movie->getLanguage();?></p>
         <p>Duracion: <?php echo $movie->getDuration();?> minutos</p>
         <p>Fecha de lanzamiento: <?php echo $movie->getReleaseDate();?></p>
-        <hr align="right" noshade="noshade" size="1" width="50%" />    
+        <hr align="center" noshade="noshade" size="1" width="50%" />    
         <ul class="carta-grid">        
         <?php
         foreach($displayList as $value){

@@ -30,7 +30,8 @@ body {
     --main-color: rgb(0, 68, 88);
     --background-color:rgb(187, 179, 152); 
     --hover-color:rgb(4, 85, 110);  
-    --white: rgb(214, 214, 214);  
+    --white: rgb(214, 214, 214); 
+    --error: rgb(170, 2, 2); 
     position: fixed;
     display: flex;
     flex-direction: column;
@@ -520,3 +521,20 @@ table tr:last-child td:first-child {
     background-color: var(--hover-color);
   }
 
+/* 
+.table button {
+    padding:0;
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+    margin: 0;
+    
+}
+
+#remove{
+    background-color: var(--error);
+}
+
+
+#edit{
+    background-color: var(--white);
+} */

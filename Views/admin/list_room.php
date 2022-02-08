@@ -30,7 +30,7 @@ require_once(VIEWS_PATH."navAdmin.php");
                     <td>
                         <form  action="<?php echo FRONT_ROOT; echo "Room/ShowEditView/"; echo $room->getId()?>" method="POST">
                             <input type="hidden" value="<?php echo $room->getId(); ?>" name="idRoom">
-                            <button  type="submit" class="image">
+                            <button id="edit"  type="submit" class="image">
                                 <img src="<?php echo IMG_PATH."edit.png"; ?>">
                             </button>
                         </form>
@@ -39,7 +39,7 @@ require_once(VIEWS_PATH."navAdmin.php");
                         <form action="<?php echo FRONT_ROOT; echo "Room/removeRoom/"; echo $room->getId();?>" method="POST">
                             <input type="hidden" value="<?php echo $room->getId(); ?>" name="id">
                             <input type="hidden" value="<?php echo $id_cinema; ?>" name="id_cinema">
-                            <button type="submit" class="image">
+                            <button id="remove" type="submit" class="image">
                                 <img src="<?php echo IMG_PATH."remove.png"; ?>">
                             </button>
                         </form>

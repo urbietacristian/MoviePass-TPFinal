@@ -31,7 +31,7 @@ require_once(VIEWS_PATH."navAdmin.php");
                     <td>
                         <form  action="<?php echo FRONT_ROOT; echo "Cinema/ShowEditView?"; echo $cinema->getId()?>" method="POST">
                             <input type="hidden" value="<?php echo $cinema->getId(); ?>" name="id">
-                            <button  type="submit" class="image">
+                            <button id="edit" type="submit" class="image">
                                 <img src="<?php echo IMG_PATH."edit.png"; ?>">
                             </button>
                         </form>
@@ -41,7 +41,7 @@ require_once(VIEWS_PATH."navAdmin.php");
                             <input type="hidden" value="<?php echo $cinema->getId(); ?>" name="id"> 
                             <input type="hidden" value="<?php echo $cinema->getName(); ?>" name="name">
                             
-                            <button type="submit" class="image">
+                            <button id="remove" type="submit" class="image">
                                 <img src="<?php echo IMG_PATH."remove.png"; ?>">
                             </button>
                         </form>
