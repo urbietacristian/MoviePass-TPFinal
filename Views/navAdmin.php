@@ -23,7 +23,7 @@
       <a href="<?php echo FRONT_ROOT; ?>Movie/UpdateMovies">Actualizar Peliculas</a>
       <a href="<?php echo FRONT_ROOT; ?>User/ShowRegisterAdminView">Registrar Administrador</a>
       <a href="<?php echo FRONT_ROOT; ?>User/logout">Logout</a>    
-      <a href="<?php echo FRONT_ROOT; ?>Movie/ShowActiveMovies">Vista Usuario</a>
+      <a href="<?php echo FRONT_ROOT; ?>Movie/ShowActiveMovies">Vista Usuario</a>            
     </div>
 
   </header>

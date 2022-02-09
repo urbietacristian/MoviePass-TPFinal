@@ -58,6 +58,12 @@
             require_once(ADMIN_PATH."list_movies.php");
         }
 
+        public function showPolitica()
+        {                          
+
+            require_once(VIEWS_PATH."politica_privacidad.php");
+        }
+
         public function ShowMoviesByCinema($id_cinema)
         {
 

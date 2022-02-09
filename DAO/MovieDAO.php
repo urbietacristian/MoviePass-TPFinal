@@ -80,7 +80,7 @@
         }
 
         public function getAllMovies(){ 
-            $sql = "SELECT * FROM  movies";
+            $sql = "SELECT * FROM  movies order by movies.release_date desc";
 
 
             try{
@@ -98,7 +98,7 @@
         }
 
         public function getMoviesOnFunctions(){ 
-            $sql = "select movies.*  from movieshow inner join movies on  movieshow.id_movie = movies.id_api group by movies.id_api";
+            $sql = "select movies.*, TIMESTAMP(movieshow.day,movieshow.time) as datetime from movieshow inner join movies on  movieshow.id_movie = movies.id_api group by movies.id_api having datetime > NOW()  order by movies.name";
             
 
 
@@ -138,7 +138,7 @@
         // }
 
         public function getMoviesOnFunctionsByDate(){ 
-            $sql = "select movies.*  from movieshow inner join movies on  movieshow.id_movie = movies.id_api group by movies.id_api ORDER BY movies.release_date ASC";
+            $sql = "select movies.*,TIMESTAMP(movieshow.day,movieshow.time) as datetime  from movieshow inner join movies on  movieshow.id_movie = movies.id_api group by movies.id_api having datetime > NOW()  ORDER BY movies.release_date ASC ";
             
 
 

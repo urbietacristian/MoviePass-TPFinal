@@ -184,7 +184,7 @@
                 if($cinema_name)
                     header("location: ".FRONT_ROOT."Movie/ShowMoviesByCinema/".$cinema->getId()."");
                 else 
-                    header("location: ".FRONT_ROOT."Movie/Movie/showActiveMovies");
+                    header("location: ".FRONT_ROOT."Movie/showActiveMovies");
             }
             else
             {

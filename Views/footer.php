@@ -5,6 +5,7 @@
 		<nav>
 			<ul class="nospace inline pushright uppercase">
 				<a href="<?php echo $_SESSION['home']; ?>">Home</a>
+                <a href="<?php echo FRONT_ROOT; ?>Movie/showPolitica">Politica privacidad</a>
 			</ul>
 		</nav>
 	</div>

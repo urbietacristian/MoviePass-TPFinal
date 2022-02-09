@@ -1,4 +1,10 @@
 #USE moviepassdefault;
+
+select movies.*, TIMESTAMP(movieshow.day,movieshow.time) as datetime from movieshow inner join movies on  movieshow.id_movie = movies.id_api group by movies.id_api
+having datetime > NOW() 
+
+
+select * from users
 #create database moviepassdefault
 #drop database moviepassdefault
 
