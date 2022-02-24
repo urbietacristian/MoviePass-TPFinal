@@ -67,7 +67,7 @@
                 try{
                     if(! $this->checkRoom($id_cinema, $name))
                     {
-                        $room = new Room(0,$name , $capacity, $price, $id_cinema);
+                        $room = new Room(0,$name , $price, $capacity, $id_cinema);
                         $this->roomDAO->Add($room);
                         $_SESSION['msg'] = "Sala agregada correctamente";
                     }
