@@ -59,9 +59,20 @@
         }
 
         public function showPolitica()
-        {                          
+        {    
+            if(!isset($_SESSION['loggedUser']))
+            {
+                require_once(VIEWS_PATH."navGuest.php");
+                require_once(VIEWS_PATH."politica_privacidad.php");
+            }
+            else
+            {
+                require_once(VIEWS_PATH."navUser.php");
+                require_once(VIEWS_PATH."politica_privacidad.php");
+            }
+                      
 
-            require_once(VIEWS_PATH."politica_privacidad.php");
+            
         }
 
         public function ShowMoviesByCinema($id_cinema)
@@ -161,7 +172,7 @@
         {
             $complete_genre_list = $this->genreDAO->getAllGenres();
             $movies_now_playing = $this->movieDAO->getMoviesOnFunctions();
-            $active_genres_ids = array();
+            $active_genres_ids = array();        
             foreach($movies_now_playing as $movie)
             {
                 foreach($movie->getGenreIds() as $genre_id)

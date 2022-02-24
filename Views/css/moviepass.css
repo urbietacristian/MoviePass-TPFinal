@@ -163,7 +163,8 @@ header {
 
 .genre-list {    
     padding: 1rem;
-    display: inline-block;
+    display: flex;
+    flex-grow:1 ;
     transform: scale(1.05);
     /* border-right: 1px solid white;
     border-left: 1px solid white; */

@@ -207,7 +207,12 @@
 
     public function getMoviesByCinema($id_cinema)
     {
-        $sql = "select movies.* from movies inner join movieshow on  movieshow.id_movie = movies.id_api inner join rooms on movieshow.id_room = rooms.id_room AND rooms.id_cinema = :id_cinema group by movies.id_api ";
+        $sql = "select movies.* from movies 
+        inner join movieshow on  movieshow.id_movie = movies.id_api 
+        inner join rooms on movieshow.id_room = rooms.id_room 
+            AND rooms.id_cinema = :id_cinema
+            AND TIMESTAMP(movieshow.day,movieshow.time)  > NOW()
+        group by movies.id_api ";
 
         $parameters['id_cinema'] = $id_cinema;
 

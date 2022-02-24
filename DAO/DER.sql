@@ -1,8 +1,9 @@
 #USE moviepassdefault;
 
-select movies.*, TIMESTAMP(movieshow.day,movieshow.time) as datetime from movieshow inner join movies on  movieshow.id_movie = movies.id_api group by movies.id_api
-having datetime > NOW() 
+select movies.*, TIMESTAMP(movieshow.day,movieshow.time) as datetime from movieshow inner join movies on  movieshow.id_movie = movies.id_api group by movies.id_api having datetime > NOW()  order by movies.name
 
+having datetime > NOW() 
+select movies.*,TIMESTAMP(movieshow.day,movieshow.time) as datetime  from movieshow inner join movies on  movieshow.id_movie = movies.id_api group by movies.id_api having datetime > NOW()  ORDER BY movies.release_date ASC 
 
 select * from users
 #create database moviepassdefault
@@ -203,3 +204,29 @@ INSERT INTO users (email, password, id_role) VALUES ('admin@utn.com', 'admin', 1
  use moviepassdefault
  
 select * from movieshow
+
+
+
+select movies.*, TIMESTAMP(movieshow.day,movieshow.time) as datetime from movieshow inner join movies on  movieshow.id_movie = movies.id_api group by movies.id_api having datetime > NOW()  order by movies.name
+
+
+
+
+
+
+
+
+
+select movieshow.*, rooms.id_room, rooms.id_cinema, rooms.name as room_name, rooms.price, rooms.capacity,  cinemas.name as cinema_name
+        from movieshow
+        inner join rooms on rooms.id_room = movieshow.id_room 
+        inner join cinemas on cinemas.id_cinema = rooms.id_cinema  AND TIMESTAMP(movieshow.day,movieshow.time) > NOW()
+        where movieshow.id_movie = 340102
+        
+        
+        
+select movies.* from movies inner join movieshow on  movieshow.id_movie = movies.id_api inner join rooms on movieshow.id_room = rooms.id_room AND rooms.id_cinema = 1  and TIMESTAMP(movieshow.day,movieshow.time)  > NOW() group by movies.id_api        
+
+
+
+select *, DATE_FORMAT(TIMESTAMP(movieshow.day,movieshow.time),'%Y%m%d%h')  as datetime from movieshow where  id_movie = 340102  DATE_FORMAT

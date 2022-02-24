@@ -8,7 +8,7 @@
         foreach($movie_list as $movie){ 
       ?>                                        
           <li class="carta">
-          <a href='<?php echo FRONT_ROOT; ?>Movie/ShowMovieDetail/<?php echo $movie->getIdApi()?>'>     
+          <a href='<?php echo FRONT_ROOT; ?>MovieShow/ShowFunctionsByMovie/<?php echo $movie->getIdApi()?>'>     
             <div class="carta-body carta-image"><img src='http://image.tmdb.org/t/p/w300<?php echo $movie->getImage()?>'/></div>
             <div class="carta-footer"><p><?php echo $movie->getName()?></p></div>                          
           </a>
