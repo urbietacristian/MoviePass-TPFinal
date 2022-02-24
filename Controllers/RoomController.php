@@ -139,10 +139,12 @@
         {
             $roomList = $this->roomDAO->readRoomsByCinema($id_cinema);
 
-            foreach($roomList as $room)
-            {
-                if($room->getName() == $name)
-                    return true;
+            if($roomList){
+                foreach($roomList as $room)
+                {
+                    if($room->getName() == $name)
+                        return true;
+                }
             }
             return false;
         }
